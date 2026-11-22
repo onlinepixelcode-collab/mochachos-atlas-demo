@@ -72,7 +72,7 @@ The server re-prices every order from `assets/data/menu.json`, so prices can't b
 - **Heat dial** in the top bar (Lemon & Herb → Dynamite), saved for the whole site and linked to the Zee Flavours meter. Every flame follows it.
 - **Dynamite mode** at full heat: flames along the bottom of the screen, rising embers, heat-haze headings, a pulsing red glow.
 - **Fire sound**: a live crackle generated with Web Audio, off by default, louder with more heat.
-- **Burning page transitions**: a wall of fire sweeps up when you change page and burns away on arrival.
+- **Burning page transitions** (WebGL): leaving a page, a wall of live flames with sparks surges up and engulfs the screen; arriving, the new page burns through the char like paper with glowing edges while the Mochachos logo flickers and burns off. A tiny script in `<head>` covers the screen before first paint so there's no flash. Falls back to a CSS flame wall without WebGL.
 - **Heat haze** on the hero dish and dish photos, and **grill marks** that sear across dish photos on hover.
 All motion effects switch off for visitors who prefer reduced motion.
 

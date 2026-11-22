@@ -1713,3 +1713,19 @@ kbd { font: inherit; font-size: .75rem; font-weight: 800; padding: 1px 6px; bord
 .theme-red .booking-inner > div { padding-left: 0; max-width: 58%; }
 .theme-red .booking-inner .btn { margin-right: clamp(0px, 4vw, 70px); position: relative; z-index: 1; box-shadow: 0 0 0 10px rgba(255,255,255,.18), 0 16px 30px -10px rgba(0,0,0,.4); }
 @media (max-width: 1020px) { .theme-red .booking-inner > div { max-width: none; } .booking.theme-red::before { display: none; } .booking.theme-red::after { right: -360px; opacity: .45; } .theme-red .booking-inner .btn { margin-right: 0; } }
+
+/* ===== WebGL page transition ===== */
+.burn-gl { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+.burn.gl .burn-wall { display: none; }
+.burn.gl.active { visibility: visible; }
+.burn.gl.active .burn-gl { display: block; }
+.burn-logo { position: absolute; left: 50%; top: 50%; width: min(300px, 60vw); height: auto; transform: translate(-50%, -50%) scale(.92); opacity: 0; filter: drop-shadow(0 0 30px rgba(255,120,20,.7)); transition: opacity .3s ease, transform .5s ease; pointer-events: none; }
+.burn.logo-in .burn-logo { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: logoFlicker .18s steps(2) infinite; }
+.burn.arriving .burn-logo { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.burn.arriving.logo-out .burn-logo { opacity: 0; transform: translate(-50%, -60%) scale(1.08); filter: drop-shadow(0 0 40px rgba(255,90,0,1)) brightness(1.6); transition: opacity .45s ease, transform .6s ease, filter .45s ease; }
+@keyframes logoFlicker { 50% { filter: drop-shadow(0 0 40px rgba(255,150,40,.9)) brightness(1.15); } }
+/* cover painted before the page shows (set by an inline script in <head>) */
+html.burn-in body::before { content: ""; position: fixed; inset: 0; z-index: 199; background: #130906; }
+html.burn-in body::before { animation: coverSafety 0s linear 1.6s forwards; }
+@keyframes coverSafety { to { opacity: 0; visibility: hidden; } }
+html.burn-in body.bare::before { display: none; }

@@ -138,20 +138,117 @@
   paint();
   window.dispatchEvent(new CustomEvent("heat", { detail: level }));
 
-  /* ---------- burning page transitions ---------- */
+  /* ---------- burning page transitions ----------
+     Leaving: a wall of live (WebGL) flames surges up and engulfs the screen.
+     Arriving: the new page burns through the char like paper, with glowing edges.
+     Falls back to the CSS flame wall when WebGL isn't available. */
   var burn = document.createElement("div");
   burn.className = "burn"; burn.setAttribute("aria-hidden", "true");
-  burn.innerHTML = '<div class="burn-wall"></div>';
+  burn.innerHTML = '<div class="burn-wall"></div><canvas class="burn-gl"></canvas><img class="burn-logo" src="assets/img/logo-horizontal.png" alt="">';
   document.body.appendChild(burn);
+  var bcv = burn.querySelector(".burn-gl"), logo = burn.querySelector(".burn-logo");
+  var BV = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+  var BF = [
+    "precision mediump float;",
+    "uniform vec2 r;uniform float t;uniform float prog;uniform float mode;",
+    "float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}",
+    "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),u.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);}",
+    "float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}",
+    "vec3 fire(float f){return vec3(1.,.3,.03)*f*1.45+vec3(1.,.68,.16)*pow(f,2.6)*.95+vec3(1.,.93,.7)*pow(f,9.)*.55;}",
+    "void main(){",
+    " vec2 uv=gl_FragCoord.xy/r;float asp=r.x/r.y;vec2 p=vec2(uv.x*asp,uv.y);",
+    " vec3 ch=vec3(.075,.035,.02)+vec3(.22,.05,0.)*pow(fbm(p*7.+vec2(0.,t*.6)),3.)*1.4;",
+    " float sp=0.;vec2 g=floor(vec2(p.x*38.,p.y*24.-t*9.));float hh=h(g);",
+    " if(hh>.982){vec2 fp=fract(vec2(p.x*38.,p.y*24.-t*9.))-.5;sp=smoothstep(.22,0.,length(fp))*(.6+.4*sin(t*20.+hh*40.));}",
+    " if(mode<.5){",
+    "  float wob=(fbm(vec2(p.x*2.6,t*1.4))-.5)*.32;",
+    "  float front=prog*1.55-.3+wob;",
+    "  float d=uv.y-front;",
+    "  float q=fbm(vec2(p.x*3.4,p.y*2.4-t*2.6));",
+    "  float w=fbm(vec2(p.x*7.,p.y*5.-t*4.)+q);",
+    "  float f=clamp(1.-d*3.2+(w-.5)*1.6,0.,1.);f=pow(f,1.4)*step(-.02,d);",
+    "  float under=1.-smoothstep(-.06,0.,d);",
+    "  float glow=1.-smoothstep(0.,.16,-d);",
+    "  vec3 c=mix(fire(f),ch+fire(.5)*glow*.28,under);",
+    "  float a=max(under,clamp(f*1.4,0.,1.));",
+    "  c+=vec3(1.,.7,.3)*sp*step(0.,d)*(1.-smoothstep(0.,.5,d));a=max(a,sp*step(0.,d)*.9);",
+    "  gl_FragColor=vec4(c,a);",
+    " }else{",
+    "  float m=fbm(p*2.4+vec2(0.,t*.12))*.85+uv.y*.6+(fbm(p*9.)-.5)*.12;",
+    "  float th=prog*1.85-.35;",
+    "  float e=m-th;",
+    "  if(e<0.){gl_FragColor=vec4(0.);return;}",
+    "  float band=1.-smoothstep(0.,.06,e);",
+    "  float crisp=1.-smoothstep(0.,.025,e);",
+    "  vec3 c=ch+fire(.6)*(1.-smoothstep(0.,.12,e))*.3;",
+    "  c=mix(c,fire(.5+.5*band),band);c=mix(c,vec3(1.,.9,.6),crisp*.6);",
+    "  c+=vec3(1.,.7,.3)*sp*(1.-smoothstep(0.,.3,e));",
+    "  gl_FragColor=vec4(c,1.);",
+    " }",
+    "}"
+  ].join("\n");
+  var bgl = null, uR, uT, uP, uM;
+  function setupGL() {
+    try {
+      bgl = bcv.getContext("webgl", { premultipliedAlpha: false, alpha: true, antialias: false });
+      if (!bgl) return false;
+      var sh = function (type, src) { var x = bgl.createShader(type); bgl.shaderSource(x, src); bgl.compileShader(x); return x; };
+      var pr = bgl.createProgram();
+      bgl.attachShader(pr, sh(bgl.VERTEX_SHADER, BV)); bgl.attachShader(pr, sh(bgl.FRAGMENT_SHADER, BF)); bgl.linkProgram(pr);
+      if (!bgl.getProgramParameter(pr, bgl.LINK_STATUS)) { bgl = null; return false; }
+      bgl.useProgram(pr);
+      var buf = bgl.createBuffer(); bgl.bindBuffer(bgl.ARRAY_BUFFER, buf);
+      bgl.bufferData(bgl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), bgl.STATIC_DRAW);
+      var loc = bgl.getAttribLocation(pr, "p"); bgl.enableVertexAttribArray(loc); bgl.vertexAttribPointer(loc, 2, bgl.FLOAT, false, 0, 0);
+      uR = bgl.getUniformLocation(pr, "r"); uT = bgl.getUniformLocation(pr, "t"); uP = bgl.getUniformLocation(pr, "prog"); uM = bgl.getUniformLocation(pr, "mode");
+      bgl.enable(bgl.BLEND); bgl.blendFunc(bgl.SRC_ALPHA, bgl.ONE_MINUS_SRC_ALPHA);
+      return true;
+    } catch (e) { bgl = null; return false; }
+  }
+  function drawBurn(mode, prog, time) {
+    var sc = Math.min(window.devicePixelRatio || 1, 2) * 0.55;
+    var w = Math.max(1, Math.round(innerWidth * sc)), hgt = Math.max(1, Math.round(innerHeight * sc));
+    if (bcv.width !== w || bcv.height !== hgt) { bcv.width = w; bcv.height = hgt; }
+    bgl.viewport(0, 0, w, hgt);
+    bgl.clearColor(0, 0, 0, 0); bgl.clear(bgl.COLOR_BUFFER_BIT);
+    bgl.uniform2f(uR, w, hgt); bgl.uniform1f(uT, time); bgl.uniform1f(uP, prog); bgl.uniform1f(uM, mode);
+    bgl.drawArrays(bgl.TRIANGLE_STRIP, 0, 4);
+  }
+  // runs the animation; timers back it up so it always finishes, even in a background tab
+  function play(mode, dur, done) {
+    var t0 = performance.now(), finished = false;
+    var ease = mode === 0 ? function (x) { return x * x * (3 - 2 * x); } : function (x) { return 1 - Math.pow(1 - x, 2.2); };
+    function step(now) {
+      if (finished) return;
+      var k = Math.min(1, (now - t0) / dur);
+      drawBurn(mode, ease(k), now / 1000);
+      if (k < 1) requestAnimationFrame(step); else { finished = true; done && done(); }
+    }
+    requestAnimationFrame(step);
+    setTimeout(function () { if (!finished) { finished = true; drawBurn(mode, 1, performance.now() / 1000); done && done(); } }, dur + 400);
+  }
+  var hasGL = !reduce && setupGL();
+  burn.classList.toggle("gl", !!hasGL);
+  if (/[?&]debug\b/.test(location.search)) window.__burn = { draw: drawBurn, el: burn, gl: function () { return !!hasGL; } };
+
   var arrived = false;
   try { arrived = sessionStorage.getItem("mochachos-burn") === "1"; sessionStorage.removeItem("mochachos-burn"); } catch (e) {}
+  var clearCover = function () { root.classList.remove("burn-in"); };
   if (arrived && !reduce) {
-    burn.classList.add("cover");
-    // timers (not animation frames) so the page always uncovers, even if the tab is in the background
-    setTimeout(function () { burn.classList.remove("cover"); burn.classList.add("reveal"); }, 40);
-    setTimeout(function () { burn.className = "burn"; }, 1250);
-  }
-  window.addEventListener("pageshow", function (e) { if (e.persisted) burn.className = "burn"; });
+    if (hasGL) {
+      burn.classList.add("active", "arriving");
+      drawBurn(1, 0, performance.now() / 1000);
+      clearCover();
+      setTimeout(function () { burn.classList.add("logo-out"); }, 260);
+      play(1, 1050, function () { burn.className = "burn gl"; });
+    } else {
+      burn.classList.add("cover"); clearCover();
+      setTimeout(function () { burn.classList.remove("cover"); burn.classList.add("reveal"); }, 40);
+      setTimeout(function () { burn.className = "burn"; }, 1250);
+    }
+  } else clearCover();
+  window.addEventListener("pageshow", function (e) { if (e.persisted) { burn.className = hasGL ? "burn gl" : "burn"; clearCover(); } });
+
   document.addEventListener("click", function (e) {
     if (reduce || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target.closest("a[href]");
@@ -161,7 +258,14 @@
     if (url.pathname === location.pathname && url.search === location.search) return; // same page (hash links)
     e.preventDefault();
     try { sessionStorage.setItem("mochachos-burn", "1"); } catch (err) {}
-    burn.classList.add("ignite");
-    setTimeout(function () { location.href = url.href; }, 520);
+    var go = function () { location.href = url.href; };
+    if (hasGL) {
+      burn.classList.add("active", "leaving");
+      setTimeout(function () { burn.classList.add("logo-in"); }, 380);
+      play(0, 680, go);
+    } else {
+      burn.classList.add("ignite");
+      setTimeout(go, 520);
+    }
   });
 })();
