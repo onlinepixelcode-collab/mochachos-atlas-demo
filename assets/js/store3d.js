@@ -28,7 +28,7 @@ function fail(err) {
 function init() {
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isSmall = host.clientWidth < 700;
-  const C = { red: 0xc9202a, teal: 0x1597a8, yellow: 0xf7c325, black: 0x151517, wood: 0xd2a868, grey: 0x8d9094 };
+  const C = { red: 0xdb342e, teal: 0x00a7b5, yellow: 0xf5c000, black: 0x151517, wood: 0xd2a868, grey: 0x8d9094 };
 
   /* ---------- renderer / scene ---------- */
   const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
@@ -112,13 +112,13 @@ function init() {
 
   // red laser-cut pillars
   const pillarTex = tex(128, 512, (g, w, h) => {
-    g.fillStyle = "#c9202a"; g.fillRect(0, 0, w, h);
+    g.fillStyle = "#db342e"; g.fillRect(0, 0, w, h);
     g.fillStyle = "#e8e2dc";
     g.fillRect(8, 0, 6, h); g.fillRect(w - 14, 0, 6, h);
     g.fillStyle = "#7d0f16";
     for (let y = 20; y < h; y += 56) {
       g.beginPath(); g.moveTo(w / 2, y); g.lineTo(w - 26, y + 22); g.lineTo(w / 2, y + 44); g.lineTo(26, y + 22); g.closePath(); g.fill();
-      g.fillStyle = "#c9202a"; g.fillRect(w / 2 - 8, y + 14, 16, 16); g.fillStyle = "#7d0f16";
+      g.fillStyle = "#db342e"; g.fillRect(w / 2 - 8, y + 14, 16, 16); g.fillStyle = "#7d0f16";
       g.fillRect(24, y + 48, 14, 6); g.fillRect(w - 38, y + 48, 14, 6);
     }
   }, [1, 1]);
@@ -128,7 +128,7 @@ function init() {
     g.font = "900 112px Anton, Impact, 'Arial Black', sans-serif";
     g.textAlign = "center"; g.textBaseline = "middle";
     g.lineWidth = 10; g.strokeStyle = "#f3ece6"; g.strokeText("MEXICAN CHICKEN FIESTA", w / 2, h / 2 + 4);
-    g.fillStyle = "#d1202b"; g.fillText("MEXICAN CHICKEN FIESTA", w / 2, h / 2 + 4);
+    g.fillStyle = "#db342e"; g.fillText("MEXICAN CHICKEN FIESTA", w / 2, h / 2 + 4);
   });
 
   const plasterTex = tex(512, 512, (g, w, h) => { g.fillStyle = "#b9ad98"; g.fillRect(0, 0, w, h); noise(g, w, h, 9000, 0.12); }, [3, 1]);
@@ -207,10 +207,10 @@ function init() {
     for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + (i - 4) * 0.2; g.save(); g.translate(c + Math.cos(a) * 150, c + Math.sin(a) * 150); g.rotate(a + Math.PI / 2); g.fillRect(-15, -90, 30, 90); g.restore(); }
     g.beginPath(); g.arc(c, c - 60, 110, Math.PI, 0); g.fill();
     g.lineCap = "round";
-    g.strokeStyle = "#d8262e"; g.lineWidth = 30;
+    g.strokeStyle = "#db342e"; g.lineWidth = 30;
     g.beginPath(); g.moveTo(c - 230, c + 20); g.bezierCurveTo(c - 120, c - 40, c + 40, c + 220, c + 160, c + 90); g.bezierCurveTo(c + 230, c + 20, c + 120, c - 40, c + 60, c + 30); g.stroke();
     g.beginPath(); g.arc(c - 150, c + 60, 60, 0, Math.PI * 1.6); g.stroke();
-    g.strokeStyle = "#f7c325"; g.lineWidth = 24;
+    g.strokeStyle = "#f5c000"; g.lineWidth = 24;
     g.beginPath(); g.moveTo(c - 240, c - 60); g.bezierCurveTo(c - 80, c - 120, c + 120, c - 60, c + 220, c + 10); g.stroke();
     g.beginPath(); g.arc(c + 40, c - 10, 42, Math.PI, Math.PI * 2.7); g.stroke();
     g.fillStyle = "#1e1e20"; g.beginPath(); g.arc(c - 30, c - 20, 26, 0, 7); g.fill();
@@ -219,15 +219,15 @@ function init() {
   const aztecRedTex = tex(512, 512, (g, w) => {
     const c = w / 2;
     g.clearRect(0, 0, w, w);
-    g.fillStyle = "#d1202b";
+    g.fillStyle = "#db342e";
     g.beginPath(); g.arc(c, c, 240, Math.PI * 0.5, Math.PI * 1.5); g.closePath(); g.fill();
     g.beginPath(); g.moveTo(c, c - 240); g.lineTo(c + 40, c - 240); g.lineTo(c + 40, c + 240); g.lineTo(c, c + 240); g.fill();
     g.fillStyle = "#b9ad98";
     g.beginPath(); g.arc(c - 120, c - 40, 54, 0, 7); g.fill();
-    g.fillStyle = "#d1202b"; g.beginPath(); g.arc(c - 120, c - 40, 26, 0, 7); g.fill();
+    g.fillStyle = "#db342e"; g.beginPath(); g.arc(c - 120, c - 40, 26, 0, 7); g.fill();
     g.fillStyle = "#b9ad98";
     g.fillRect(c - 200, c + 40, 180, 34); g.fillRect(c - 60, c - 150, 34, 120); g.fillRect(c - 130, c + 110, 34, 90);
-    g.save(); g.translate(c + 60, c + 160); g.rotate(-0.6); g.fillStyle = "#d1202b"; g.fillRect(0, 0, 200, 34); g.restore();
+    g.save(); g.translate(c + 60, c + 160); g.rotate(-0.6); g.fillStyle = "#db342e"; g.fillRect(0, 0, 200, 34); g.restore();
   });
 
   const signBoardTex = (txt, bg, fg) => tex(512, 128, (g, w, h) => {
@@ -264,7 +264,7 @@ function init() {
   for (let z = -6; z <= 3; z += 0.3) box(0.05, 2.4, 0.05, fenceMat, 9.5, 1.2, z, scene, false);
   box(0.06, 0.08, 9.2, fenceMat, 9.5, 2.2, -1.5, scene, false);
   box(0.06, 0.08, 9.2, fenceMat, 9.5, 0.4, -1.5, scene, false);
-  const banner = plane(3.6, 1.3, std(0xffffff, { map: signBoardTex("NO PARKING IN FRONT OF THIS GATE", "#d1202b", "#ffffff") }), 9.42, 1.3, 0.2, -Math.PI / 2);
+  const banner = plane(3.6, 1.3, std(0xffffff, { map: signBoardTex("NO PARKING IN FRONT OF THIS GATE", "#db342e", "#ffffff") }), 9.42, 1.3, 0.2, -Math.PI / 2);
   banner.material.side = THREE.DoubleSide;
 
   // the pine-tree cell mast next door
@@ -279,7 +279,7 @@ function init() {
   cyl(0.04, 0.04, 2.8, std(0x9a9da2, { metalness: 0.6 }), 9.5, 1.4, ROADZ - 6.4);
   const ss = plane(1.7, 0.42, std(0xffffff, { map: signBoardTex("ATLAS ROAD", "#ffffff", "#1d1d1f") }), 9.5, 2.65, ROADZ - 6.37);
   const ssBack = ss.clone(); ssBack.rotation.y = Math.PI; ssBack.position.z = ROADZ - 6.43; scene.add(ssBack);
-  const num = plane(0.7, 0.42, std(0xffffff, { map: signBoardTex("254", "#d1202b", "#ffffff") }), 9.5, 2.15, ROADZ - 6.37);
+  const num = plane(0.7, 0.42, std(0xffffff, { map: signBoardTex("254", "#db342e", "#ffffff") }), 9.5, 2.15, ROADZ - 6.37);
 
   /* ---------- the building ---------- */
   const W = 12, D = 9, H = 3.3, FZ = 4, BZ = FZ - D; // front z=4, back z=-5
@@ -522,7 +522,7 @@ function init() {
   // balloon bunch by the door
   const balloonCols = [0xff8a2a, 0x7cc242, 0x2f6fe0, 0x9b59d0, 0xf0f0f0];
   const bGeo = new THREE.SphereGeometry(0.15, 16, 12);
-  cyl(0.02, 0.02, 1.6, std(0xd1202b), -2.3, 1.07, 3.2);
+  cyl(0.02, 0.02, 1.6, std(0xdb342e), -2.3, 1.07, 3.2);
   for (let row = 0; row < 7; row++) for (let k = 0; k < 4; k++) {
     const a = (k / 4) * Math.PI * 2 + row * 0.7;
     const b = new THREE.Mesh(bGeo, std(balloonCols[(row + k) % 5], { roughness: 0.25 }));
@@ -546,7 +546,7 @@ function init() {
     g.fillStyle = "#1f5fc8"; g.textBaseline = "middle";
     g.font = "italic 600 54px Manrope, Arial, sans-serif"; g.fillText("sasol", 60, h / 2 - 14);
     g.font = "italic 800 92px Manrope, Arial, sans-serif"; g.fillText("delight", 210, h / 2 + 10);
-    g.fillStyle = "#d1202b"; g.fillText("!", 560, h / 2 + 10);
+    g.fillStyle = "#db342e"; g.fillText("!", 560, h / 2 + 10);
   });
   const louvreTex = tex(256, 64, (g, w, h) => {
     g.fillStyle = "#1a2340"; g.fillRect(0, 0, w, h);
@@ -574,7 +574,7 @@ function init() {
   const shopGlow = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xfff4dc, emissiveIntensity: 0.55, roughness: 0.2 });
   const shelfTex = tex(512, 256, (g, w, h) => {
     g.fillStyle = "#f6f1e6"; g.fillRect(0, 0, w, h);
-    const cols = ["#d1202b", "#1f5fc8", "#f0b323", "#2ba24a", "#7a3bb5", "#ff7a1a"];
+    const cols = ["#db342e", "#1f5fc8", "#f0b323", "#2ba24a", "#7a3bb5", "#ff7a1a"];
     for (let r = 0; r < 4; r++) { g.fillStyle = "#b9b4aa"; g.fillRect(0, 40 + r * 54, w, 5); for (let x = 6; x < w; x += 14) { g.fillStyle = cols[(x + r * 7) % 6]; g.fillRect(x, 12 + r * 54, 10, 26); } }
   });
   shopGlow.map = shelfTex; shopGlow.emissiveMap = shelfTex;
@@ -588,7 +588,7 @@ function init() {
   // cream tiled panels + service door on the far end of the frontage
   plane(9, 2.7, std(0xffffff, { map: tilePanelTex, roughness: 0.6 }), SX1 + 4.6, 1.35, FZ + 0.03);
   plane(1.2, 1.0, std(0x1a1a1a), SX1 + 5.2, 0.9, FZ + 0.05);
-  plane(0.5, 0.6, std(0xd1202b), SX1 + 2.6, 0.9, FZ + 0.05);
+  plane(0.5, 0.6, std(0xdb342e), SX1 + 2.6, 0.9, FZ + 0.05);
 
   // forecourt canopy
   const CX = -17, CZ = 12.5, CW = 17, CD = 9.5, CH = 5.0;
@@ -627,7 +627,7 @@ function init() {
       // dispenser
       box(0.55, 1.75, 1.0, std(0xf4f5f7, { roughness: 0.4 }), x, 1.05, z + 0.6);
       box(0.57, 0.5, 1.02, std(SAS.blue), x, 1.7, z + 0.6, scene, false);
-      [0x2ba24a, 0xf0b323, 0xd1202b, 0x1a1a1a].forEach((c, k) => { box(0.6, 0.12, 0.08, std(c), x, 0.9, z + 0.25 + k * 0.22, scene, false); });
+      [0x2ba24a, 0xf0b323, 0xdb342e, 0x1a1a1a].forEach((c, k) => { box(0.6, 0.12, 0.08, std(c), x, 0.9, z + 0.25 + k * 0.22, scene, false); });
       // U-shaped yellow-banded bollards at both ends
       [z - 2.0, z + 2.0].forEach((bz) => {
         const u = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.05, 8, 16, Math.PI), bollardMat); u.position.set(x, 0.8, bz); u.rotation.y = Math.PI / 2; u.castShadow = true; scene.add(u);
@@ -652,7 +652,7 @@ function init() {
   const priceTex = tex(256, 256, (g, w, h) => {
     g.fillStyle = "#11131a"; g.fillRect(0, 0, w, h);
     g.font = "700 30px Manrope, Arial"; g.textBaseline = "middle";
-    [["93", "#2ba24a"], ["95", "#d1202b"], ["D", "#f0b323"]].forEach(([l, c], i) => { g.fillStyle = c; g.fillRect(14, 30 + i * 76, 54, 50); g.fillStyle = "#fff"; g.fillText(l, 24, 56 + i * 76); g.fillStyle = "#ff8a1a"; g.font = "700 40px 'Courier New', monospace"; g.fillText("--.--", 90, 56 + i * 76); g.font = "700 30px Manrope, Arial"; });
+    [["93", "#2ba24a"], ["95", "#db342e"], ["D", "#f0b323"]].forEach(([l, c], i) => { g.fillStyle = c; g.fillRect(14, 30 + i * 76, 54, 50); g.fillStyle = "#fff"; g.fillText(l, 24, 56 + i * 76); g.fillStyle = "#ff8a1a"; g.font = "700 40px 'Courier New', monospace"; g.fillText("--.--", 90, 56 + i * 76); g.font = "700 30px Manrope, Arial"; });
   });
   plane(1.0, 1.0, new THREE.MeshStandardMaterial({ map: priceTex, emissive: 0xffffff, emissiveMap: priceTex, emissiveIntensity: 0.4 }), -0.1, 2.6, 0.18, 0, 0, pyl);
   pyl.position.set(-29, 0, ROADZ - 8.6); pyl.rotation.y = 0.85;

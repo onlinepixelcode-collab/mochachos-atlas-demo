@@ -187,8 +187,8 @@
       ["Chimichanga", "Chicken"], ["6 Chicken Strips, Chips & Dip"]
     ].map(function (p) { return findItem(M, p[0], p[1]); }).filter(Boolean);
     var short = function (n) { return n.replace(", Beeg Chips & Buddy", " combo").replace(" Gourmet Burger", " Burger").replace(" (Chicken)", "").replace(" (Single)", "").replace(", Chips & Dip", " & chips"); };
-    var cols = ["#d8262e", "#f7c325", "#1aa6bf", "#24262a", "#2257a8"];
-    var ink = ["#fff", "#2a1810", "#fff", "#f7c325", "#fff"];
+    var cols = ["#db342e", "#f5c000", "#00a7b5", "#24262a", "#2f78c4"];
+    var ink = ["#fff", "#2e1c0d", "#fff", "#f5c000", "#fff"];
     var g = cv.getContext("2d"), N = picks.length, seg = (Math.PI * 2) / N, cx = 320, cy = 320, r = 306;
     g.clearRect(0, 0, 640, 640);
     for (var i = 0; i < N; i++) {
@@ -205,8 +205,8 @@
       } else g.fillText(words, r - 26, 0);
       g.restore();
     }
-    g.beginPath(); g.arc(cx, cy, r, 0, Math.PI * 2); g.lineWidth = 12; g.strokeStyle = "#2a1810"; g.stroke();
-    for (var k = 0; k < N * 2; k++) { var a = (k / (N * 2)) * Math.PI * 2; g.beginPath(); g.arc(cx + Math.cos(a) * (r - 2), cy + Math.sin(a) * (r - 2), 6, 0, 7); g.fillStyle = k % 2 ? "#fff" : "#f7c325"; g.fill(); }
+    g.beginPath(); g.arc(cx, cy, r, 0, Math.PI * 2); g.lineWidth = 12; g.strokeStyle = "#2e1c0d"; g.stroke();
+    for (var k = 0; k < N * 2; k++) { var a = (k / (N * 2)) * Math.PI * 2; g.beginPath(); g.arc(cx + Math.cos(a) * (r - 2), cy + Math.sin(a) * (r - 2), 6, 0, 7); g.fillStyle = k % 2 ? "#fff" : "#f5c000"; g.fill(); }
 
     var btn = document.querySelector("[data-spin]"), out = document.querySelector("[data-wheel-result]");
     var rot = 0, spinning = false;

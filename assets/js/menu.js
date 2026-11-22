@@ -241,7 +241,7 @@
     var nameEl = document.querySelector("[data-flav-name]");
     var noteEl = document.querySelector("[data-flav-note]");
     var section = document.getElementById("flavours");
-    var colours = ["#9bd36a", "#f7c325", "#f39a1e", "#e4542a", "#d8262e"];
+    var colours = ["#9bd36a", "#f5c000", "#f39a1e", "#e4542a", "#db342e"];
     picks.innerHTML = MENU.flavours.map(function (f, i) {
       return '<button role="radio" aria-checked="false" data-flav="' + i + '" style="--c:' + colours[i] + '"><span>' + "🌶".repeat(f.heat) + "</span>" + esc(f.name) + "</button>";
     }).join("");

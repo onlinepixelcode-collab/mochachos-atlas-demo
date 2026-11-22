@@ -188,9 +188,9 @@
     g.save(); g.translate(S.px, plateY);
     if (chilli) { g.shadowColor = "#ff3d00"; g.shadowBlur = 30; }
     g.fillStyle = "rgba(0,0,0,.35)"; g.beginPath(); g.ellipse(0, 18, plateW / 2, 8, 0, 0, 7); g.fill();
-    g.fillStyle = "#d8262e"; g.beginPath(); g.ellipse(0, 4, plateW / 2 + 6, 15, 0, 0, 7); g.fill();
+    g.fillStyle = "#db342e"; g.beginPath(); g.ellipse(0, 4, plateW / 2 + 6, 15, 0, 0, 7); g.fill();
     g.fillStyle = "#fbf6ec"; g.beginPath(); g.ellipse(0, 0, plateW / 2, 12, 0, 0, 7); g.fill();
-    g.fillStyle = "#f7c325"; g.beginPath(); g.ellipse(0, -1, plateW / 2 - 14, 6, 0, 0, 7); g.fill();
+    g.fillStyle = "#f5c000"; g.beginPath(); g.ellipse(0, -1, plateW / 2 - 14, 6, 0, 0, 7); g.fill();
     g.restore();
     // particles + popups
     S.parts.forEach(function (p) { g.globalAlpha = Math.max(0, 1 - p.life / p.max); g.fillStyle = p.c; g.beginPath(); g.arc(p.x, p.y, p.r, 0, 7); g.fill(); });
