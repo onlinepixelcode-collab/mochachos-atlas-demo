@@ -1,0 +1,70 @@
+<!--meta {"title": "Checkout | Mochachos Atlas Road", "desc": "Order Mochachos Atlas Road online for pickup or delivery. Pay when you collect.", "nav": "order", "robots": "noindex", "scripts": ["main", "fire", "menu", "features", "chat"]} -->
+    <section class="co-hero">
+      <canvas class="fire-layer" data-fire data-res="0.35" data-smoke="0.3" aria-hidden="true"></canvas>
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="dishes.html">Dishes</a><span aria-hidden="true">/</span><span aria-current="page">Checkout</span></nav>
+        <h1><span class="fire-text">Fiesta</span> Express</h1>
+        <p class="lede">Three quick steps. Pay when you get your food. Track it live, flame by flame.</p>
+      </div>
+    </section>
+
+    <section class="section co-sec" data-checkout>
+      <div class="wrap">
+        <p class="co-banner" data-co-banner hidden></p>
+        <p class="co-demo" data-co-demo hidden>Demo mode: the live order system isn't connected yet, so this order goes to the demo dashboard in this browser (open <a href="dashboard.html" target="_blank">dashboard.html</a> in another tab to watch it arrive).</p>
+        <div class="co-again" data-co-again hidden><div><b>Same again?</b><span data-co-again-text></span></div><button type="button" class="btn btn-outline btn-sm">Add my last order</button></div>
+        <form class="co-grid" novalidate>
+          <div class="co-steps">
+            <fieldset class="co-step">
+              <legend><span>1</span> How do you want it?</legend>
+              <div class="co-types">
+                <label class="co-type"><input type="radio" name="type" value="pickup" checked><span><b>🚗 Pickup</b><small data-eta-pickup>Ready in ~15 min</small><em>Tap “I'm here” on the forecourt and we bring it out.</em></span></label>
+                <label class="co-type"><input type="radio" name="type" value="delivery"><span><b>🛵 Delivery</b><small data-eta-delivery>~40 min</small><em>Hot to your door around Beyers Park.</em></span></label>
+              </div>
+            </fieldset>
+            <fieldset class="co-step">
+              <legend><span>2</span> When?</legend>
+              <div class="co-when">
+                <label class="co-chip"><input type="radio" name="when" value="asap" checked><span>As soon as possible <small data-co-asap-note>~15 min</small></span></label>
+                <label class="co-chip"><input type="radio" name="when" value="later"><span>Schedule</span></label>
+                <label class="select co-slot"><span class="sr-only">Time</span><select data-co-slot disabled></select></label>
+              </div>
+            </fieldset>
+            <fieldset class="co-step">
+              <legend><span>3</span> Your details</legend>
+              <div class="co-fields">
+                <label>Name<input name="name" autocomplete="name" required maxlength="60" placeholder="e.g. Thandi"></label>
+                <label>Phone<input name="phone" type="tel" autocomplete="tel" required maxlength="16" placeholder="e.g. 082 123 4567"></label>
+                <label class="co-only-delivery">Delivery address<input name="address" autocomplete="street-address" maxlength="200" placeholder="Street, number, suburb"></label>
+                <label class="co-only-pickup">Your car <small>(optional, helps us find you)</small><input name="car" maxlength="60" placeholder="e.g. Silver Polo"></label>
+                <label class="co-wide">Notes for the kitchen <small>(optional)</small><textarea name="notes" rows="2" maxlength="300" placeholder="e.g. extra peri-mayo, no onion"></textarea></label>
+              </div>
+              <div class="co-pay">
+                <span>Pay when you get it</span>
+                <label class="co-chip"><input type="radio" name="payment" value="cash" checked><span>💵 Cash</span></label>
+                <label class="co-chip"><input type="radio" name="payment" value="card"><span>💳 Card</span></label>
+              </div>
+              <label class="toggle co-remember"><input type="checkbox" name="remember" checked><span></span> Remember my details on this device</label>
+            </fieldset>
+          </div>
+          <aside class="co-summary">
+            <h2>Your order</h2>
+            <ul class="co-items" data-co-items></ul>
+            <div class="co-quick" data-co-quick hidden>
+              <button type="button" data-quick-add="1/2 Chicken, Beeg Chips &amp; Buddy">+ 1/2 Chicken combo</button>
+              <button type="button" data-quick-add="Burrito" data-opt="Chicken">+ Chicken burrito</button>
+              <button type="button" data-quick-add="Nacho Crunch Gourmet Burger">+ Nacho Crunch burger</button>
+              <button type="button" data-quick-add="Family Fiesta">+ Family Fiesta</button>
+            </div>
+            <dl class="co-totals">
+              <div><dt>Subtotal</dt><dd data-co-sub>R0.00</dd></div>
+              <div data-co-fee-row hidden><dt>Delivery</dt><dd data-co-fee></dd></div>
+              <div class="co-total"><dt>Total</dt><dd data-co-total>R0.00</dd></div>
+            </dl>
+            <p class="co-err" data-co-error role="alert" hidden></p>
+            <button class="btn btn-fire co-place" type="submit" data-co-place><span>Place order</span></button>
+            <p class="co-fine">Halaal · Prices from the 2026 menu, checked by the store · Ready time <b data-co-eta>~15 min</b></p>
+          </aside>
+        </form>
+      </div>
+    </section>

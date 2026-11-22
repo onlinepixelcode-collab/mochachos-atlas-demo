@@ -1,0 +1,50 @@
+  <!-- ORDER TRAY -->
+  <button class="tray-launch" aria-controls="tray" aria-expanded="false" hidden>
+    <span class="tray-count" data-tray-count>0</span>
+    <span>Your tray</span>
+    <b data-tray-total>R0.00</b>
+  </button>
+  <section class="tray" id="tray" aria-label="Your order tray" hidden>
+    <header class="tray-head">
+      <div><strong>Your tray</strong><span>Order online in a few taps</span></div>
+      <button class="tray-close" aria-label="Close tray">×</button>
+    </header>
+    <ul class="tray-list" data-tray-list></ul>
+    <div class="tray-foot">
+      <div class="tray-total"><span>Estimated total</span><b data-tray-total>R0.00</b></div>
+      <a class="btn btn-fire tray-checkout" href="checkout.html"><span>Checkout · pickup or delivery →</span></a>
+      <div class="tray-actions">
+        <a class="btn btn-outline" href="tel:+27104480666">Call instead</a>
+        <button class="btn btn-outline" data-tray-copy>Copy order</button>
+      </div>
+      <button class="tray-clear" data-tray-clear>Clear tray</button>
+    </div>
+  </section>
+
+  <!-- AI ASSISTANT -->
+  <button class="chat-launch" aria-controls="chat" aria-expanded="false">
+    <span class="chat-launch-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+    </span>
+    <span>Ask Amigo</span>
+  </button>
+  <section class="chat" id="chat" aria-label="Ask Amigo, the Mochachos Atlas AI assistant" hidden>
+    <header class="chat-head">
+      <span class="chat-avatar" aria-hidden="true">🌶</span>
+      <div>
+        <strong>Amigo</strong>
+        <span>AI helper · knows every price</span>
+      </div>
+      <button class="chat-clear" data-chat-clear aria-label="Start a new chat" title="New chat">↺</button>
+      <button class="chat-close" aria-label="Close chat">×</button>
+    </header>
+    <div class="chat-log" aria-live="polite"></div>
+    <div class="chat-suggest"></div>
+    <form class="chat-form">
+      <label class="sr-only" for="chat-input">Ask a question</label>
+      <input id="chat-input" name="q" autocomplete="off" maxlength="400" placeholder="Ask, or say “add 2 burritos”…">
+      <button type="button" class="chat-mic" data-chat-mic aria-label="Speak your question" aria-pressed="false">🎙</button>
+      <button type="submit" aria-label="Send">➤</button>
+    </form>
+  </section>
+

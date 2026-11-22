@@ -1,0 +1,46 @@
+<!--meta {"title": "Track your order | Mochachos Atlas Road", "desc": "Follow your Mochachos Atlas Road order live.", "nav": "order", "robots": "noindex", "scripts": ["main", "fire", "menu", "features", "chat"]} -->
+    <section class="tk-sec" data-track>
+      <canvas class="fire-layer tk-fire" data-fire data-res="0.35" data-smoke="0.4" aria-hidden="true"></canvas>
+      <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+      <div class="wrap tk-wrap">
+        <div class="tk-new" data-tk-new hidden>🎉 Order placed! Keep this page open, or come back any time from the banner at the bottom of the site.</div>
+        <div class="tk-head">
+          <p class="eyebrow"><span data-tk-type>🚗 Pickup</span> · Order <b data-tk-code>…</b></p>
+          <h1 data-tk-title aria-live="polite">Loading your order…</h1>
+          <p class="tk-eta" data-tk-eta></p>
+          <button class="link-btn" data-tk-notify>🔔 Notify me when it's ready</button>
+        </div>
+        <ol class="tk-steps" data-tk-steps></ol>
+        <div class="tk-grill" aria-hidden="true"><span></span></div>
+
+        <div class="tk-grid">
+          <div class="tk-card tk-here" data-tk-here hidden>
+            <h2>🚗 I'm here</h2>
+            <p data-tk-here-state>On the forecourt? Let us know and we'll bring it out.</p>
+            <form>
+              <label class="select"><span class="sr-only">Where are you?</span><select name="spot"><option>In front of the store</option><option>On the forecourt</option><option>By the side gate</option><option>Coming inside</option></select></label>
+              <input name="car" maxlength="60" placeholder="Car (e.g. silver Polo)">
+              <button class="btn btn-fire"><span>I'm here</span></button>
+            </form>
+          </div>
+          <div class="tk-card">
+            <h2>Your order</h2>
+            <ul class="tk-items" data-tk-items></ul>
+            <p class="tk-total"><span>Total</span><b data-tk-total></b></p>
+            <p class="tk-pay" data-tk-pay></p>
+            <p class="tk-where" data-tk-where></p>
+            <div class="tk-actions"><a class="btn btn-outline btn-sm" href="tel:+27104480666">📞 Call the store</a><button class="btn btn-outline btn-sm" data-tk-again>Order this again</button></div>
+          </div>
+          <div class="tk-card tk-chat">
+            <h2>💬 Chat with the store</h2>
+            <div class="tk-thread" data-tk-thread></div>
+            <form data-tk-msg><input name="text" maxlength="400" placeholder="Message Mochachos Atlas Road…" autocomplete="off"><button class="btn btn-red btn-sm">Send</button></form>
+          </div>
+        </div>
+        <div class="tk-done" data-tk-done hidden>
+          <h2>Enjoy, amigo! 🌶</h2>
+          <p>Thanks for ordering from Mochachos Atlas Road.</p>
+          <div class="hero-actions"><a class="btn btn-fire" href="dishes.html"><span>Order again</span></a><a class="btn btn-ghost" href="arcade.html">Play Flame Catcher</a></div>
+        </div>
+      </div>
+    </section>

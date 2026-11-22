@@ -1,0 +1,31 @@
+<!--meta {"title": "All dishes | Mochachos Atlas Road, Boksburg", "desc": "Every dish on the Mochachos Atlas Road menu, one by one: flame-grilled chicken, burgers, combos, Mexican meals, family meals, sides, desserts and drinks, with prices.", "nav": "dishes", "scripts": ["main", "fire", "menu", "features", "dishes", "chat"]} -->
+    <section class="page-hero">
+      <canvas class="fire-layer" data-fire data-res="0.4" data-smoke="0.5" aria-hidden="true"></canvas>
+      <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+      <div class="wrap page-hero-inner">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Dishes</span></nav>
+        <p class="script yellow">Every single one</p>
+        <h1><span class="fire-text">All</span> dishes</h1>
+        <p class="lede">Browse the whole menu dish by dish. Pick a category, search, or tap any dish for sizes, flavours and more.</p>
+      </div>
+    </section>
+
+    <section class="section dishes-sec">
+      <div class="wrap">
+        <div class="cat-tiles" data-cat-tiles aria-label="Categories"></div>
+        <div class="dish-toolbar">
+          <div class="dish-cats" data-dish-cats role="group" aria-label="Filter by category"></div>
+          <div class="dish-tools">
+            <label class="menu-search small"><span class="sr-only">Search dishes</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
+              <input type="search" placeholder="Search dishes…" data-dish-search autocomplete="off"></label>
+            <label class="select"><span class="sr-only">Sort</span>
+              <select data-dish-sort><option value="menu">Menu order</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="az">A to Z</option></select></label>
+            <label class="toggle"><input type="checkbox" data-dish-veg><span></span> Meat-free</label>
+            <span class="dish-count" data-dish-count aria-live="polite"></span>
+          </div>
+        </div>
+        <div class="dish-grid-cards" data-dish-grid><p class="menu-loading">Loading dishes…</p></div>
+        <p class="menu-fine">Prices from the 2026 Mochachos South Africa menu, VAT included, and may change. "Meat-free" shows veggie options, sides, desserts and drinks; ask the team about ingredients.</p>
+      </div>
+    </section>

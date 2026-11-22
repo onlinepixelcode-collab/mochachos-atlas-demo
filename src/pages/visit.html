@@ -1,0 +1,118 @@
+<!--meta {"title": "Visit us & 3D store | Mochachos Atlas Road, Boksburg", "desc": "Find Mochachos at 254 Atlas Road, Beyers Park, Boksburg, on the Sasol forecourt. Hours, map, and a 3D store you can order from.", "nav": "visit", "jsonld": true, "scripts": ["main", "fire", "menu", "features", "chat", "store3d"]} -->
+    <section class="page-hero">
+      <canvas class="fire-layer" data-fire data-res="0.4" data-smoke="0.5" aria-hidden="true"></canvas>
+      <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+      <div class="wrap page-hero-inner">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Visit & 3D</span></nav>
+        <p class="script yellow">Come visit us!</p>
+        <h1><span class="fire-text">254</span> Atlas Road</h1>
+        <p class="lede">On the Sasol forecourt at the corner of Campo St, Beyers Park, Boksburg.</p>
+      </div>
+    </section>
+
+    <!-- VISIT -->
+    <section class="section visit" id="visit">
+      <div class="wrap visit-grid">
+        <div class="visit-info">
+          <p class="script red">Come visit us!</p>
+          <h2>Find us</h2>
+          <address>
+            <strong>254 Atlas Road</strong>
+            Beyers Park, Boksburg<br>On the Sasol forecourt, corner of Campo St
+          </address>
+          <p class="tags"><span>Dine-in</span><span>Pick-up</span><span>Outdoor seating</span></p>
+
+          <div class="hours" aria-labelledby="hours-title">
+            <h3 id="hours-title"><span class="script red small">We're open!</span> Trading hours</h3>
+            <table>
+              <tbody>
+                <tr data-days="1,2,3,4,0"><th scope="row">Mon – Thurs &amp; Sun</th><td>10:00 – 20:00</td></tr>
+                <tr data-days="5,6"><th scope="row">Fri – Sat</th><td>10:00 – 21:00</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Closed Fridays 12:15 – 13:30 for prayers.</p>
+            <p class="live" data-status-long></p>
+          </div>
+
+          <div class="visit-actions">
+            <a class="btn btn-red" href="tel:+27104480666">Call 010 448 0666</a>
+            <a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&destination=254+Atlas+Road+Beyers+Park+Boksburg" target="_blank" rel="noopener">Get directions</a>
+          </div>
+        </div>
+        <div class="visit-map">
+          <iframe title="Map to Mochachos, 254 Atlas Road, Beyers Park, Boksburg" src="https://www.google.com/maps?q=Mochachos+254+Atlas+Road+Beyers+Park+Boksburg&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D STORE -->
+    <section class="section store" id="store">
+      <div class="wrap">
+        <div class="section-head light">
+          <p class="script yellow">Step inside</p>
+          <h2>254 Atlas Road in 3D</h2>
+          <p class="section-sub">Our branch on the Sasol Atlas Road forecourt, modelled from the real site: the roof sign, the deck, the garage next door, and inside to the counter. Drag to look around, pinch or scroll to zoom, and tap a marker to jump there. Tap the menu boards or the counter to order.</p>
+        </div>
+
+        <div class="store-stage">
+          <div class="store-canvas" id="store3d" aria-label="Interactive 3D model of the Mochachos Atlas Road branch, outside and inside" role="img">
+            <div class="store-loading" data-store-loading>
+              <div class="spinner" aria-hidden="true"></div>
+              <span>Setting the tables…</span>
+            </div>
+          </div>
+          <div class="store-ui">
+            <div class="store-views" role="group" aria-label="Camera views">
+              <button class="chip is-on" data-view="overview">Overview</button>
+              <button class="chip" data-view="street">Shopfront</button>
+              <button class="chip" data-view="deck">Deck</button>
+              <button class="chip" data-view="counter">Inside: counter</button>
+              <button class="chip" data-view="tiles">Inside: tile wall</button>
+              <button class="chip" data-view="mural">Side mural</button>
+              <button class="chip" data-view="garage">Sasol forecourt</button>
+            </div>
+            <div class="store-ui-right"><button class="chip chip-order" data-counter-open>🛒 Order here</button><button class="chip chip-dark" data-autorotate aria-pressed="true">Auto-rotate on</button></div>
+          </div>
+          <aside class="counter-panel" data-counter hidden aria-label="Order at the counter">
+            <header class="counter-head">
+              <div><strong>Order at the counter</strong><span>Tap a price to add it to your tray</span></div>
+              <button class="counter-close" data-counter-close aria-label="Close the counter menu">×</button>
+            </header>
+            <nav class="counter-cats" data-counter-cats aria-label="Menu categories"></nav>
+            <ul class="counter-items" data-counter-items></ul>
+            <footer class="counter-foot">
+              <span>Your tray <b data-tray-total>R0.00</b></span>
+              <button class="btn btn-fire btn-sm" data-counter-tray><span>View tray</span></button>
+            </footer>
+          </aside>
+          <div class="store-info" data-store-info aria-live="polite">
+            <h3>254 Atlas Road</h3>
+            <p>The Mochachos Atlas Road branch in Beyers Park, Boksburg.</p>
+          </div>
+        </div>
+
+        <ul class="store-points">
+          <li><strong>Find it fast</strong><span>At the Sasol on Atlas Road (M43), on the corner of Campo St. Look for the red letters on the roof.</span></li>
+          <li><strong>Park out front</strong><span>Paved parking right at the deck. Please keep the side gate clear.</span></li>
+          <li><strong>Sit how you like</strong><span>Deck tables, the teal booth, or a quick bite at the counter.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section message-sec" id="message">
+      <div class="wrap message-grid">
+        <div>
+          <p class="eyebrow red">Talk to us</p>
+          <h2 class="h-section">Message the <span class="fire-text">store</span></h2>
+          <p class="about-p">Questions about a big order, a compliment for the grill team, or something we can do better? It goes straight to the team's dashboard.</p>
+          <p class="about-p">Need us now? Call <a href="tel:+27104480666">010 448 0666</a>.</p>
+        </div>
+        <form class="message-form" data-message-form>
+          <label>Name<input name="name" required maxlength="60" autocomplete="name"></label>
+          <label>Phone <small>(optional)</small><input name="phone" type="tel" maxlength="16" autocomplete="tel"></label>
+          <label class="co-wide">Message<textarea name="text" rows="4" required maxlength="800"></textarea></label>
+          <button class="btn btn-fire" type="submit"><span>Send message</span></button>
+          <p class="msg-out" data-message-out role="status" hidden></p>
+        </form>
+      </div>
+    </section>

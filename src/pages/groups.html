@@ -1,0 +1,74 @@
+<!--meta {"title": "Groups & parties | Mochachos Atlas Road, Boksburg", "desc": "Feeding a crowd? Family meals for 4 to 8, a planner that builds a priced order for your group, and the long table at Mochachos Atlas Road, Boksburg.", "nav": "order", "scripts": ["main", "fire", "menu", "features", "groups", "chat"]} -->
+    <section class="page-hero">
+      <canvas class="fire-layer" data-fire data-res="0.4" data-smoke="0.5" aria-hidden="true"></canvas>
+      <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+      <div class="wrap page-hero-inner">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Groups &amp; parties</span></nav>
+        <p class="script yellow">Feeding a crowd?</p>
+        <h1><span class="fire-text">Groups</span> &amp; parties</h1>
+        <p class="lede">Birthdays, office lunches, the whole team after the match. Family boards, a planner that does the maths, and the long table.</p>
+      </div>
+    </section>
+
+    <section class="section groups-meals">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="script red">Familia Fiesta</p>
+          <h2>Boards for the <span class="fire-text">whole table</span></h2>
+          <p class="section-sub">Our family meals, straight from the menu.</p>
+        </div>
+        <div class="family-grid" data-family-grid></div>
+      </div>
+    </section>
+
+    <section class="section decide groups-plan" id="plan">
+      <div class="wrap groups-plan-grid">
+        <div class="groups-copy">
+          <p class="eyebrow red">Let us do the maths</p>
+          <h2 class="h-section">Plan your <span class="fire-text">group order</span></h2>
+          <p class="about-p">Slide to the number of people, pick how hungry they are, and we'll build an order from the family meals and combos with the total and the cost per person. One tap puts it all in your tray.</p>
+          <ul class="ticks">
+            <li><strong>Call ahead</strong><span>For 10 or more, call 010 448 0666 so the order is ready when you arrive.</span></li>
+            <li><strong>Long table</strong><span>Ask us to set the long table, or sit out on the deck.</span></li>
+            <li><strong>Halaal</strong><span>Everyone at the table can order freely.</span></li>
+          </ul>
+        </div>
+          <div class="crew-card">
+            <h3>Feed the crew</h3>
+            <p>Tell us who's eating and we'll build the order.</p>
+            <form class="crew-form" data-crew>
+              <label class="crew-row">
+                <span>People <b data-crew-people-out>4</b></span>
+                <input type="range" min="1" max="20" value="4" name="people">
+              </label>
+              <fieldset class="crew-row">
+                <legend>How hungry?</legend>
+                <div class="seg">
+                  <label><input type="radio" name="appetite" value="0.75"><span>Peckish</span></label>
+                  <label><input type="radio" name="appetite" value="1" checked><span>Hungry</span></label>
+                  <label><input type="radio" name="appetite" value="1.4"><span>Starving</span></label>
+                </div>
+              </fieldset>
+              <label class="toggle"><input type="checkbox" name="burgers"><span></span> Mix in burgers</label>
+              <label class="toggle"><input type="checkbox" name="share" checked><span></span> Nachos to share</label>
+            </form>
+            <ul class="crew-list" data-crew-list></ul>
+            <div class="crew-total">
+              <div><span>Total</span><b data-crew-total>R0.00</b></div>
+              <div><span>Per person</span><b data-crew-pp>R0.00</b></div>
+            </div>
+            <button class="btn btn-fire crew-add" data-crew-add><span>Add all to my tray</span></button>
+          </div>
+      </div>
+    </section>
+
+    <section class="booking">
+      <div class="wrap booking-inner">
+        <div>
+          <p class="eyebrow">Ready to book?</p>
+          <h2 class="h-section light">Call and we'll set the table</h2>
+          <p>Tell us how many and when. We'll have the food hot and the long table ready.</p>
+        </div>
+        <a class="btn btn-yellow btn-lg" href="tel:+27104480666">Call 010 448 0666</a>
+      </div>
+    </section>

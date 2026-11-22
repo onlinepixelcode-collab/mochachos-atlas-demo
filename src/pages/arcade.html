@@ -1,0 +1,54 @@
+<!--meta {"title": "Arcade: Flame Catcher | Mochachos Atlas Road", "desc": "Play Flame Catcher, the Mochachos Atlas Road grill game. Catch chicken, burgers and burritos over the flames, grab chillies, and dodge the dynamite.", "nav": "arcade", "scripts": ["main", "fire", "menu", "features", "arcade", "chat"]} -->
+    <section class="page-hero arcade-hero">
+      <canvas class="fire-layer" data-fire data-res="0.4" data-smoke="0.5" aria-hidden="true"></canvas>
+      <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+      <div class="wrap page-hero-inner">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Arcade</span></nav>
+        <p class="script yellow">Mochachos Arcade</p>
+        <h1><span class="fire-text">Flame</span> catcher</h1>
+        <p class="lede">The grill is going wild. Catch the food, grab the chillies, and whatever you do, don't catch the dynamite.</p>
+      </div>
+    </section>
+
+    <section class="section arcade-sec">
+      <div class="wrap">
+        <div class="game-hud" aria-label="Game stats">
+          <div><span>Score</span><b data-g-score>0</b></div>
+          <div><span>Combo</span><b data-g-combo>x1</b></div>
+          <div><span>Lives</span><b data-g-lives>🔥🔥🔥</b></div>
+          <div><span>Best</span><b data-g-best>0</b></div>
+          <div class="game-heat"><span>Grill heat</span><i><em data-g-heat></em></i></div>
+        </div>
+        <div class="game-stage" data-game tabindex="0" aria-label="Flame Catcher game. Move with the mouse, your finger, or the left and right arrow keys. P pauses.">
+          <canvas class="fire-layer" data-fire data-res="0.45" data-smoke="0.2" data-heat-live="0.35" aria-hidden="true"></canvas>
+          <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+          <canvas class="game" role="img" aria-label="Game field"></canvas>
+          <div class="game-overlay" data-g-start>
+            <p class="script yellow">Ready, amigo?</p>
+            <h2>Flame <span class="fire-text">Catcher</span></h2>
+            <ul class="game-legend">
+              <li><span>🍗 🍔 🌯 🍟 🥤</span>Catch for points</li>
+              <li><span>🌶</span>Chilli: double points for 6 seconds</li>
+              <li><span>⭐</span>Golden bonus: 50 points</li>
+              <li><span>🧨</span>Dynamite: lose a life</li>
+            </ul>
+            <p class="game-help">Catch 5 in a row to raise your combo (up to x5). Move with the mouse, your finger or ← →. Press P to pause.</p>
+            <button class="btn btn-fire btn-lg" data-g-play><span>Fire it up</span></button>
+          </div>
+          <div class="game-overlay" data-g-pause hidden>
+            <h2>Paused</h2>
+            <button class="btn btn-fire" type="button"><span>Keep grilling</span></button>
+          </div>
+          <div class="game-overlay" data-g-over hidden>
+            <p class="script yellow">Game over</p>
+            <h2><span class="fire-text" data-g-final>0</span></h2>
+            <p class="game-rank" data-g-rank></p>
+            <p class="game-newbest" data-g-newbest hidden>🔥 New personal best!</p>
+            <div class="game-refuel" data-g-refuel hidden></div>
+            <button class="btn btn-ghost" data-g-play>Play again</button>
+          </div>
+          <p class="sr-only" aria-live="polite" data-g-live></p>
+        </div>
+        <p class="menu-fine">Scores are saved on this device only. Ranks go from Lemon &amp; Herb Rookie to Dynamite Legend.</p>
+      </div>
+    </section>

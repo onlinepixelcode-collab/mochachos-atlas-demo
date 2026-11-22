@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Pass · Mochachos Atlas Road</title>
+  <meta name="description" content="Staff order dashboard.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1aa6bf">
+  <meta property="og:title" content="The Pass · Mochachos Atlas Road">
+  <meta property="og:description" content="Staff order dashboard.">
+  <meta property="og:image" content="assets/img/chicken-whole.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d8262e'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-weight='900' font-size='40' text-anchor='middle' fill='%23f7c325'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="dashboard" class="bare">
+  <main id="main">
+    <div class="login" data-login>
+      <div class="login-card">
+        <img src="assets/img/logo-horizontal.png" alt="Mochachos" width="1763" height="442">
+        <h1>The Pass</h1>
+        <p class="login-sub">Atlas Road staff dashboard</p>
+        <div class="pin-out" data-pin-out>Enter PIN</div>
+        <div class="pin-pad">
+          <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+          <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+          <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+          <button data-k="del" aria-label="Delete">⌫</button><button data-k="0">0</button><button data-k="ok" class="ok">Go</button>
+        </div>
+        <p class="login-err" data-login-err role="alert"></p>
+        <p class="login-mode" data-login-mode></p>
+      </div>
+    </div>
+
+    <div class="dash" data-dash hidden>
+      <header class="dash-top">
+        <div class="dash-brand"><img src="assets/img/logo-horizontal.png" alt="Mochachos" width="1763" height="442"><div><b>The Pass</b><span>Atlas Road <i class="mode" data-mode>…</i></span></div></div>
+        <div class="dash-stats">
+          <div><span>Active</span><b data-stat-active>0</b></div>
+          <div><span>Today</span><b data-stat-today>0</b></div>
+          <div><span>Revenue</span><b data-stat-rev>R0</b></div>
+          <div><span>Avg time</span><b data-stat-avg>—</b></div>
+        </div>
+        <div class="dash-clock" data-clock>--:--:--</div>
+      </header>
+      <div class="dash-bar">
+        <div class="dash-filters" role="group" aria-label="Filter orders">
+          <button data-filter="all" aria-pressed="true">All</button>
+          <button data-filter="pickup" aria-pressed="false">🚗 Pickup</button>
+          <button data-filter="delivery" aria-pressed="false">🛵 Delivery</button>
+        </div>
+        <input class="dash-search" data-search type="search" placeholder="Find order, name or phone">
+        <div class="dash-tools">
+          <button class="dbtn" data-busy-btn>⏱ Busy: <b data-busy-state>Normal</b></button>
+          <button class="dbtn" data-pause-btn>⏸ <b data-pause-state>Taking orders</b></button>
+          <button class="dbtn" data-msg-btn>💬 Messages <i class="badge" data-msg-badge hidden>0</i></button>
+          <button class="dbtn" data-sound-btn>🔔 Sound on</button>
+          <button class="dbtn" data-settings-btn>⚙</button>
+          <button class="dbtn dbtn-fire" data-simulate hidden>＋ Simulate order</button>
+          <button class="dbtn" data-clear hidden>Clear demo</button>
+          <button class="dbtn" data-full title="Full screen">⛶</button>
+          <button class="dbtn" data-logout title="Lock">🔒</button>
+        </div>
+      </div>
+      <div class="dash-main">
+        <div class="board" data-board></div>
+        <aside class="dash-side">
+          <section class="side-card">
+            <h2>🔥 All day <small>to cook now</small></h2>
+            <ul class="allday" data-allday></ul>
+          </section>
+          <section class="side-card">
+            <h2>✓ Completed today <small data-done-count>0</small></h2>
+            <ul class="done-list" data-done></ul>
+          </section>
+          <section class="side-card help">
+            <h2>Shortcuts</h2>
+            <p><kbd>←</kbd><kbd>→</kbd> select ticket · <kbd>Enter</kbd> next step · <kbd>U</kbd> undo</p>
+            <p>Final step: press and <b>hold</b> the button to complete.</p>
+          </section>
+        </aside>
+      </div>
+      <div class="undo" data-undo hidden><span></span><button>Undo</button></div>
+      <div class="dash-toasts" data-toasts aria-live="polite"></div>
+      <div class="dash-pop" data-pop hidden></div>
+      <aside class="drawer" data-drawer hidden>
+        <header><h2>💬 Messages</h2><button data-drawer-close aria-label="Close">×</button></header>
+        <div class="drawer-body" data-drawer-body></div>
+      </aside>
+    </div>
+  </main>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/menu.js" defer></script>
+  <script src="assets/js/orders.js" defer></script>
+  <script src="assets/js/dashboard.js" defer></script>
+</body>
+</html>

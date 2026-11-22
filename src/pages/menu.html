@@ -1,0 +1,68 @@
+<!--meta {"title": "Menu & prices | Mochachos Atlas Road, Boksburg", "desc": "The full 2026 Mochachos menu with prices. Flip through the menu book or search the list.", "nav": "menu", "scripts": ["main", "fire", "pageflip", "menu", "features", "chat"]} -->
+    <section class="page-hero">
+      <canvas class="fire-layer" data-fire data-res="0.4" data-smoke="0.5" aria-hidden="true"></canvas>
+      <canvas class="ember-layer" data-embers aria-hidden="true"></canvas>
+      <div class="wrap page-hero-inner">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Menu</span></nav>
+        <p class="script yellow">What's on the</p>
+        <h1><span class="fire-text">The</span> menu</h1>
+        <p class="lede">Flame-grilled chicken, burgers, Mexican meals and family boards. Every price from the 2026 Mochachos menu.</p>
+      </div>
+    </section>
+
+    <!-- FLIP BOOK -->
+    <section class="section book-sec" id="book">
+      <div class="wrap">
+        <div class="section-head light">
+          <p class="script yellow">Pull up a chair</p>
+          <h2>Flip through the <span class="fire-text">menu</span></h2>
+          <p class="section-sub">Drag a corner or tap the arrows to turn the page, just like the one on the table.</p>
+        </div>
+        <div class="book-stage">
+          <div class="book" data-book aria-label="Mochachos menu flip book"></div>
+          <div class="book-controls">
+            <button class="car-btn light" data-book-prev aria-label="Previous page">←</button>
+            <span class="book-count" data-book-count aria-live="polite">Cover</span>
+            <button class="car-btn car-btn-red" data-book-next aria-label="Next page">→</button>
+            <button class="car-btn light book-sound" data-book-sound aria-pressed="true" aria-label="Mute page-turn sound">🔊</button>
+          </div>
+          <div class="book-links">
+            <button class="link-btn" data-print-open>See the printed menu</button>
+            <a class="link-btn" href="#menu">Order from the full list →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Printed menu">
+      <button class="lightbox-close" data-print-close aria-label="Close">×</button>
+      <div class="lightbox-scroll">
+        <img src="assets/img/menu-print-1.jpg" alt="Printed Mochachos menu, side one" loading="lazy">
+        <img src="assets/img/menu-print-2.jpg" alt="Printed Mochachos menu, side two" loading="lazy">
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <section class="section menu" id="menu">
+      <div class="wrap">
+        <div class="menu-top">
+          <div>
+            <p class="eyebrow red">What's on the menu</p>
+            <h2 class="h-section">The full menu</h2>
+            <p class="section-sub left">Every item and price from the 2026 Mochachos menu. Tap a price to add it to your tray, then call it through or read it out at the counter.</p>
+          </div>
+          <label class="menu-search">
+            <span class="sr-only">Search the menu</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
+            <input type="search" placeholder="Search: burrito, wings, halaal…" data-menu-search autocomplete="off">
+          </label>
+        </div>
+        <nav class="menu-cats" data-menu-cats aria-label="Menu categories"></nav>
+        <div class="menu-list" data-menu-list>
+          <p class="menu-loading">Loading the menu…</p>
+        </div>
+        <p class="menu-empty" data-menu-empty hidden>Nothing matches that. Try "chicken", "burger" or "nachos".</p>
+        <p class="menu-fine">Prices from the 2026 Mochachos South Africa menu, VAT included, and may change without notice. Ask the team about ingredients and allergens. <span class="veg-key"><i class="veg">V</i> vegetarian or veggie option</span></p>
+      </div>
+    </section>
+
