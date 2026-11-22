@@ -1945,3 +1945,9 @@ html.burn-ice body::before { background: #061321; }
 .heat-chillies { font-size: .85rem; }
 .heat-chillies .ic { color: #ff7a2a; }
 html[data-heat="5"] .heat-chillies .ic { color: #fff; }
+
+/* credit line */
+.made-by { text-align: center; font-size: .82rem; font-weight: 700; color: rgba(255,255,255,.7); padding-bottom: 18px; margin-top: -6px; }
+.made-by .ic { color: #2f9bff; width: 1.05em; height: 1.05em; vertical-align: -.15em; animation: heartBeat 1.6s ease-in-out infinite; }
+@keyframes heartBeat { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .made-by .ic { animation: none; } }

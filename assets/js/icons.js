@@ -49,6 +49,7 @@
     close: '<path ' + S + ' d="M6 6l12 12M18 6L6 18"/>',
     salad: '<path ' + F + ' d="M2.5 12h19a9.5 8 0 0 1-19 0z"/><path fill="#7cb342" d="M6 12c-.5-2.5 1-4.5 3-4.3.6-2 3.4-2.8 5-1 1.8-1 4.2.3 4 2.7 1.3.6 1.6 1.6 1 2.6z"/>',
     kid: '<circle cx="12" cy="6" r="3" ' + F + '/><path ' + F + ' d="M7 21v-6l-2-3 2-2.5h10l2 2.5-2 3v6h-3.5v-5h-3v5z"/>',
+    heart: '<path ' + F + ' d="M12 20.5l-1.3-1.2C5.6 14.7 2.5 11.9 2.5 8.4 2.5 5.6 4.7 3.5 7.4 3.5c1.8 0 3.5.9 4.6 2.2 1.1-1.3 2.8-2.2 4.6-2.2 2.7 0 4.9 2.1 4.9 4.9 0 3.5-3.1 6.3-8.2 10.9z"/>',
     churro: '<rect x="4" y="9.5" width="16" height="5" rx="2.5" transform="rotate(-35 12 12)" ' + F + '/><path stroke="#fff" stroke-width="1.2" opacity=".5" fill="none" d="M7 15.5l9.5-6.6"/>'
   };
   function MIcon(name, cls) {
