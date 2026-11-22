@@ -12,6 +12,9 @@
   var put = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
   var level = Math.min(5, Math.max(1, parseInt(get(KEY, "2"), 10) || 2));
   var root = document.documentElement;
+  // cold drinks and shakes get ice, never fire (decided from the address, so it works before the menu loads)
+  var isCold = function (u) { return /dish\.html$/.test(u.pathname) && /[?&]id=(drinks-|[^&]*(milkshake|freezo))/.test(u.search); };
+  var hereCold = isCold(location);
 
   /* ---------- screen-edge fire (shown from Extra Hot up) ---------- */
   var edge = document.createElement("div");
@@ -42,7 +45,7 @@
   dial.innerHTML = '<button class="heat-btn" aria-expanded="false" aria-haspopup="true"><span class="heat-chillies" aria-hidden="true"></span><span class="heat-name"></span><span class="sr-only"> heat level, change</span></button>' +
     '<div class="heat-pop" hidden><p class="heat-title">Turn up the heat</p><p class="heat-sub">Sets the flames across the whole site.</p>' +
     '<div class="heat-levels" role="radiogroup" aria-label="Heat level">' +
-    NAMES.map(function (n, i) { return '<button role="radio" data-level="' + (i + 1) + '"><span>' + "🌶".repeat(i + 1) + "</span>" + n + "</button>"; }).join("") +
+    NAMES.map(function (n, i) { return '<button role="radio" data-level="' + (i + 1) + '"><span>' + MIcon.repeat("chilli", i + 1) + "</span>" + n + "</button>"; }).join("") +
     '</div><label class="toggle heat-sound"><input type="checkbox" data-sound><span></span> Fire sound</label></div>';
   if (host) host.insertBefore(dial, host.firstChild);
   var btn = dial.querySelector(".heat-btn"), pop = dial.querySelector(".heat-pop");
@@ -54,7 +57,7 @@
   var toastShown = false;
   function paint() {
     root.setAttribute("data-heat", level);
-    dial.querySelector(".heat-chillies").textContent = "🌶".repeat(level);
+    dial.querySelector(".heat-chillies").innerHTML = MIcon.repeat("chilli", level);
     dial.querySelector(".heat-name").textContent = NAMES[level - 1];
     dial.querySelectorAll("[data-level]").forEach(function (b) { b.setAttribute("aria-checked", String(+b.getAttribute("data-level") === level)); });
   }
@@ -64,7 +67,7 @@
     put(KEY, level);
     paint();
     window.dispatchEvent(new CustomEvent("heat", { detail: level }));
-    if (level === 5 && prev !== 5 && !quiet && !toastShown) { toastShown = true; toast("🔥 Dynamite mode! The whole site is on fire. Turn the heat down any time from the 🌶 dial."); }
+    if (level === 5 && prev !== 5 && !quiet && !toastShown) { toastShown = true; toast("Dynamite mode! The whole site is on fire. Turn the heat down any time from the chilli dial at the top."); }
     sound.level(level);
   }
   window.MochachosHeat = { set: set, get: function () { return level; } };
@@ -123,14 +126,15 @@
   })();
   var sbox = dial.querySelector("[data-sound]");
   sbox.addEventListener("change", function () {
-    var ok = sound.toggle(sbox.checked);
+    var ok = hereCold ? true : sound.toggle(sbox.checked); // drink pages stay quiet: no crackle next to a cold drink
     if (!ok) { sbox.checked = false; sbox.disabled = true; }
     put(SKEY, sbox.checked ? "1" : "0");
   });
   // browsers only allow sound after a tap, so a saved "on" resumes on the first interaction
   if (get(SKEY, "0") === "1") {
     sbox.checked = true;
-    var resume = function () { sound.toggle(true); document.removeEventListener("pointerdown", resume); document.removeEventListener("keydown", resume); };
+    if (hereCold) sbox.dataset.cold = "1";
+    var resume = function () { if (!hereCold) sound.toggle(true); document.removeEventListener("pointerdown", resume); document.removeEventListener("keydown", resume); };
     document.addEventListener("pointerdown", resume); document.addEventListener("keydown", resume);
   }
   document.addEventListener("visibilitychange", function () { if (document.hidden && sound.isOn()) { sound.toggle(false); sbox.dataset.paused = "1"; } else if (!document.hidden && sbox.dataset.paused) { delete sbox.dataset.paused; if (sbox.checked) sound.toggle(true); } });
@@ -143,21 +147,26 @@
      Arriving: the new page burns through the char like paper, with glowing edges.
      Falls back to the CSS flame wall when WebGL isn't available. */
   var burn = document.createElement("div");
-  burn.className = "burn"; burn.setAttribute("aria-hidden", "true");
+  var BASE = function () { return "burn" + (hereCold ? " ice" : ""); };
+  burn.className = BASE(); burn.setAttribute("aria-hidden", "true");
   burn.innerHTML = '<div class="burn-wall"></div><canvas class="burn-gl"></canvas><img class="burn-logo" src="assets/img/logo-horizontal.png" alt="">';
   document.body.appendChild(burn);
   var bcv = burn.querySelector(".burn-gl"), logo = burn.querySelector(".burn-logo");
   var BV = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
   var BF = [
     "precision mediump float;",
-    "uniform vec2 r;uniform float t;uniform float prog;uniform float mode;",
+    "uniform vec2 r;uniform float t;uniform float prog;uniform float mode;uniform float ice;",
     "float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}",
     "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),u.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);}",
     "float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}",
-    "vec3 fire(float f){return vec3(1.,.3,.03)*f*1.45+vec3(1.,.68,.16)*pow(f,2.6)*.95+vec3(1.,.93,.7)*pow(f,9.)*.55;}",
+    "vec3 hot(float f){return vec3(1.,.3,.03)*f*1.45+vec3(1.,.68,.16)*pow(f,2.6)*.95+vec3(1.,.93,.7)*pow(f,9.)*.55;}",
+    "vec3 frost(float f){return vec3(.1,.5,.85)*f*1.3+vec3(.55,.88,1.)*pow(f,2.6)*.95+vec3(1.)*pow(f,9.)*.7;}",
+    "vec3 fire(float f){return mix(hot(f),frost(f),ice);}",
     "void main(){",
     " vec2 uv=gl_FragCoord.xy/r;float asp=r.x/r.y;vec2 p=vec2(uv.x*asp,uv.y);",
-    " vec3 ch=vec3(.075,.035,.02)+vec3(.22,.05,0.)*pow(fbm(p*7.+vec2(0.,t*.6)),3.)*1.4;",
+    " float cn=pow(fbm(p*7.+vec2(0.,t*.6)),3.)*1.4;",
+    " vec3 ch=mix(vec3(.075,.035,.02)+vec3(.22,.05,0.)*cn,vec3(.03,.08,.14)+vec3(.06,.2,.32)*cn,ice);",
+    " vec3 spk=mix(vec3(1.,.7,.3),vec3(.85,.95,1.),ice);",
     " float sp=0.;vec2 g=floor(vec2(p.x*38.,p.y*24.-t*9.));float hh=h(g);",
     " if(hh>.982){vec2 fp=fract(vec2(p.x*38.,p.y*24.-t*9.))-.5;sp=smoothstep(.22,0.,length(fp))*(.6+.4*sin(t*20.+hh*40.));}",
     " if(mode<.5){",
@@ -171,7 +180,7 @@
     "  float glow=1.-smoothstep(0.,.16,-d);",
     "  vec3 c=mix(fire(f),ch+fire(.5)*glow*.28,under);",
     "  float a=max(under,clamp(f*1.4,0.,1.));",
-    "  c+=vec3(1.,.7,.3)*sp*step(0.,d)*(1.-smoothstep(0.,.5,d));a=max(a,sp*step(0.,d)*.9);",
+    "  c+=spk*sp*step(0.,d)*(1.-smoothstep(0.,.5,d));a=max(a,sp*step(0.,d)*.9);",
     "  gl_FragColor=vec4(c,a);",
     " }else{",
     "  float m=fbm(p*2.4+vec2(0.,t*.12))*.85+uv.y*.6+(fbm(p*9.)-.5)*.12;",
@@ -181,13 +190,13 @@
     "  float band=1.-smoothstep(0.,.06,e);",
     "  float crisp=1.-smoothstep(0.,.025,e);",
     "  vec3 c=ch+fire(.6)*(1.-smoothstep(0.,.12,e))*.3;",
-    "  c=mix(c,fire(.5+.5*band),band);c=mix(c,vec3(1.,.9,.6),crisp*.6);",
-    "  c+=vec3(1.,.7,.3)*sp*(1.-smoothstep(0.,.3,e));",
+    "  c=mix(c,fire(.5+.5*band),band);c=mix(c,mix(vec3(1.,.9,.6),vec3(.9,.97,1.),ice),crisp*.6);",
+    "  c+=spk*sp*(1.-smoothstep(0.,.3,e));",
     "  gl_FragColor=vec4(c,1.);",
     " }",
     "}"
   ].join("\n");
-  var bgl = null, uR, uT, uP, uM;
+  var bgl = null, uR, uT, uP, uM, uI, iceMode = hereCold ? 1 : 0;
   function setupGL() {
     try {
       bgl = bcv.getContext("webgl", { premultipliedAlpha: false, alpha: true, antialias: false });
@@ -200,7 +209,7 @@
       var buf = bgl.createBuffer(); bgl.bindBuffer(bgl.ARRAY_BUFFER, buf);
       bgl.bufferData(bgl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), bgl.STATIC_DRAW);
       var loc = bgl.getAttribLocation(pr, "p"); bgl.enableVertexAttribArray(loc); bgl.vertexAttribPointer(loc, 2, bgl.FLOAT, false, 0, 0);
-      uR = bgl.getUniformLocation(pr, "r"); uT = bgl.getUniformLocation(pr, "t"); uP = bgl.getUniformLocation(pr, "prog"); uM = bgl.getUniformLocation(pr, "mode");
+      uR = bgl.getUniformLocation(pr, "r"); uT = bgl.getUniformLocation(pr, "t"); uP = bgl.getUniformLocation(pr, "prog"); uM = bgl.getUniformLocation(pr, "mode"); uI = bgl.getUniformLocation(pr, "ice");
       bgl.enable(bgl.BLEND); bgl.blendFunc(bgl.SRC_ALPHA, bgl.ONE_MINUS_SRC_ALPHA);
       return true;
     } catch (e) { bgl = null; return false; }
@@ -211,7 +220,7 @@
     if (bcv.width !== w || bcv.height !== hgt) { bcv.width = w; bcv.height = hgt; }
     bgl.viewport(0, 0, w, hgt);
     bgl.clearColor(0, 0, 0, 0); bgl.clear(bgl.COLOR_BUFFER_BIT);
-    bgl.uniform2f(uR, w, hgt); bgl.uniform1f(uT, time); bgl.uniform1f(uP, prog); bgl.uniform1f(uM, mode);
+    bgl.uniform2f(uR, w, hgt); bgl.uniform1f(uT, time); bgl.uniform1f(uP, prog); bgl.uniform1f(uM, mode); bgl.uniform1f(uI, iceMode);
     bgl.drawArrays(bgl.TRIANGLE_STRIP, 0, 4);
   }
   // runs the animation; timers back it up so it always finishes, even in a background tab
@@ -228,26 +237,26 @@
     setTimeout(function () { if (!finished) { finished = true; drawBurn(mode, 1, performance.now() / 1000); done && done(); } }, dur + 400);
   }
   var hasGL = !reduce && setupGL();
-  burn.classList.toggle("gl", !!hasGL);
+  burn.classList.toggle("gl", !!hasGL); burn.classList.toggle("ice", hereCold);
   if (/[?&]debug\b/.test(location.search)) window.__burn = { draw: drawBurn, el: burn, gl: function () { return !!hasGL; } };
 
   var arrived = false;
   try { arrived = sessionStorage.getItem("mochachos-burn") === "1"; sessionStorage.removeItem("mochachos-burn"); } catch (e) {}
-  var clearCover = function () { root.classList.remove("burn-in"); };
+  var clearCover = function () { root.classList.remove("burn-in", "burn-ice"); };
   if (arrived && !reduce) {
     if (hasGL) {
       burn.classList.add("active", "arriving");
       drawBurn(1, 0, performance.now() / 1000);
       clearCover();
       setTimeout(function () { burn.classList.add("logo-out"); }, 260);
-      play(1, 1050, function () { burn.className = "burn gl"; });
+      play(1, 1050, function () { burn.className = BASE() + " gl"; });
     } else {
       burn.classList.add("cover"); clearCover();
       setTimeout(function () { burn.classList.remove("cover"); burn.classList.add("reveal"); }, 40);
-      setTimeout(function () { burn.className = "burn"; }, 1250);
+      setTimeout(function () { burn.className = BASE(); }, 1250);
     }
   } else clearCover();
-  window.addEventListener("pageshow", function (e) { if (e.persisted) { burn.className = hasGL ? "burn gl" : "burn"; clearCover(); } });
+  window.addEventListener("pageshow", function (e) { if (e.persisted) { burn.className = BASE() + (hasGL ? " gl" : ""); clearCover(); } });
 
   document.addEventListener("click", function (e) {
     if (reduce || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;

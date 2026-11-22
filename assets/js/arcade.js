@@ -14,9 +14,16 @@
   hud.best.textContent = best;
 
   var TYPES = [
-    { e: "🍗", pts: 10, w: 30 }, { e: "🍔", pts: 15, w: 22 }, { e: "🌯", pts: 20, w: 16 }, { e: "🍟", pts: 5, w: 18 },
-    { e: "🥤", pts: 5, w: 10 }, { e: "🌶", pts: 25, w: 7, chilli: true }, { e: "⭐", pts: 50, w: 2, star: true }, { e: "🧨", pts: 0, w: 14, bomb: true }
+    { ic: ["drumstick", "#c9772a"], pts: 10, w: 30 }, { art: "beefburger", pts: 15, w: 22 }, { ic: ["burrito", "#e9b864"], pts: 20, w: 16 }, { art: "loadedchips", pts: 5, w: 18 },
+    { art: "can", pts: 5, w: 10 }, { ic: ["chilli", "#e3261f"], pts: 25, w: 7, chilli: true }, { ic: ["star", "#ffd84a"], pts: 50, w: 2, star: true }, { ic: ["dynamite", "#c8231d"], pts: 0, w: 14, bomb: true }
   ];
+  // drawn sprites (no emojis): menu illustrations or brand-coloured icons, turned into images once
+  TYPES.forEach(function (t) {
+    if (t.art && window.MochachosArt) {
+      var svg = window.MochachosArt.svg(t.art, "", t.art).replace("<svg ", '<svg width="200" height="160" ');
+      t.img = new Image(); t.img.src = "data:image/svg+xml," + encodeURIComponent(svg); t.ar = 160 / 200; t.k = 1.35;
+    } else if (t.ic && window.MIcon) { t.img = window.MIcon.image(t.ic[0], t.ic[1]); t.ar = 1; t.k = 1; }
+  });
   var totalW = TYPES.reduce(function (s, t) { return s + t.w; }, 0);
   var W = 0, H = 0, dpr = 1;
   var S;  // game state
@@ -40,7 +47,7 @@
   function paintHud() {
     hud.score.textContent = S.score;
     hud.combo.textContent = "x" + S.combo;
-    hud.lives.textContent = "🔥".repeat(Math.max(0, S.lives)) || "—";
+    hud.lives.innerHTML = S.lives > 0 && window.MIcon ? window.MIcon.repeat("flame", S.lives) : "—";
     var heat = Math.min(1, 0.3 + (S.speed - 1) * 0.35 + (S.t < S.chilliUntil ? 0.25 : 0));
     hud.heat.style.transform = "scaleX(" + heat + ")";
     if (fireCv) fireCv.setAttribute("data-heat-live", heat.toFixed(2));
@@ -179,8 +186,7 @@
       g.save(); g.translate(it.x, it.y); g.rotate(it.rot);
       if (it.t.star || it.t.chilli) { g.shadowColor = it.t.star ? "#ffd84a" : "#ff3d00"; g.shadowBlur = 24; }
       if (it.t.bomb) { var fl = 0.5 + 0.5 * Math.sin(now / 60); g.fillStyle = "rgba(255," + Math.round(150 + fl * 100) + ",0," + (0.5 + fl * 0.5) + ")"; g.beginPath(); g.arc(it.s * 0.32, -it.s * 0.42, 4 + fl * 3, 0, 7); g.fill(); }
-      g.font = it.s + "px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
-      g.fillText(it.t.e, 0, 0);
+      if (it.t.img && it.t.img.complete) { var sw = it.s * it.t.k, sh = sw * it.t.ar; g.drawImage(it.t.img, -sw / 2, -sh / 2, sw, sh); }
       g.restore();
     });
     // plate

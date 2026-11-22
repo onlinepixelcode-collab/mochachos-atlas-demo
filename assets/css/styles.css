@@ -798,7 +798,7 @@ address strong { display: block; font-family: var(--display); font-weight: 400; 
 .wheel-wrap { position: relative; width: min(100%, 420px); aspect-ratio: 1; margin: 22px auto 10px; }
 .wheel { width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 20px 40px -14px rgba(42,24,16,.55), 0 0 0 8px var(--ink); }
 .wheel-pointer { position: absolute; z-index: 2; left: 50%; top: -14px; width: 36px; height: 48px; margin-left: -18px; background: var(--red); clip-path: polygon(50% 100%, 0 0, 100% 0); filter: drop-shadow(0 4px 4px rgba(0,0,0,.4)); }
-.wheel-pointer::after { content: "🔥"; position: absolute; top: -26px; left: 6px; font-size: 22px; }
+.wheel-pointer::after { content: ""; position: absolute; top: -28px; left: 4px; width: 26px; height: 26px; background: #ff6a1a; -webkit-mask: var(--ic-flame) center/contain no-repeat; mask: var(--ic-flame) center/contain no-repeat; }
 .wheel-spin { position: absolute; z-index: 2; left: 50%; top: 50%; width: 26%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 6px solid #fff; background: radial-gradient(circle at 35% 30%, #ff6a3d, var(--red) 55%, #8f0f14); color: #fff; font-family: var(--display); font-size: clamp(1.1rem, 3vw, 1.6rem); letter-spacing: .06em; box-shadow: 0 10px 24px rgba(0,0,0,.45); transition: transform .15s ease; }
 .wheel-spin:hover { transform: translate(-50%, -50%) scale(1.06); }
 .wheel-spin:disabled { opacity: .85; cursor: default; }
@@ -1909,3 +1909,39 @@ body[data-mood="cold"] .fire-footer, body[data-mood="sweet"] .fire-footer, body[
 /* top bar: phone number never wraps; hidden on small phones (the menu has a Call button) */
 .topbar a[href^="tel:"] { white-space: nowrap; }
 @media (max-width: 560px) { .topbar-right a[href^="tel:"] { display: none; } }
+
+/* ---------- drawn icons (the site uses no emojis) ---------- */
+:root { --ic-flame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c.6 3.4 3.6 5.3 4.9 8.3 1.6 3.7.1 8.5-4.9 9.7-5 .9-8.6-2.8-7.8-7.3.4-2.4 1.9-3.9 2.9-5.3.3 1.6 1.1 2.7 2.4 3.2C9 7.4 10.2 4.6 12 2z'/%3E%3C/svg%3E"); }
+.ic { width: 1.15em; height: 1.15em; display: inline-block; vertical-align: -0.2em; flex: none; }
+.ic-w { display: inline-flex; align-items: center; gap: .08em; font-style: normal; vertical-align: middle; line-height: 1; }
+.ic-w .ic { vertical-align: 0; }
+.ic-chilli, .ic-flame { color: var(--red); }
+.heat-chillies .ic, .heat-levels .ic, [data-flav] .ic, .pg-flav .ic { width: .95em; height: .95em; margin-right: -.12em; }
+.c-red { color: var(--red); } .c-yel { color: #e0a800; } .c-gold { color: #c9772a; }
+.ic-row { display: inline-flex; gap: 4px; }
+.ic-row .ic, .game-legend .ic { width: 1.5em; height: 1.5em; }
+[data-g-lives] .ic { color: #ff6a1a; width: 1.1em; height: 1.1em; }
+.now-dial .ic, [data-now-day] .ic { width: 1em; height: 1em; color: var(--red); }
+.now-dial .ic-sun, [data-now-day] .ic-sun, .now-dial .ic-fries, [data-now-day] .ic-fries { color: #f39a1e; }
+.now-dial .ic-moon, .now-dial .ic-sleep, .now-dial .ic-crescent, [data-now-day] .ic-moon { color: var(--cobalt); }
+.thermo-bulb .ic { width: .9em; height: .9em; color: #fff; }
+.burst .ic { width: 22px; height: 22px; color: #ff6a1a; }
+.burst .ic-star { color: var(--yellow); }
+.chat-avatar .ic { color: var(--red); width: 60%; height: 60%; }
+.cat-tile-emoji .ic { width: 1.6em; height: 1.6em; color: #fff; }
+.phone-pill .ic, .dbtn .ic, .m-btn .ic, .tk-icon .ic, .tk-type .ic, .tkt-here .ic { color: inherit; }
+.tk-dot .ic { width: .95em; height: .95em; color: inherit; }
+.tk-dot .ic-flame { color: #fff; }
+
+/* frost page transition for cold drinks and shakes (no fire on those pages) */
+html.burn-ice body::before { background: #061321; }
+.burn.ice .burn-wall { filter: hue-rotate(185deg) saturate(.8) brightness(1.1); }
+.burn.ice .burn-logo { filter: drop-shadow(0 0 30px rgba(120,210,255,.75)); }
+.burn.ice.logo-in .burn-logo { animation: none; }
+.burn.ice.arriving.logo-out .burn-logo { filter: drop-shadow(0 0 40px rgba(170,230,255,1)) brightness(1.4); }
+/* chilli rows sit on one line */
+.heat-chillies, .heat-levels button span, [data-flav] > span, .pg-flav span { display: inline-flex; flex: none; align-items: center; white-space: nowrap; letter-spacing: 0; }
+.heat-levels button span { order: 2; font-size: .9rem; color: #ff6a1a; }
+.heat-chillies { font-size: .85rem; }
+.heat-chillies .ic { color: #ff7a2a; }
+html[data-heat="5"] .heat-chillies .ic { color: #fff; }

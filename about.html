@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>About us | Mochachos Atlas Road, Boksburg</title>
   <meta name="description" content="The story of Mochachos, from the first store in Pretoria in 1994 to our flame-grilled, halaal branch on the Sasol forecourt at 254 Atlas Road, Beyers Park.">
-  <script>try{if(sessionStorage.getItem('mochachos-burn')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('burn-in')}catch(e){}</script>
+  <script>try{if(sessionStorage.getItem('mochachos-burn')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('burn-in');if(/dish\.html$/.test(location.pathname)&&/[?&]id=(drinks-|[^&]*(milkshake|freezo))/.test(location.search))document.documentElement.classList.add('burn-ice')}}catch(e){}</script>
   <meta name="theme-color" content="#00a7b5">
   <meta property="og:title" content="About us">
   <meta property="og:description" content="The story of Mochachos, from the first store in Pretoria in 1994 to our flame-grilled, halaal branch on the Sasol forecourt at 254 Atlas Road, Beyers Park.">
@@ -231,7 +231,7 @@
   </button>
   <section class="chat" id="chat" aria-label="Ask Amigo, the Mochachos Atlas AI assistant" hidden>
     <header class="chat-head">
-      <span class="chat-avatar" aria-hidden="true">🌶</span>
+      <span class="chat-avatar" aria-hidden="true"><i class="ic-w" data-ic="chilli"></i></span>
       <div>
         <strong>Amigo</strong>
         <span>AI helper · knows every price</span>
@@ -244,11 +244,12 @@
     <form class="chat-form">
       <label class="sr-only" for="chat-input">Ask a question</label>
       <input id="chat-input" name="q" autocomplete="off" maxlength="400" placeholder="Ask, or say “add 2 burritos”…">
-      <button type="button" class="chat-mic" data-chat-mic aria-label="Speak your question" aria-pressed="false">🎙</button>
-      <button type="submit" aria-label="Send">➤</button>
+      <button type="button" class="chat-mic" data-chat-mic aria-label="Speak your question" aria-pressed="false"><i class="ic-w" data-ic="mic"></i></button>
+      <button type="submit" aria-label="Send"><i class="ic-w" data-ic="send"></i></button>
     </form>
   </section>
 
+  <script src="assets/js/icons.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/fire.js" defer></script>
   <script src="assets/js/art.js" defer></script>

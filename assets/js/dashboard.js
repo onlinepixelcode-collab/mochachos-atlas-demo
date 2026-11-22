@@ -25,8 +25,8 @@
     { key: "out", title: "Out for delivery", sub: "With the driver" }
   ];
   var NEXT = {
-    pickup: { new: ["grill", "🔥 Start grilling"], grill: ["ready", "✓ Mark ready"], ready: ["done", "Collected"] },
-    delivery: { new: ["grill", "🔥 Start grilling"], grill: ["ready", "✓ Packed"], ready: ["out", "🛵 Send out"], out: ["done", "Delivered"] }
+    pickup: { new: ["grill", MIcon("flame") + " Start grilling"], grill: ["ready", MIcon("check") + " Mark ready"], ready: ["done", "Collected"] },
+    delivery: { new: ["grill", MIcon("flame") + " Start grilling"], grill: ["ready", MIcon("check") + " Packed"], ready: ["out", MIcon("scooter") + " Send out"], out: ["done", "Delivered"] }
   };
   var LABEL = { new: "New", grill: "On the grill", ready: "Ready", out: "Out for delivery", done: "Done", cancelled: "Cancelled" };
 
@@ -79,15 +79,15 @@
       var fresh = [];
       r.orders.forEach(function (o) {
         if (!state.first && !state.seen[o.id]) fresh.push(o);
-        if (!state.first && state.seen[o.id] && !state.seen[o.id].arrived && o.arrived) { chime(); toast("🚗 " + o.customer.name + " is here for " + o.id, o.id); }
-        if (!state.first && state.seen[o.id] && o.messages.length > state.seen[o.id].msgs && o.messages[o.messages.length - 1].from === "customer") { chime(); toast("💬 Message on " + o.id, o.id); }
+        if (!state.first && state.seen[o.id] && !state.seen[o.id].arrived && o.arrived) { chime(); toast(o.customer.name + " is here for " + o.id, o.id); }
+        if (!state.first && state.seen[o.id] && o.messages.length > state.seen[o.id].msgs && o.messages[o.messages.length - 1].from === "customer") { chime(); toast("New message on " + o.id, o.id); }
         state.seen[o.id] = { arrived: !!o.arrived, msgs: o.messages.length };
       });
       var sig = JSON.stringify([r.orders, r.settings, r.unread]);
       state.orders = r.orders; state.settings = r.settings || {}; state.unread = r.unread || 0;
       if (sig === state.sig && !fresh.length) { tick(); return; }
       state.sig = sig;
-      if (fresh.length) { chime(); fresh.forEach(function (o) { toast("🔔 New " + o.type + " order " + o.id + " · " + R(o.total), o.id); }); }
+      if (fresh.length) { chime(); fresh.forEach(function (o) { toast("New " + o.type + " order " + o.id + " · " + R(o.total), o.id); }); }
       state.first = false;
       render();
     }).catch(function (e) { if (e.code === 401) { sessionStorage.removeItem("mochachos-staff-pin"); location.reload(); } });
@@ -141,20 +141,20 @@
     var final = nx && nx[0] === "done";
     var isNew = !state.rendered[o.id]; state.rendered[o.id] = true;
     return '<article class="tk ' + h + (isNew && !state.firstPaint ? " is-new" : "") + (state.selected === o.id ? " is-sel" : "") + (o.arrived && o.status !== "done" ? " is-here" : "") + '" data-id="' + o.id + '" tabindex="0">' +
-      '<header><b class="tk-code">' + o.id + '</b><span class="tk-type ' + o.type + '">' + (o.type === "delivery" ? "🛵 Delivery" : "🚗 Pickup") + '</span><span class="tk-timer" data-timer="' + o.id + '">0:00</span></header>' +
-      (o.arrived && o.status !== "done" ? '<div class="tkt-here">🚗 Customer is here' + (o.arrived.spot ? " · " + esc(o.arrived.spot) : "") + (o.arrived.car || o.car ? " · " + esc(o.arrived.car || o.car) : "") + "</div>" : "") +
+      '<header><b class="tk-code">' + o.id + '</b><span class="tk-type ' + o.type + '">' + (o.type === "delivery" ? MIcon("scooter") + " Delivery" : MIcon("car") + " Pickup") + '</span><span class="tk-timer" data-timer="' + o.id + '">0:00</span></header>' +
+      (o.arrived && o.status !== "done" ? '<div class="tkt-here">' + MIcon("car") + ' Customer is here' + (o.arrived.spot ? " · " + esc(o.arrived.spot) : "") + (o.arrived.car || o.car ? " · " + esc(o.arrived.car || o.car) : "") + "</div>" : "") +
       '<div class="tk-who"><b>' + esc(o.customer.name) + '</b><a href="tel:' + esc(o.customer.phone) + '">' + esc(o.customer.phone) + "</a></div>" +
-      '<div class="tk-when">' + (o.when === "asap" ? "ASAP · placed " + hhmm(o.createdAt) + " · due " + hhmm(o.etaAt) : "⏰ Scheduled for <b>" + hhmm(o.etaAt) + "</b>") + "</div>" +
+      '<div class="tk-when">' + (o.when === "asap" ? "ASAP · placed " + hhmm(o.createdAt) + " · due " + hhmm(o.etaAt) : MIcon("clock") + " Scheduled for <b>" + hhmm(o.etaAt) + "</b>") + "</div>" +
       '<ul class="tkt-items">' + o.items.map(function (i) {
         var parts = i.name.split(" · ");
         return "<li><b>" + i.qty + "×</b> " + esc(parts[0]) + (parts[1] ? ' <i class="tk-flav">' + esc(parts[1]) + "</i>" : "") + "</li>";
       }).join("") + "</ul>" +
-      (o.notes ? '<p class="tk-notes">📝 ' + esc(o.notes) + "</p>" : "") +
-      (o.type === "delivery" ? '<p class="tk-addr">📍 <a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(o.address) + '" target="_blank" rel="noopener">' + esc(o.address) + "</a></p>" : (o.car ? '<p class="tk-addr">🚗 ' + esc(o.car) + "</p>" : "")) +
+      (o.notes ? '<p class="tk-notes">' + MIcon("note") + ' ' + esc(o.notes) + "</p>" : "") +
+      (o.type === "delivery" ? '<p class="tk-addr">' + MIcon("pin") + ' <a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(o.address) + '" target="_blank" rel="noopener">' + esc(o.address) + "</a></p>" : (o.car ? '<p class="tk-addr">' + MIcon("car") + ' ' + esc(o.car) + "</p>" : "")) +
       '<div class="tk-foot"><span class="tkt-total">' + R(o.total) + ' <small>' + (o.payment === "card" ? "card" : "cash") + "</small></span>" +
-      '<button class="tk-icon" data-chat="' + o.id + '" aria-label="Messages for ' + o.id + '">💬' + (unread ? "<i>" + unread + "</i>" : "") + "</button>" +
-      '<button class="tk-icon" data-print="' + o.id + '" aria-label="Print ticket ' + o.id + '">🖨</button>' +
-      '<button class="tk-icon" data-cancel="' + o.id + '" aria-label="Cancel ' + o.id + '">✕</button></div>' +
+      '<button class="tk-icon" data-chat="' + o.id + '" aria-label="Messages for ' + o.id + '">' + MIcon("chat") + (unread ? "<i>" + unread + "</i>" : "") + "</button>" +
+      '<button class="tk-icon" data-print="' + o.id + '" aria-label="Print ticket ' + o.id + '">' + MIcon("printer") + '</button>' +
+      '<button class="tk-icon" data-cancel="' + o.id + '" aria-label="Cancel ' + o.id + '">' + MIcon("close") + '</button></div>' +
       (nx ? (final
         ? '<button class="tk-go hold" data-hold="' + o.id + '"><span class="fill"></span><span class="lbl">Hold to complete · ' + nx[1] + "</span></button>"
         : '<button class="tk-go" data-go="' + o.id + '" data-to="' + nx[0] + '">' + nx[1] + "</button>") : "") +
@@ -169,7 +169,7 @@
       var items = active.filter(function (o) { return o.status === c.key; }).sort(function (a, b) { return (a.when === "asap" ? a.createdAt : a.etaAt - 1800000) - (b.when === "asap" ? b.createdAt : b.etaAt - 1800000); });
       if (c.key === "out" && state.filter === "pickup") return "";
       return '<section class="col col-' + c.key + '"><header><h2>' + c.title + " <span>" + items.length + "</span></h2><p>" + c.sub + "</p></header>" +
-        '<div class="col-list">' + (items.length ? items.map(ticket).join("") : '<p class="col-empty">' + (c.key === "new" ? "No new orders. The grill is ready 🔥" : "Nothing here") + "</p>") + "</div></section>";
+        '<div class="col-list">' + (items.length ? items.map(ticket).join("") : '<p class="col-empty">' + (c.key === "new" ? "No new orders. The grill is ready." : "Nothing here") + "</p>") + "</div></section>";
     }).join("") + '<section class="col col-done"><header><h2>Done today</h2><p>Collected, delivered or cancelled</p></header><ul class="done-list col-list" data-done-m></ul></section>';
     // all-day counts (everything still to cook)
     var counts = {};
@@ -183,7 +183,7 @@
     $("[data-done-count]").textContent = done.length;
     var doneHtml = done.length ? done.map(function (o) {
       var end = o.history[o.history.length - 1].t;
-      return '<li class="' + o.status + '"><b>' + o.id + "</b><span>" + esc(o.customer.name) + " · " + (o.type === "delivery" ? "🛵" : "🚗") + "</span><span>" + hhmm(o.createdAt) + " → " + hhmm(end) + " (" + Math.round((end - o.createdAt) / 60000) + " min)</span><em>" + (o.status === "cancelled" ? "Cancelled" : R(o.total)) + '</em><button data-recall="' + o.id + '" title="Bring back">↩</button></li>';
+      return '<li class="' + o.status + '"><b>' + o.id + "</b><span>" + esc(o.customer.name) + " · " + (o.type === "delivery" ? MIcon("scooter") : MIcon("car")) + "</span><span>" + hhmm(o.createdAt) + " → " + hhmm(end) + " (" + Math.round((end - o.createdAt) / 60000) + " min)</span><em>" + (o.status === "cancelled" ? "Cancelled" : R(o.total)) + '</em><button data-recall="' + o.id + '" title="Bring back">↩</button></li>';
     }).join("") : '<li class="muted">No completed orders yet today.</li>';
     $("[data-done]").innerHTML = doneHtml;
     var dm = $("[data-done-m]"); if (dm) dm.innerHTML = doneHtml;
@@ -209,7 +209,7 @@
     $("[data-board]").setAttribute("data-active", state.col);
     $("[data-board]").classList.toggle("col-enter", !!state.colAnim); state.colAnim = false;
     state.firstPaint = false;
-    $("[data-allday-strip]").innerHTML = keys.length ? '<span class="strip-label">🔥 All day</span>' + keys.map(function (k) { return "<span><b>" + counts[k] + "</b> " + esc(k) + "</span>"; }).join("") : "";
+    $("[data-allday-strip]").innerHTML = keys.length ? '<span class="strip-label">' + MIcon("flame") + ' All day</span>' + keys.map(function (k) { return "<span><b>" + counts[k] + "</b> " + esc(k) + "</span>"; }).join("") : "";
     var newCount = active.filter(function (o) { return o.status === "new"; }).length;
     document.title = (newCount ? "(" + newCount + ") " : "") + "The Pass · Mochachos Atlas Road";
     tick();
@@ -244,7 +244,7 @@
   function burst(el) {
     var r = el.getBoundingClientRect();
     for (var i = 0; i < 26; i++) {
-      var s = document.createElement("span"); s.className = "burst"; s.textContent = ["🔥", "✦", "🌶"][i % 3];
+      var s = document.createElement("span"); s.className = "burst"; s.innerHTML = MIcon(["flame", "star", "chilli"][i % 3]);
       var a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 160;
       s.style.left = r.left + r.width / 2 + "px"; s.style.top = r.top + r.height / 2 + "px";
       s.style.setProperty("--dx", Math.cos(a) * d + "px"); s.style.setProperty("--dy", Math.sin(a) * d - 40 + "px"); s.style.setProperty("--rot", Math.random() * 600 - 300 + "deg");
@@ -330,7 +330,7 @@
 
   /* ---------- toolbar: sound, busy, pause, settings, demo ---------- */
   var soundBtn = $("[data-sound-btn]");
-  function paintSound() { soundBtn.textContent = state.sound ? "🔔 Sound on" : "🔕 Sound off"; soundBtn.classList.toggle("is-on", state.sound); }
+  function paintSound() { soundBtn.innerHTML = state.sound ? MIcon("bell") + " Sound on" : MIcon("belloff") + " Sound off"; soundBtn.classList.toggle("is-on", state.sound); }
   soundBtn.addEventListener("click", function () { state.sound = !state.sound; try { localStorage.setItem("mochachos-dash-sound", state.sound ? "1" : "0"); } catch (e) {} paintSound(); if (state.sound) chime(); });
   paintSound();
   function menuFor(btn, html, onPick) {
@@ -362,7 +362,7 @@
     var items = [], n = 1 + Math.floor(Math.random() * 3);
     for (var i = 0; i < n; i++) { var p = picks[Math.floor(Math.random() * picks.length)], f = U.find(M, p[0], p[1]); if (f) items.push({ name: f.name + (/Chicken$|^1\/[24] Chicken/.test(f.name) ? " · " + ["Mild", "Hot", "Extra Hot", "Lemon & Herb"][i % 4] : ""), qty: 1 + Math.floor(Math.random() * 2), price: f.price }); }
     var del = Math.random() < 0.4;
-    O.create({ type: del ? "delivery" : "pickup", when: "asap", customer: { name: names[Math.floor(Math.random() * names.length)], phone: "08" + Math.floor(10000000 + Math.random() * 89999999) }, address: del ? "12 Campo St, Beyers Park" : "", car: del ? "" : ["Silver Polo", "White Hilux", "Red Kia Picanto"][Math.floor(Math.random() * 3)], notes: Math.random() < 0.3 ? "Extra peri-mayo please" : "", payment: Math.random() < 0.5 ? "card" : "cash", items: items }).then(load).catch(function (e) { toast("⚠ " + e.message); });
+    O.create({ type: del ? "delivery" : "pickup", when: "asap", customer: { name: names[Math.floor(Math.random() * names.length)], phone: "08" + Math.floor(10000000 + Math.random() * 89999999) }, address: del ? "12 Campo St, Beyers Park" : "", car: del ? "" : ["Silver Polo", "White Hilux", "Red Kia Picanto"][Math.floor(Math.random() * 3)], notes: Math.random() < 0.3 ? "Extra peri-mayo please" : "", payment: Math.random() < 0.5 ? "card" : "cash", items: items }).then(load).catch(function (e) { toast("Problem: " + e.message); });
   });
   $("[data-clear]").addEventListener("click", function () { if (confirm("Clear all demo orders and messages?")) O.clearDemo().then(function () { state.seen = {}; load(); }); });
   $("[data-full]").addEventListener("click", function () { if (!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); else document.exitFullscreen(); });
@@ -392,9 +392,9 @@
     var o = byId(state.openChat); if (!o) return;
     var body = drawer.querySelector("[data-drawer-body]");
     var keep = body.querySelector("textarea") ? body.querySelector("textarea").value : "";
-    body.innerHTML = '<button class="link-btn" data-back>← All messages</button><h3>' + o.id + " · " + esc(o.customer.name) + ' <a href="tel:' + esc(o.customer.phone) + '">📞</a></h3>' +
+    body.innerHTML = '<button class="link-btn" data-back>← All messages</button><h3>' + o.id + " · " + esc(o.customer.name) + ' <a href="tel:' + esc(o.customer.phone) + '" aria-label="Call">' + MIcon("phone") + '</a></h3>' +
       '<div class="chat-thread">' + (o.messages.length ? o.messages.map(function (m) { return '<div class="tk-msg ' + m.from + '"><p>' + esc(m.text) + "</p><small>" + (m.from === "store" ? "You" : esc(o.customer.name)) + " · " + hhmm(m.t) + "</small></div>"; }).join("") : '<p class="muted">No messages yet. Send the customer an update.</p>') + "</div>" +
-      '<div class="quick-replies">' + ["Your order is on the grill 🔥", "Ready! See you soon.", "Driver is on the way 🛵", "Running 5 minutes late, sorry!"].map(function (q) { return '<button data-quick="' + esc(q) + '">' + esc(q) + "</button>"; }).join("") + "</div>" +
+      '<div class="quick-replies">' + ["Your order is on the grill.", "Ready! See you soon.", "Driver is on the way.", "Running 5 minutes late, sorry!"].map(function (q) { return '<button data-quick="' + esc(q) + '">' + esc(q) + "</button>"; }).join("") + "</div>" +
       '<form data-reply><textarea name="text" rows="2" placeholder="Reply to ' + esc(o.customer.name) + '…" required>' + esc(keep) + '</textarea><button class="btn btn-fire btn-sm"><span>Send</span></button></form>';
     var th = body.querySelector(".chat-thread"); th.scrollTop = th.scrollHeight;
     body.querySelector("[data-reply]").addEventListener("submit", function (e) { e.preventDefault(); var v = e.currentTarget.text.value.trim(); if (!v) return; e.currentTarget.text.value = ""; O.staff(o.id, { message: v, read: true }).then(load); });

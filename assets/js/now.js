@@ -5,20 +5,20 @@
   if (!root) return;
   var $ = function (s) { return root.querySelector(s); };
   var PERIODS = [
-    { key: "morning", from: 600, to: 690, emoji: "☀️", title: "Morning fuel", text: "Just opened and the grill is hot. Something light to start the day.",
+    { key: "morning", from: 600, to: 690, ic: "sun", title: "Morning fuel", text: "Just opened and the grill is hot. Something light to start the day.",
       picks: [["Toasted Mexican Chicken Mayo"], ["Mexican Chicken Pieces with Rice"], ["3 Chicken Strips & Dip"], ["Lemon Ice Tea", "350ml"]] },
-    { key: "lunch", from: 690, to: 870, emoji: "🌮", title: "Lunch rush", text: "Combos with chips and a Buddy, quick to grab on your break.",
+    { key: "lunch", from: 690, to: 870, ic: "taco", title: "Lunch rush", text: "Combos with chips and a Buddy, quick to grab on your break.",
       picks: [["1/4 Chicken, Beeg Chips & Buddy"], ["Chicken Burger, Beeg Chips & Buddy"], ["Chicken Schwarma, Beeg Chips & Buddy"], ["Chicken Burrito, Beeg Chips & Buddy"]] },
-    { key: "afternoon", from: 870, to: 1020, emoji: "🍟", title: "Snack attack", text: "That 3 o'clock craving. Wings, loaded chips and something cold.",
+    { key: "afternoon", from: 870, to: 1020, ic: "fries", title: "Snack attack", text: "That 3 o'clock craving. Wings, loaded chips and something cold.",
       picks: [["4 Full BBQ Wings & Beeg Chips"], ["Loaded Chips", "Beeger"], ["Milkshake 350ml"], ["Churros (plain)", "3 churros"]] },
-    { key: "dinner", from: 1020, to: 1140, emoji: "🔥", title: "Dinner on the grill", text: "Feed the family tonight. Full chickens and boards for the table.",
+    { key: "dinner", from: 1020, to: 1140, ic: "flame", title: "Dinner on the grill", text: "Feed the family tonight. Full chickens and boards for the table.",
       picks: [["Family Fiesta"], ["1/2 Chicken, Beeg Chips & Buddy"], ["Family Variety"], ["Nachos", "Chicken"]] },
-    { key: "late", from: 1140, to: 1260, emoji: "🌙", title: "Late cravings", text: "Last orders before we close. Grab something hot on the way home.",
+    { key: "late", from: 1140, to: 1260, ic: "moon", title: "Late cravings", text: "Last orders before we close. Grab something hot on the way home.",
       picks: [["Nacho Crunch Gourmet Burger"], ["Chimichanga", "Chicken"], ["8 Full BBQ Wings & Beeger Chips"], ["Freezo 350ml"]] }
   ];
-  var CLOSED = { key: "closed", emoji: "💤", title: "The grill is resting", text: "We're closed right now. Line up tomorrow's lunch and schedule it for pickup.",
+  var CLOSED = { key: "closed", ic: "sleep", title: "The grill is resting", text: "We're closed right now. Line up tomorrow's lunch and schedule it for pickup.",
     picks: [["1/2 Chicken, Beeg Chips & Buddy"], ["Family Fiesta"], ["Nacho Crunch Gourmet Burger"], ["Burrito", "Chicken"]] };
-  var PRAYER = { key: "prayer", emoji: "🕌", title: "Back after prayers", text: "We close on Fridays from 12:15 to 13:30. Order now and schedule it for 13:30.",
+  var PRAYER = { key: "prayer", ic: "crescent", title: "Back after prayers", text: "We close on Fridays from 12:15 to 13:30. Order now and schedule it for 13:30.",
     picks: [["1/4 Chicken, Beeg Chips & Buddy"], ["Chicken Burger, Beeg Chips & Buddy"], ["Burrito", "Chicken"], ["Family Variety"]] };
   var fmt = function (m) { return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
   var lastKey = null;
@@ -34,13 +34,13 @@
     if (!window.MochachosMenu || !window.MochachosHours) return;
     var c = current(), p = c.p, U = window.MochachosMenuUtil, M = window.MochachosMenu;
     $("[data-now-clock]").textContent = fmt(c.n.mins);
-    $("[data-now-day]").innerHTML = PERIODS.map(function (x) { return '<li class="' + (x.key === p.key ? "on" : "") + '"><span>' + x.emoji + "</span>" + x.title + "<small>" + fmt(x.from) + "</small></li>"; }).join("");
+    $("[data-now-day]").innerHTML = PERIODS.map(function (x) { return '<li class="' + (x.key === p.key ? "on" : "") + '"><span>' + MIcon(x.ic) + "</span>" + x.title + "<small>" + fmt(x.from) + "</small></li>"; }).join("");
     var next = PERIODS.filter(function (x) { return x.from > c.n.mins; })[0];
-    $("[data-now-next]").textContent = p.key === "closed" ? c.st.long : p.key === "prayer" ? "We reopen at 13:30." : next ? "Next up at " + fmt(next.from) + ": " + next.title + " " + next.emoji : c.st.long;
+    $("[data-now-next]").textContent = p.key === "closed" ? c.st.long : p.key === "prayer" ? "We reopen at 13:30." : next ? "Next up at " + fmt(next.from) + ": " + next.title : c.st.long;
     if (p.key === lastKey && !force) return;
     lastKey = p.key;
     root.setAttribute("data-period", p.key);
-    $("[data-now-emoji]").textContent = p.emoji;
+    $("[data-now-emoji]").innerHTML = MIcon(p.ic);
     $("[data-now-title]").innerHTML = '<span class="fire-text">' + p.title.split(" ")[0] + "</span> " + p.title.split(" ").slice(1).join(" ");
     $("[data-now-text]").textContent = p.text;
     var cards = p.picks.map(function (x) { return U.find(M, x[0], x[1]); }).filter(Boolean);

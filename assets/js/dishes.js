@@ -44,7 +44,7 @@
     tilesEl.innerHTML = M.categories.map(function (c) {
       var bg = c.noImg ? "" : ' style="background-image:url(assets/img/' + c.img + ')"';
       return '<button class="cat-tile' + (c.noImg ? " no-img" : "") + '" data-cat="' + c.id + '"' + bg + '><span class="cat-tile-emoji" aria-hidden="true">' +
-        ({ salads: "🥗", kids: "🧒", desserts: "🍩", drinks: "🥤" }[c.id] || "") + '</span><b>' + esc(c.name) + "</b><small>" + c.items.length + " items</small></button>";
+        (MIcon({ salads: "salad", kids: "kid", desserts: "churro", drinks: "cup" }[c.id]) || "") + '</span><b>' + esc(c.name) + "</b><small>" + c.items.length + " items</small></button>";
     }).join("");
     catsEl.innerHTML = '<button data-cat="all">All dishes <small>' + all.length + "</small></button>" +
       M.categories.map(function (c) { return '<button data-cat="' + c.id + '">' + esc(c.name) + " <small>" + c.items.length + "</small></button>"; }).join("");

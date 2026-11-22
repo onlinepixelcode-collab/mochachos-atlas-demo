@@ -6,7 +6,7 @@
   <title>Checkout | Mochachos Atlas Road</title>
   <meta name="description" content="Order Mochachos Atlas Road online for pickup or delivery. Pay when you collect.">
   <meta name="robots" content="noindex">
-  <script>try{if(sessionStorage.getItem('mochachos-burn')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('burn-in')}catch(e){}</script>
+  <script>try{if(sessionStorage.getItem('mochachos-burn')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('burn-in');if(/dish\.html$/.test(location.pathname)&&/[?&]id=(drinks-|[^&]*(milkshake|freezo))/.test(location.search))document.documentElement.classList.add('burn-ice')}}catch(e){}</script>
   <meta name="theme-color" content="#00a7b5">
   <meta property="og:title" content="Checkout">
   <meta property="og:description" content="Order Mochachos Atlas Road online for pickup or delivery. Pay when you collect.">
@@ -85,8 +85,8 @@
             <fieldset class="co-step">
               <legend><span>1</span> How do you want it?</legend>
               <div class="co-types">
-                <label class="co-type"><input type="radio" name="type" value="pickup" checked><span><b>🚗 Pickup</b><small data-eta-pickup>Ready in ~15 min</small><em>Tap “I'm here” on the forecourt and we bring it out.</em></span></label>
-                <label class="co-type"><input type="radio" name="type" value="delivery"><span><b>🛵 Delivery</b><small data-eta-delivery>~40 min</small><em>Hot to your door around Beyers Park.</em></span></label>
+                <label class="co-type"><input type="radio" name="type" value="pickup" checked><span><b><i class="ic-w" data-ic="car"></i> Pickup</b><small data-eta-pickup>Ready in ~15 min</small><em>Tap “I'm here” on the forecourt and we bring it out.</em></span></label>
+                <label class="co-type"><input type="radio" name="type" value="delivery"><span><b><i class="ic-w" data-ic="scooter"></i> Delivery</b><small data-eta-delivery>~40 min</small><em>Hot to your door around Beyers Park.</em></span></label>
               </div>
             </fieldset>
             <fieldset class="co-step">
@@ -108,8 +108,8 @@
               </div>
               <div class="co-pay">
                 <span>Pay when you get it</span>
-                <label class="co-chip"><input type="radio" name="payment" value="cash" checked><span>💵 Cash</span></label>
-                <label class="co-chip"><input type="radio" name="payment" value="card"><span>💳 Card</span></label>
+                <label class="co-chip"><input type="radio" name="payment" value="cash" checked><span><i class="ic-w" data-ic="cash"></i> Cash</span></label>
+                <label class="co-chip"><input type="radio" name="payment" value="card"><span><i class="ic-w" data-ic="card"></i> Card</span></label>
               </div>
               <label class="toggle co-remember"><input type="checkbox" name="remember" checked><span></span> Remember my details on this device</label>
             </fieldset>
@@ -193,7 +193,7 @@
   </button>
   <section class="chat" id="chat" aria-label="Ask Amigo, the Mochachos Atlas AI assistant" hidden>
     <header class="chat-head">
-      <span class="chat-avatar" aria-hidden="true">🌶</span>
+      <span class="chat-avatar" aria-hidden="true"><i class="ic-w" data-ic="chilli"></i></span>
       <div>
         <strong>Amigo</strong>
         <span>AI helper · knows every price</span>
@@ -206,11 +206,12 @@
     <form class="chat-form">
       <label class="sr-only" for="chat-input">Ask a question</label>
       <input id="chat-input" name="q" autocomplete="off" maxlength="400" placeholder="Ask, or say “add 2 burritos”…">
-      <button type="button" class="chat-mic" data-chat-mic aria-label="Speak your question" aria-pressed="false">🎙</button>
-      <button type="submit" aria-label="Send">➤</button>
+      <button type="button" class="chat-mic" data-chat-mic aria-label="Speak your question" aria-pressed="false"><i class="ic-w" data-ic="mic"></i></button>
+      <button type="submit" aria-label="Send"><i class="ic-w" data-ic="send"></i></button>
     </form>
   </section>
 
+  <script src="assets/js/icons.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/fire.js" defer></script>
   <script src="assets/js/art.js" defer></script>

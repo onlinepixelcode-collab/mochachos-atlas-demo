@@ -254,7 +254,7 @@
     var section = document.getElementById("flavours");
     var colours = ["#9bd36a", "#f5c000", "#f39a1e", "#e4542a", "#db342e"];
     picks.innerHTML = MENU.flavours.map(function (f, i) {
-      return '<button role="radio" aria-checked="false" data-flav="' + i + '" style="--c:' + colours[i] + '"><span>' + "🌶".repeat(f.heat) + "</span>" + esc(f.name) + "</button>";
+      return '<button role="radio" aria-checked="false" data-flav="' + i + '" style="--c:' + colours[i] + '"><span>' + MIcon.repeat("chilli", f.heat) + "</span>" + esc(f.name) + "</button>";
     }).join("");
     scale.innerHTML = MENU.flavours.slice().reverse().map(function (f) { return "<li>" + esc(f.name) + "</li>"; }).join("");
     function pick(i, fromOutside) {

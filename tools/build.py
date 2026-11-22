@@ -27,6 +27,8 @@ def nav(current, sep):
 
 def scripts(names):
     names = list(names)
+    if "icons" not in names:
+        names.insert(0, "icons")  # drawn UI icons (the site uses no emojis)
     if "menu" in names and "art" not in names:
         names.insert(names.index("menu"), "art")  # item illustrations, needed by the menu helpers
     if "dashboard" not in names:

@@ -27,11 +27,11 @@
   /* ---------- chilli burst ---------- */
   function burst(x, y, n) {
     if (reduce) return;
-    var chars = ["🌶", "🔥", "✦"];
+    var chars = ["chilli", "flame", "star"];
     for (var i = 0; i < (n || 18); i++) {
       var s = document.createElement("span");
       s.className = "burst";
-      s.textContent = chars[i % chars.length];
+      s.innerHTML = MIcon(chars[i % chars.length]);
       var a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 140;
       s.style.left = x + "px"; s.style.top = y + "px";
       s.style.setProperty("--dx", Math.cos(a) * d + "px");
@@ -47,7 +47,7 @@
     var el = document.querySelector("[data-book]");
     if (!el) return;
     var pages = [];
-    var heat = ["🌶", "🌶🌶", "🌶🌶🌶", "🌶🌶🌶🌶", "🌶🌶🌶🌶🌶"];
+    var heat = [1, 2, 3, 4, 5].map(function (n) { return MIcon.repeat("chilli", n); });
     pages.push('<div class="page page-cover" data-density="hard"><div class="pg"><div class="cover-tiles"></div><img src="assets/img/logo-horizontal.png" alt="Mochachos"><p class="cover-kicker">Atlas Road · Beyers Park</p><h3 class="cover-title">Menu</h3><p class="cover-year">2026</p><p class="cover-hint">Drag the corner to open →</p></div></div>');
     pages.push('<div class="page page-intro"><div class="pg"><p class="pg-tag">Taste the fiesta</p><h4>Zee Flavours</h4><ul class="pg-flav">' +
       M.flavours.map(function (f, i) { return "<li><b>" + esc(f.name) + "</b><span>" + heat[i] + "</span></li>"; }).join("") +
@@ -113,7 +113,7 @@
     }
     var sb = document.querySelector("[data-book-sound]");
     if (sb) {
-      var paintSb = function () { sb.textContent = soundOn ? "🔊" : "🔇"; sb.setAttribute("aria-label", soundOn ? "Mute page-turn sound" : "Turn on page-turn sound"); sb.setAttribute("aria-pressed", String(soundOn)); };
+      var paintSb = function () { sb.innerHTML = MIcon(soundOn ? "speaker" : "mute"); sb.setAttribute("aria-label", soundOn ? "Mute page-turn sound" : "Turn on page-turn sound"); sb.setAttribute("aria-pressed", String(soundOn)); };
       sb.addEventListener("click", function () { soundOn = !soundOn; try { localStorage.setItem("mochachos-book-sound", soundOn ? "1" : "0"); } catch (x) {} paintSb(); if (soundOn) pageSound(); });
       paintSb();
     }

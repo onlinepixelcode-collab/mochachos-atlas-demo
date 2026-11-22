@@ -65,8 +65,8 @@
       sel.disabled = form.when.value !== "later";
       var paused = settings.pausedUntil && Date.now() < settings.pausedUntil;
       banner.hidden = !paused && open;
-      banner.innerHTML = paused ? "⏸ We've paused online orders for a few minutes while the grill catches up. Please call <a href=\"tel:+27104480666\">010 448 0666</a>." :
-        "🌙 We're closed right now (" + esc(window.MochachosHours.status().long) + ") You can schedule your order for later.";
+      banner.innerHTML = paused ? MIcon("pause") + " We've paused online orders for a few minutes while the grill catches up. Please call <a href=\"tel:+27104480666\">010 448 0666</a>." :
+        MIcon("moon") + " We're closed right now (" + esc(window.MochachosHours.status().long) + ") You can schedule your order for later.";
       if (!items.length) {
         listEl.innerHTML = '<li class="co-empty">Your tray is empty. <a href="dishes.html">Pick some dishes</a> or try a favourite:</li>';
         co.querySelector("[data-co-quick]").hidden = false;
@@ -153,14 +153,14 @@
         o.status === "ready" && o.type === "pickup" ? "Ready now. Tap “I'm here” when you arrive." :
         remain > 1 ? "About " + remain + " min (" + hhmm(o.etaAt) + ")" : "Any minute now…";
       tr.querySelector("[data-tk-code]").textContent = o.id;
-      tr.querySelector("[data-tk-type]").textContent = o.type === "delivery" ? "🛵 Delivery" : "🚗 Pickup";
+      tr.querySelector("[data-tk-type]").innerHTML = o.type === "delivery" ? MIcon("scooter") + " Delivery" : MIcon("car") + " Pickup";
       tr.querySelector("[data-tk-eta]").textContent = etaTxt;
       tr.querySelector("[data-tk-title]").textContent = cancelled ? "Cancelled" : steps[idx][2];
       tr.classList.toggle("is-cancelled", cancelled);
       tr.style.setProperty("--progress", cancelled ? 0 : idx / (steps.length - 1));
       tr.querySelector("[data-tk-steps]").innerHTML = steps.map(function (s, i) {
         var h = o.history.filter(function (x) { return x.s === s[0]; }).pop();
-        return '<li class="' + (i < idx ? "done" : i === idx ? "now" : "") + '"><span class="tk-dot">' + (i < idx ? "✓" : i === idx && s[0] === "grill" ? "🔥" : i + 1) + "</span><b>" + s[1] + "</b><small>" + (h ? hhmm(h.t) : "") + "</small></li>";
+        return '<li class="' + (i < idx ? "done" : i === idx ? "now" : "") + '"><span class="tk-dot">' + (i < idx ? MIcon("check") : i === idx && s[0] === "grill" ? MIcon("flame") : i + 1) + "</span><b>" + s[1] + "</b><small>" + (h ? hhmm(h.t) : "") + "</small></li>";
       }).join("");
       tr.querySelector("[data-tk-items]").innerHTML = o.items.map(function (i) { return "<li><span><b>" + i.qty + "×</b> " + esc(i.name) + "</span><em>" + R(i.price * i.qty) + "</em></li>"; }).join("");
       tr.querySelector("[data-tk-total]").textContent = R(o.total) + (o.type === "delivery" && typeof o.deliveryFee !== "number" ? " + delivery" : "");
@@ -225,7 +225,7 @@
     O.get(mine.id, mine.token).then(function (r) {
       var o = r.order;
       if (o.status === "done" || o.status === "cancelled") return;
-      var labels = { new: "Received", grill: "On the grill 🔥", ready: o.type === "pickup" ? "Ready for pickup" : "Packed", out: "On the way 🛵" };
+      var labels = { new: "Received", grill: "On the grill", ready: o.type === "pickup" ? "Ready for pickup" : "Packed", out: "On the way" };
       var a = document.createElement("a");
       a.className = "live-order"; a.href = "track.html?id=" + encodeURIComponent(o.id) + "&t=" + encodeURIComponent(mine.token);
       a.innerHTML = '<span class="live-dot" aria-hidden="true"></span><span>Order ' + esc(o.id) + ": <b>" + labels[o.status] + "</b></span><em>Track →</em>";

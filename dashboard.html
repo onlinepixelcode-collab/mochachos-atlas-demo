@@ -6,7 +6,7 @@
   <title>The Pass · Mochachos Atlas Road</title>
   <meta name="description" content="Staff order dashboard.">
   <meta name="robots" content="noindex, nofollow">
-  <script>try{if(sessionStorage.getItem('mochachos-burn')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('burn-in')}catch(e){}</script>
+  <script>try{if(sessionStorage.getItem('mochachos-burn')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('burn-in');if(/dish\.html$/.test(location.pathname)&&/[?&]id=(drinks-|[^&]*(milkshake|freezo))/.test(location.search))document.documentElement.classList.add('burn-ice')}}catch(e){}</script>
   <meta name="theme-color" content="#00a7b5">
   <meta property="og:title" content="The Pass · Mochachos Atlas Road">
   <meta property="og:description" content="Staff order dashboard.">
@@ -29,7 +29,7 @@
           <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
           <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
           <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
-          <button data-k="del" aria-label="Delete">⌫</button><button data-k="0">0</button><button data-k="ok" class="ok">Go</button>
+          <button data-k="del" aria-label="Delete"><i class="ic-w" data-ic="backspace"></i></button><button data-k="0">0</button><button data-k="ok" class="ok">Go</button>
         </div>
         <p class="login-err" data-login-err role="alert"></p>
         <p class="login-mode" data-login-mode></p>
@@ -47,7 +47,7 @@
         </div>
         <div class="dash-clock" data-clock>--:--:--</div>
         <div class="m-actions">
-          <button class="m-btn" data-msg-btn aria-label="Messages">💬<i class="badge" data-msg-badge hidden>0</i></button>
+          <button class="m-btn" data-msg-btn aria-label="Messages"><i class="ic-w" data-ic="chat"></i><i class="badge" data-msg-badge hidden>0</i></button>
           <button class="m-btn" data-more aria-label="More tools" aria-expanded="false">⋯</button>
         </div>
       </header>
@@ -60,21 +60,21 @@
       <div class="dash-bar">
         <div class="dash-filters" role="group" aria-label="Filter orders">
           <button data-filter="all" aria-pressed="true">All</button>
-          <button data-filter="pickup" aria-pressed="false" aria-label="Pickup only">🚗<span class="f-label"> Pickup</span></button>
-          <button data-filter="delivery" aria-pressed="false" aria-label="Delivery only">🛵<span class="f-label"> Delivery</span></button>
+          <button data-filter="pickup" aria-pressed="false" aria-label="Pickup only"><i class="ic-w" data-ic="car"></i><span class="f-label"> Pickup</span></button>
+          <button data-filter="delivery" aria-pressed="false" aria-label="Delivery only"><i class="ic-w" data-ic="scooter"></i><span class="f-label"> Delivery</span></button>
         </div>
         <input class="dash-search" data-search type="search" placeholder="Find order, name or phone">
         <div class="dash-tools" data-tools>
           <p class="sheet-title">Kitchen tools</p>
-          <button class="dbtn" data-busy-btn>⏱ Busy: <b data-busy-state>Normal</b></button>
-          <button class="dbtn" data-pause-btn>⏸ <b data-pause-state>Taking orders</b></button>
-          <button class="dbtn" data-msg-btn>💬 Messages <i class="badge" data-msg-badge hidden>0</i></button>
-          <button class="dbtn" data-sound-btn>🔔 Sound on</button>
-          <button class="dbtn" data-settings-btn>⚙<span class="m-label"> Settings</span></button>
+          <button class="dbtn" data-busy-btn><i class="ic-w" data-ic="clock"></i> Busy: <b data-busy-state>Normal</b></button>
+          <button class="dbtn" data-pause-btn><i class="ic-w" data-ic="pause"></i> <b data-pause-state>Taking orders</b></button>
+          <button class="dbtn" data-msg-btn><i class="ic-w" data-ic="chat"></i> Messages <i class="badge" data-msg-badge hidden>0</i></button>
+          <button class="dbtn" data-sound-btn><i class="ic-w" data-ic="bell"></i> Sound on</button>
+          <button class="dbtn" data-settings-btn><i class="ic-w" data-ic="cog"></i><span class="m-label"> Settings</span></button>
           <button class="dbtn dbtn-fire" data-simulate hidden>＋ Simulate order</button>
           <button class="dbtn" data-clear hidden>Clear demo</button>
-          <button class="dbtn" data-full title="Full screen">⛶<span class="m-label"> Full screen</span></button>
-          <button class="dbtn" data-logout title="Lock">🔒<span class="m-label"> Lock</span></button>
+          <button class="dbtn" data-full title="Full screen"><i class="ic-w" data-ic="expand"></i><span class="m-label"> Full screen</span></button>
+          <button class="dbtn" data-logout title="Lock"><i class="ic-w" data-ic="lock"></i><span class="m-label"> Lock</span></button>
           <button class="dbtn sheet-close" data-more-close>Close</button>
         </div>
       </div>
@@ -90,7 +90,7 @@
         <div class="board" data-board></div>
         <aside class="dash-side">
           <section class="side-card">
-            <h2>🔥 All day <small>to cook now</small></h2>
+            <h2><i class="ic-w" data-ic="flame"></i> All day <small>to cook now</small></h2>
             <ul class="allday" data-allday></ul>
           </section>
           <section class="side-card">
@@ -108,11 +108,12 @@
       <div class="dash-toasts" data-toasts aria-live="polite"></div>
       <div class="dash-pop" data-pop hidden></div>
       <aside class="drawer" data-drawer hidden>
-        <header><h2>💬 Messages</h2><button data-drawer-close aria-label="Close">×</button></header>
+        <header><h2><i class="ic-w" data-ic="chat"></i> Messages</h2><button data-drawer-close aria-label="Close">×</button></header>
         <div class="drawer-body" data-drawer-body></div>
       </aside>
     </div>
   </main>
+  <script src="assets/js/icons.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/art.js" defer></script>
   <script src="assets/js/menu.js" defer></script>

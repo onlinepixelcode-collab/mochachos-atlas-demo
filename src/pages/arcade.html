@@ -15,7 +15,7 @@
         <div class="game-hud" aria-label="Game stats">
           <div><span>Score</span><b data-g-score>0</b></div>
           <div><span>Combo</span><b data-g-combo>x1</b></div>
-          <div><span>Lives</span><b data-g-lives>🔥🔥🔥</b></div>
+          <div><span>Lives</span><b data-g-lives><i data-ic="flame" data-ic-n="3"></i></b></div>
           <div><span>Best</span><b data-g-best>0</b></div>
           <div class="game-heat"><span>Grill heat</span><i><em data-g-heat></em></i></div>
         </div>
@@ -27,10 +27,10 @@
             <p class="script yellow">Ready, amigo?</p>
             <h2>Flame <span class="fire-text">Catcher</span></h2>
             <ul class="game-legend">
-              <li><span>🍗 🍔 🌯 🍟 🥤</span>Catch for points</li>
-              <li><span>🌶</span>Chilli: double points for 6 seconds</li>
-              <li><span>⭐</span>Golden bonus: 50 points</li>
-              <li><span>🧨</span>Dynamite: lose a life</li>
+              <li><span class="ic-row"><i class="ic-w c-gold" data-ic="drumstick"></i><i class="ic-w c-gold" data-ic="burger"></i><i class="ic-w c-gold" data-ic="burrito"></i><i class="ic-w c-yel" data-ic="fries"></i><i class="ic-w c-red" data-ic="cup"></i></span>Catch for points</li>
+              <li><span><i class="ic-w c-red" data-ic="chilli"></i></span>Chilli: double points for 6 seconds</li>
+              <li><span><i class="ic-w c-yel" data-ic="star"></i></span>Golden bonus: 50 points</li>
+              <li><span><i class="ic-w c-red" data-ic="dynamite"></i></span>Dynamite: lose a life</li>
             </ul>
             <p class="game-help">Catch 5 in a row to raise your combo (up to x5). Move with the mouse, your finger or ← →. Press P to pause.</p>
             <button class="btn btn-fire btn-lg" data-g-play><span>Fire it up</span></button>
@@ -43,7 +43,7 @@
             <p class="script yellow">Game over</p>
             <h2><span class="fire-text" data-g-final>0</span></h2>
             <p class="game-rank" data-g-rank></p>
-            <p class="game-newbest" data-g-newbest hidden>🔥 New personal best!</p>
+            <p class="game-newbest" data-g-newbest hidden><i class="ic-w" data-ic="flame"></i> New personal best!</p>
             <div class="game-refuel" data-g-refuel hidden></div>
             <button class="btn btn-ghost" data-g-play>Play again</button>
           </div>
