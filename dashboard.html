@@ -2,7 +2,7 @@
 <html lang="en-ZA">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>The Pass · Mochachos Atlas Road</title>
   <meta name="description" content="Staff order dashboard.">
   <meta name="robots" content="noindex, nofollow">
@@ -38,7 +38,7 @@
 
     <div class="dash" data-dash hidden>
       <header class="dash-top">
-        <div class="dash-brand"><img src="assets/img/logo-horizontal.png" alt="Mochachos" width="1763" height="442"><div><b>The Pass</b><span>Atlas Road <i class="mode" data-mode>…</i></span></div></div>
+        <div class="dash-brand"><img src="assets/img/logo-horizontal.png" alt="Mochachos" width="1763" height="442"><div><b>The Pass</b><i class="mode" data-mode>…</i><span>Atlas Road</span></div></div>
         <div class="dash-stats">
           <div><span>Active</span><b data-stat-active>0</b></div>
           <div><span>Today</span><b data-stat-today>0</b></div>
@@ -46,26 +46,46 @@
           <div><span>Avg time</span><b data-stat-avg>—</b></div>
         </div>
         <div class="dash-clock" data-clock>--:--:--</div>
+        <div class="m-actions">
+          <button class="m-btn" data-msg-btn aria-label="Messages">💬<i class="badge" data-msg-badge hidden>0</i></button>
+          <button class="m-btn" data-more aria-label="More tools" aria-expanded="false">⋯</button>
+        </div>
       </header>
+      <div class="m-stats" aria-label="Today"><p class="m-stats-title">Today</p>
+        <div><span>Active</span><b data-stat-active>0</b></div>
+        <div><span>Today</span><b data-stat-today>0</b></div>
+        <div><span>Revenue</span><b data-stat-rev>R0</b></div>
+        <div><span>Avg time</span><b data-stat-avg>—</b></div>
+      </div>
       <div class="dash-bar">
         <div class="dash-filters" role="group" aria-label="Filter orders">
           <button data-filter="all" aria-pressed="true">All</button>
-          <button data-filter="pickup" aria-pressed="false">🚗 Pickup</button>
-          <button data-filter="delivery" aria-pressed="false">🛵 Delivery</button>
+          <button data-filter="pickup" aria-pressed="false" aria-label="Pickup only">🚗<span class="f-label"> Pickup</span></button>
+          <button data-filter="delivery" aria-pressed="false" aria-label="Delivery only">🛵<span class="f-label"> Delivery</span></button>
         </div>
         <input class="dash-search" data-search type="search" placeholder="Find order, name or phone">
-        <div class="dash-tools">
+        <div class="dash-tools" data-tools>
+          <p class="sheet-title">Kitchen tools</p>
           <button class="dbtn" data-busy-btn>⏱ Busy: <b data-busy-state>Normal</b></button>
           <button class="dbtn" data-pause-btn>⏸ <b data-pause-state>Taking orders</b></button>
           <button class="dbtn" data-msg-btn>💬 Messages <i class="badge" data-msg-badge hidden>0</i></button>
           <button class="dbtn" data-sound-btn>🔔 Sound on</button>
-          <button class="dbtn" data-settings-btn>⚙</button>
+          <button class="dbtn" data-settings-btn>⚙<span class="m-label"> Settings</span></button>
           <button class="dbtn dbtn-fire" data-simulate hidden>＋ Simulate order</button>
           <button class="dbtn" data-clear hidden>Clear demo</button>
-          <button class="dbtn" data-full title="Full screen">⛶</button>
-          <button class="dbtn" data-logout title="Lock">🔒</button>
+          <button class="dbtn" data-full title="Full screen">⛶<span class="m-label"> Full screen</span></button>
+          <button class="dbtn" data-logout title="Lock">🔒<span class="m-label"> Lock</span></button>
+          <button class="dbtn sheet-close" data-more-close>Close</button>
         </div>
       </div>
+      <nav class="col-tabs" data-col-tabs aria-label="Order status">
+        <button data-col="new" aria-pressed="true">New <b>0</b></button>
+        <button data-col="grill" aria-pressed="false">Grill <b>0</b></button>
+        <button data-col="ready" aria-pressed="false">Ready <b>0</b></button>
+        <button data-col="out" aria-pressed="false">Out <b>0</b></button>
+        <button data-col="done" aria-pressed="false">Done <b>0</b></button>
+      </nav>
+      <div class="allday-strip" data-allday-strip aria-label="All day: items to cook"></div>
       <div class="dash-main">
         <div class="board" data-board></div>
         <aside class="dash-side">

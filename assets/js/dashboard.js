@@ -12,8 +12,11 @@
   var hhmm = function (t) { return new Intl.DateTimeFormat("en-ZA", { timeZone: "Africa/Johannesburg", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(t)); };
   var ago = function (ms) { var s = Math.max(0, Math.floor(ms / 1000)), m = Math.floor(s / 60); return m >= 60 ? Math.floor(m / 60) + "h " + (m % 60) + "m" : m + ":" + String(s % 60).padStart(2, "0"); };
   var $ = function (s) { return app.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(app.querySelectorAll(s)); };
+  var setAll = function (sel, txt) { $$(sel).forEach(function (e) { e.textContent = txt; }); };
+  var mobile = matchMedia("(max-width: 900px)");
 
-  var state = { orders: [], settings: {}, unread: 0, filter: "all", q: "", selected: null, seen: {}, sound: true, first: true, msgs: [], openChat: null };
+  var state = { orders: [], settings: {}, unread: 0, filter: "all", q: "", selected: null, seen: {}, sound: true, first: true, msgs: [], openChat: null, col: "new", firstPaint: true };
   try { state.sound = localStorage.getItem("mochachos-dash-sound") !== "0"; } catch (e) {}
   var COLS = [
     { key: "new", title: "New", sub: "Accept & start" },
@@ -80,7 +83,10 @@
         if (!state.first && state.seen[o.id] && o.messages.length > state.seen[o.id].msgs && o.messages[o.messages.length - 1].from === "customer") { chime(); toast("💬 Message on " + o.id, o.id); }
         state.seen[o.id] = { arrived: !!o.arrived, msgs: o.messages.length };
       });
+      var sig = JSON.stringify([r.orders, r.settings, r.unread]);
       state.orders = r.orders; state.settings = r.settings || {}; state.unread = r.unread || 0;
+      if (sig === state.sig && !fresh.length) { tick(); return; }
+      state.sig = sig;
       if (fresh.length) { chime(); fresh.forEach(function (o) { toast("🔔 New " + o.type + " order " + o.id + " · " + R(o.total), o.id); }); }
       state.first = false;
       render();
@@ -133,7 +139,8 @@
     var nx = NEXT[o.type][o.status], h = heat(o);
     var unread = o.unreadStaff || 0;
     var final = nx && nx[0] === "done";
-    return '<article class="tk ' + h + (state.selected === o.id ? " is-sel" : "") + (o.arrived && o.status !== "done" ? " is-here" : "") + '" data-id="' + o.id + '" tabindex="0">' +
+    var isNew = !state.rendered[o.id]; state.rendered[o.id] = true;
+    return '<article class="tk ' + h + (isNew && !state.firstPaint ? " is-new" : "") + (state.selected === o.id ? " is-sel" : "") + (o.arrived && o.status !== "done" ? " is-here" : "") + '" data-id="' + o.id + '" tabindex="0">' +
       '<header><b class="tk-code">' + o.id + '</b><span class="tk-type ' + o.type + '">' + (o.type === "delivery" ? "🛵 Delivery" : "🚗 Pickup") + '</span><span class="tk-timer" data-timer="' + o.id + '">0:00</span></header>' +
       (o.arrived && o.status !== "done" ? '<div class="tkt-here">🚗 Customer is here' + (o.arrived.spot ? " · " + esc(o.arrived.spot) : "") + (o.arrived.car || o.car ? " · " + esc(o.arrived.car || o.car) : "") + "</div>" : "") +
       '<div class="tk-who"><b>' + esc(o.customer.name) + '</b><a href="tel:' + esc(o.customer.phone) + '">' + esc(o.customer.phone) + "</a></div>" +
@@ -154,6 +161,8 @@
       "</article>";
   }
   function render() {
+    if (state.holding) { state.pendingRender = true; return; }
+    state.rendered = state.rendered || {};
     var list = state.orders.filter(visible);
     var active = list.filter(function (o) { return ["new", "grill", "ready", "out"].indexOf(o.status) > -1; });
     $("[data-board]").innerHTML = COLS.map(function (c) {
@@ -161,7 +170,7 @@
       if (c.key === "out" && state.filter === "pickup") return "";
       return '<section class="col col-' + c.key + '"><header><h2>' + c.title + " <span>" + items.length + "</span></h2><p>" + c.sub + "</p></header>" +
         '<div class="col-list">' + (items.length ? items.map(ticket).join("") : '<p class="col-empty">' + (c.key === "new" ? "No new orders. The grill is ready 🔥" : "Nothing here") + "</p>") + "</div></section>";
-    }).join("");
+    }).join("") + '<section class="col col-done"><header><h2>Done today</h2><p>Collected, delivered or cancelled</p></header><ul class="done-list col-list" data-done-m></ul></section>';
     // all-day counts (everything still to cook)
     var counts = {};
     active.filter(function (o) { return o.status === "new" || o.status === "grill"; }).forEach(function (o) {
@@ -172,19 +181,35 @@
     // completed today
     var done = state.orders.filter(function (o) { return (o.status === "done" || o.status === "cancelled") && today(o) && visible(o); });
     $("[data-done-count]").textContent = done.length;
-    $("[data-done]").innerHTML = done.length ? done.map(function (o) {
+    var doneHtml = done.length ? done.map(function (o) {
       var end = o.history[o.history.length - 1].t;
       return '<li class="' + o.status + '"><b>' + o.id + "</b><span>" + esc(o.customer.name) + " · " + (o.type === "delivery" ? "🛵" : "🚗") + "</span><span>" + hhmm(o.createdAt) + " → " + hhmm(end) + " (" + Math.round((end - o.createdAt) / 60000) + " min)</span><em>" + (o.status === "cancelled" ? "Cancelled" : R(o.total)) + '</em><button data-recall="' + o.id + '" title="Bring back">↩</button></li>';
     }).join("") : '<li class="muted">No completed orders yet today.</li>';
+    $("[data-done]").innerHTML = doneHtml;
+    var dm = $("[data-done-m]"); if (dm) dm.innerHTML = doneHtml;
     // stats
     var todays = state.orders.filter(today), completed = todays.filter(function (o) { return o.status === "done"; });
     var avg = completed.length ? Math.round(completed.reduce(function (s, o) { return s + (o.history[o.history.length - 1].t - o.createdAt); }, 0) / completed.length / 60000) : 0;
-    $("[data-stat-active]").textContent = state.orders.filter(function (o) { return ["new", "grill", "ready", "out"].indexOf(o.status) > -1; }).length;
-    $("[data-stat-today]").textContent = todays.filter(function (o) { return o.status !== "cancelled"; }).length;
-    $("[data-stat-rev]").textContent = R(todays.filter(function (o) { return o.status !== "cancelled"; }).reduce(function (s, o) { return s + o.total; }, 0));
-    $("[data-stat-avg]").textContent = avg ? avg + " min" : "—";
+    setAll("[data-stat-active]", state.orders.filter(function (o) { return ["new", "grill", "ready", "out"].indexOf(o.status) > -1; }).length);
+    setAll("[data-stat-today]", todays.filter(function (o) { return o.status !== "cancelled"; }).length);
+    setAll("[data-stat-rev]", R(todays.filter(function (o) { return o.status !== "cancelled"; }).reduce(function (s, o) { return s + o.total; }, 0)));
+    setAll("[data-stat-avg]", avg ? avg + " min" : "—");
     var orderUnread = state.orders.reduce(function (s, o) { return s + (o.unreadStaff || 0); }, 0);
-    var badge = $("[data-msg-badge]"); badge.textContent = orderUnread + state.unread; badge.hidden = !(orderUnread + state.unread);
+    $$("[data-msg-badge]").forEach(function (badge) { badge.textContent = orderUnread + state.unread; badge.hidden = !(orderUnread + state.unread); });
+    // mobile: status tabs with live counts + the "all day" strip
+    var counts2 = { new: 0, grill: 0, ready: 0, out: 0, done: done.length };
+    active.forEach(function (o) { counts2[o.status]++; });
+    $$("[data-col-tabs] [data-col]").forEach(function (b) {
+      var k = b.getAttribute("data-col");
+      b.querySelector("b").textContent = counts2[k];
+      b.setAttribute("aria-pressed", String(k === state.col));
+      b.hidden = k === "out" && state.filter === "pickup";
+      b.classList.toggle("has-late", k !== "done" && active.some(function (o) { return o.status === k && heat(o) === "late"; }));
+    });
+    $("[data-board]").setAttribute("data-active", state.col);
+    $("[data-board]").classList.toggle("col-enter", !!state.colAnim); state.colAnim = false;
+    state.firstPaint = false;
+    $("[data-allday-strip]").innerHTML = keys.length ? '<span class="strip-label">🔥 All day</span>' + keys.map(function (k) { return "<span><b>" + counts[k] + "</b> " + esc(k) + "</span>"; }).join("") : "";
     var newCount = active.filter(function (o) { return o.status === "new"; }).length;
     document.title = (newCount ? "(" + newCount + ") " : "") + "The Pass · Mochachos Atlas Road";
     tick();
@@ -243,16 +268,19 @@
   app.addEventListener("pointerdown", function (e) {
     var b = e.target.closest("[data-hold]"); if (!b) return;
     e.preventDefault();
-    b.classList.add("holding");
+    b.classList.add("holding"); state.holding = true;
     holding = setTimeout(function () {
       b.classList.remove("holding"); b.classList.add("done");
       var card = b.closest(".tk"); burst(card); card.classList.add("vanish");
-      setTimeout(function () { move(b.getAttribute("data-hold"), "done"); }, 380);
+      setTimeout(function () { state.holding = false; move(b.getAttribute("data-hold"), "done"); }, 380);
       holding = null;
     }, 900);
   });
   ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) {
-    app.addEventListener(ev, function (e) { var b = e.target.closest && e.target.closest("[data-hold]"); if (holding) { clearTimeout(holding); holding = null; } app.querySelectorAll(".holding").forEach(function (x) { x.classList.remove("holding"); }); }, true);
+    app.addEventListener(ev, function () {
+      if (holding) { clearTimeout(holding); holding = null; state.holding = false; if (state.pendingRender) { state.pendingRender = false; setTimeout(render, 50); } }
+      app.querySelectorAll(".holding").forEach(function (x) { x.classList.remove("holding"); });
+    }, true);
   });
   // keyboard "bump bar": arrows select, Enter/Space advances, U undoes
   document.addEventListener("keydown", function (e) {
@@ -271,6 +299,35 @@
   });
   $("[data-search]").addEventListener("input", function (e) { state.q = e.target.value; render(); });
 
+  /* ---------- mobile: status tabs, swipe between columns, tools sheet ---------- */
+  var ORDER = ["new", "grill", "ready", "out", "done"];
+  function showCol(k) {
+    state.col = k; state.colAnim = true; render();
+    var tab = app.querySelector('[data-col-tabs] [data-col="' + k + '"]');
+    if (tab) tab.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    if (mobile.matches) window.scrollTo({ top: Math.min(window.scrollY, app.querySelector("[data-col-tabs]").offsetTop - 60), behavior: "smooth" });
+  }
+  $("[data-col-tabs]").addEventListener("click", function (e) { var b = e.target.closest("[data-col]"); if (b) showCol(b.getAttribute("data-col")); });
+  var tx = null, ty = null;
+  $("[data-board]").addEventListener("touchstart", function (e) { if (e.target.closest("[data-hold]")) return; tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  $("[data-board]").addEventListener("touchend", function (e) {
+    if (tx === null || !mobile.matches) return;
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
+    if (Math.abs(dx) < 70 || Math.abs(dy) > 60) return;
+    var list = ORDER.filter(function (k) { return !(k === "out" && state.filter === "pickup"); });
+    var i = list.indexOf(state.col) + (dx < 0 ? 1 : -1);
+    if (i >= 0 && i < list.length) showCol(list[i]);
+  }, { passive: true });
+  var moreBtn = $("[data-more]");
+  function sheet(open) { app.classList.toggle("tools-open", open); moreBtn.setAttribute("aria-expanded", String(open)); }
+  moreBtn.addEventListener("click", function (e) { e.stopPropagation(); sheet(!app.classList.contains("tools-open")); });
+  $("[data-more-close]").addEventListener("click", function () { sheet(false); });
+  $("[data-tools]").addEventListener("click", function (e) { if (e.target.closest("[data-sound-btn],[data-simulate],[data-clear],[data-full]")) setTimeout(function () { sheet(false); }, 150); });
+  document.addEventListener("click", function (e) { if (app.classList.contains("tools-open") && !e.target.closest("[data-tools],[data-more],[data-pop]")) sheet(false); });
+  // a new order pulls the phone view to the New tab
+  var prevNew = 0;
+  setInterval(function () { var n = state.orders.filter(function (o) { return o.status === "new"; }).length; if (mobile.matches && n > prevNew && state.col !== "new") showCol("new"); prevNew = n; }, 1500);
+
   /* ---------- toolbar: sound, busy, pause, settings, demo ---------- */
   var soundBtn = $("[data-sound-btn]");
   function paintSound() { soundBtn.textContent = state.sound ? "🔔 Sound on" : "🔕 Sound off"; soundBtn.classList.toggle("is-on", state.sound); }
@@ -280,7 +337,8 @@
     var m = $("[data-pop]");
     m.innerHTML = html; m.hidden = false;
     var r = btn.getBoundingClientRect(), ar = app.getBoundingClientRect();
-    m.style.left = Math.min(r.left - ar.left, ar.width - 260) + "px"; m.style.top = r.bottom - ar.top + 8 + "px";
+    if (mobile.matches) { m.style.left = ""; m.style.top = ""; app.classList.remove("tools-open"); }
+    else { m.style.left = Math.min(r.left - ar.left, ar.width - 260) + "px"; m.style.top = r.bottom - ar.top + 8 + "px"; }
     m.onclick = function (e) { var b = e.target.closest("[data-v]"); if (b) { onPick(b.getAttribute("data-v")); m.hidden = true; } };
   }
   document.addEventListener("click", function (e) { var m = $("[data-pop]"); if (m && !m.hidden && !m.contains(e.target) && !e.target.closest("[data-busy-btn],[data-pause-btn],[data-settings-btn]")) m.hidden = true; });
@@ -312,7 +370,7 @@
 
   /* ---------- messages drawer ---------- */
   var drawer = $("[data-drawer]");
-  $("[data-msg-btn]").addEventListener("click", function () { drawer.hidden = false; state.openChat = null; paintInbox(); });
+  $$("[data-msg-btn]").forEach(function (b) { b.addEventListener("click", function () { drawer.hidden = false; state.openChat = null; paintInbox(); }); });
   drawer.querySelector("[data-drawer-close]").addEventListener("click", function () { drawer.hidden = true; state.openChat = null; });
   function openChat(id) { drawer.hidden = false; state.openChat = id; O.staff(id, { read: true }).then(load); paintChat(); }
   function paintInbox() {

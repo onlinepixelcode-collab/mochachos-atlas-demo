@@ -58,6 +58,7 @@ This needs only Python 3 (no packages) and rewrites the `.html` files in the roo
 - New-order chime and toasts, arrival and message alerts, order chat with quick replies, website inbox, print ticket, search, pickup/delivery filter.
 - **Busy mode** (+5 to +30 min on quoted times, resets after an hour) and a timed **pause** for online orders.
 - Settings: prep time, delivery time, delivery fee (blank = "confirmed by the store").
+- **Works on phones and tablets:** slim header with messages and a ⋯ tools sheet, sticky New · Grill · Ready · Out · Done tabs with live counts (swipe left/right to switch, late tickets flash the tab), an "All day" strip, full-width tickets with big buttons, bottom-sheet menus, full-screen chat, and safe-area spacing for notched phones. Small tablets show two tickets side by side; desktops keep the four-column board.
 
 **Going live (Vercel):**
 1. In Vercel, add the **Upstash Redis** (KV) integration to the project. It sets `KV_REST_API_URL` and `KV_REST_API_TOKEN` (or set `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`).
