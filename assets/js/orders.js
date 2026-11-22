@@ -38,7 +38,7 @@
       if (it.n !== base && it.n !== main) continue;
       var p = it.n === main ? it.p[0] : it.p.filter(function (x) { return x[0] === opt; })[0];
       if (!p) continue;
-      var fl = flavour && M.flavours.some(function (f) { return f.name === flavour; }) ? " · " + flavour : "";
+      var fl = flavour && (M.flavours.some(function (f) { return f.name === flavour; }) || (it.choices || []).indexOf(flavour) > -1) ? " · " + flavour : "";
       return { name: it.n + (p[0] ? " (" + p[0] + ")" : "") + fl, price: p[1] };
     }
     return null;

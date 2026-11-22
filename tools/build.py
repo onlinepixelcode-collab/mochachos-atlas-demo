@@ -27,6 +27,8 @@ def nav(current, sep):
 
 def scripts(names):
     names = list(names)
+    if "menu" in names and "art" not in names:
+        names.insert(names.index("menu"), "art")  # item illustrations, needed by the menu helpers
     if "dashboard" not in names:
         for extra in ("orders", "order-flow", "fx"):  # ordering + live-order banner + fire effects on every public page
             if extra not in names:

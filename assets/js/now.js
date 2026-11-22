@@ -45,7 +45,7 @@
     $("[data-now-text]").textContent = p.text;
     var cards = p.picks.map(function (x) { return U.find(M, x[0], x[1]); }).filter(Boolean);
     $("[data-now-grid]").innerHTML = cards.map(function (f, i) {
-      return '<article class="now-card" style="--i:' + i + '">' + (f.entry.img ? '<img src="assets/img/' + f.entry.img + '" alt="" loading="lazy">' : '<span class="emoji-tile">' + f.entry.emoji + "</span>") +
+      return '<article class="now-card" style="--i:' + i + '">' + U.thumb(f.entry, "") +
         '<div><a href="dish.html?id=' + f.entry.id + '">' + f.name + "</a><b>" + U.money(f.price) + '</b></div><button class="add-btn" data-now-add="' + f.name + "|" + f.price + '">+ Add</button></article>';
     }).join("") + '<a class="now-card now-cta" href="checkout.html"><span>' + (p.key === "closed" || p.key === "prayer" ? "Schedule an order →" : "Order for pickup →") + "</span></a>";
   }

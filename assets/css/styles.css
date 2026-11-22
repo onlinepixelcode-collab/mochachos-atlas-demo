@@ -1850,3 +1850,62 @@ html.burn-in body.bare::before { display: none; }
 }
 @media (max-width: 360px) { .dash-brand img { display: none; } }
 @media (max-width: 430px) { .dash-brand img { display: none; } .dash-top { gap: 8px; } .dash-clock { font-size: 1.05rem; } }
+
+/* =====================================================================
+   ITEM ILLUSTRATIONS + MOOD THEMES (cold drinks, sweet, fresh, grill)
+   ===================================================================== */
+.art-tile { display: grid; place-items: center; width: 100%; height: 100%; overflow: hidden; }
+.art-tile .art { width: 86%; height: auto; max-height: 92%; }
+.art-tile.mood-cold { background: radial-gradient(circle at 50% 35%, #f2fdff, #bfeaf5 75%); }
+.art-tile.mood-sweet { background: radial-gradient(circle at 50% 35%, #fff7ea, #f7d6a2 80%); }
+.art-tile.mood-fresh { background: radial-gradient(circle at 50% 35%, #f4fbe9, #cdecb0 80%); }
+.art-tile.mood-grill { background: radial-gradient(circle at 50% 35%, #fff8e6, #f6d38a 80%); }
+.dish-card-img .art-tile, .now-card .art-tile { aspect-ratio: 4 / 3; height: auto; }
+.chat-card .art-tile, .counter-thumb .art-tile { width: 48px; height: 48px; border-radius: 10px; flex-shrink: 0; }
+.counter-thumb .art-tile { width: 56px; height: 56px; border-radius: 12px; }
+.cat-tile-emoji { display: none; }
+
+/* Zee flavour heat shown as dots, not emojis */
+.heat-dots { display: inline-block; height: 8px; margin-right: 8px; vertical-align: 1px; background: radial-gradient(circle, #ff5a1f 3px, transparent 3.5px) 0 0 / 8px 8px repeat-x; }
+.heat-dots[data-heat="1"] { width: 8px; } .heat-dots[data-heat="2"] { width: 16px; } .heat-dots[data-heat="3"] { width: 24px; } .heat-dots[data-heat="4"] { width: 32px; } .heat-dots[data-heat="5"] { width: 40px; }
+.swatch { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 8px; vertical-align: -2px; border: 2px solid rgba(255,255,255,.8); box-shadow: 0 0 0 1px rgba(0,0,0,.15); }
+
+/* item page moods */
+.mood-fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.dish-visual .art-tile { position: absolute; inset: 6%; width: 88%; height: 88%; border-radius: 50%; border: 8px solid rgba(255,255,255,.9); box-shadow: 0 30px 60px rgba(0,0,0,.45); z-index: 1; animation: floatFood 6s ease-in-out infinite; }
+.dish-visual .art-tile .art { width: 74%; }
+.dish-hero.mood-cold { background: radial-gradient(900px 600px at 30% 120%, #12a3bf, #0a4c6b 50%, #062338); }
+.dish-hero.mood-cold .food-glow { background: radial-gradient(circle, rgba(140,230,255,.55), rgba(0,167,181,.2) 45%, transparent 70%); }
+.dish-hero.mood-cold .eyebrow { color: #9feeff; }
+.dish-hero.mood-cold .dish-opts legend { color: #9feeff; }
+.dish-hero.mood-cold .dish-opts input:checked + span { border-color: #9feeff; background: rgba(159,238,255,.16); }
+.dish-hero.mood-cold .dish-opts b { color: #c9f6ff; }
+.dish-hero.mood-cold .btn-fire { background: linear-gradient(100deg, #0a7fa0, #00a7b5 40%, #4fd1e6 70%, #0a7fa0); box-shadow: 0 10px 30px -8px rgba(0,167,181,.8); }
+.dish-hero.mood-cold .dish-visual .art-tile { border-color: rgba(220,248,255,.95); box-shadow: 0 0 0 10px rgba(159,238,255,.15), 0 30px 60px rgba(0,0,0,.45); }
+.dish-hero.mood-cold::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,.06), transparent 30%); }
+.dish-hero.mood-sweet { background: radial-gradient(900px 600px at 30% 120%, #a8642a, #5a2f12 50%, #2a1407); }
+.dish-hero.mood-sweet .eyebrow, .dish-hero.mood-sweet .dish-opts legend { color: #ffd59a; }
+.dish-hero.mood-sweet .food-glow { background: radial-gradient(circle, rgba(255,200,120,.5), rgba(200,120,40,.2) 45%, transparent 70%); }
+.dish-hero.mood-sweet .btn-fire { background: linear-gradient(100deg, #8a4a1a, #d08a2c 45%, #f2b562 70%, #8a4a1a); }
+.dish-hero.mood-fresh { background: radial-gradient(900px 600px at 30% 120%, #3d8a32, #1d4a1a 50%, #0c240c); }
+.dish-hero.mood-fresh .eyebrow, .dish-hero.mood-fresh .dish-opts legend { color: #c6f08f; }
+.dish-hero.mood-fresh .food-glow { background: radial-gradient(circle, rgba(170,230,110,.45), rgba(80,160,60,.18) 45%, transparent 70%); }
+.dish-hero.mood-fresh .btn-fire { background: linear-gradient(100deg, #2e7d32, #4caf50 45%, #8bd45a 70%, #2e7d32); }
+.dish-hero:not(.mood-grill) .btn-fire { animation: fireBtn 4s linear infinite; }
+/* no fire on cool, sweet or fresh item pages */
+body[data-mood="cold"] .edge-fire, body[data-mood="cold"] .dynamite-glow,
+body[data-mood="sweet"] .edge-fire, body[data-mood="sweet"] .dynamite-glow,
+body[data-mood="fresh"] .edge-fire, body[data-mood="fresh"] .dynamite-glow { display: none !important; }
+body[data-mood="cold"] .fire-footer, body[data-mood="sweet"] .fire-footer, body[data-mood="fresh"] .fire-footer { display: none; }
+/* About: value icons */
+.value-icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; color: #fff; background: var(--red); box-shadow: 0 10px 20px -10px rgba(0,0,0,.45); }
+.value-icon svg { width: 34px; height: 34px; }
+.values-grid article:nth-child(2) .value-icon { background: var(--yellow); color: var(--red); }
+.values-grid article:nth-child(3) .value-icon { background: var(--cobalt); }
+.values-grid article:nth-child(4) .value-icon { background: var(--teal); }
+.values-grid article:nth-child(5) .value-icon { background: var(--brown); color: var(--yellow); }
+.values-grid span:not(.value-icon) { font-size: inherit; }
+
+/* top bar: phone number never wraps; hidden on small phones (the menu has a Call button) */
+.topbar a[href^="tel:"] { white-space: nowrap; }
+@media (max-width: 560px) { .topbar-right a[href^="tel:"] { display: none; } }

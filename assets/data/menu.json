@@ -1,182 +1,1097 @@
 {
   "source": "Mochachos South Africa menu 2026. Prices include VAT and may change without notice.",
   "flavours": [
-    { "id": "lemon-herb", "name": "Lemon & Herb", "heat": 1, "note": "Zesty and fresh with no burn. The easy pick for kids and first-timers." },
-    { "id": "mild", "name": "Mild", "heat": 2, "note": "All the Mexican spice, only a gentle warmth." },
-    { "id": "hot", "name": "Hot", "heat": 3, "note": "A proper kick that builds as you eat." },
-    { "id": "extra-hot", "name": "Extra Hot", "heat": 4, "note": "For chilli lovers. Keep a Buddy close." },
-    { "id": "dynamite", "name": "Dynamite", "heat": 5, "note": "The hottest on the board. You've been warned, amigo." }
+    {
+      "id": "lemon-herb",
+      "name": "Lemon & Herb",
+      "heat": 1,
+      "note": "Zesty and fresh with no burn. The easy pick for kids and first-timers."
+    },
+    {
+      "id": "mild",
+      "name": "Mild",
+      "heat": 2,
+      "note": "All the Mexican spice, only a gentle warmth."
+    },
+    {
+      "id": "hot",
+      "name": "Hot",
+      "heat": 3,
+      "note": "A proper kick that builds as you eat."
+    },
+    {
+      "id": "extra-hot",
+      "name": "Extra Hot",
+      "heat": 4,
+      "note": "For chilli lovers. Keep a Buddy close."
+    },
+    {
+      "id": "dynamite",
+      "name": "Dynamite",
+      "heat": 5,
+      "note": "The hottest on the board. You've been warned, amigo."
+    }
   ],
   "categories": [
     {
-      "id": "pollo", "name": "Pollo Pueblo", "tag": "Flame-grilled Mexican chicken",
+      "id": "pollo",
+      "name": "Pollo Pueblo",
+      "tag": "Flame-grilled Mexican chicken",
       "blurb": "Our famous butterflied chicken, flame-grilled and spiced with your choice of Zee Flavours.",
       "img": "chicken-whole.jpg",
       "items": [
-        { "n": "1/4 Chicken", "p": [["", 49.90]] },
-        { "n": "1/2 Chicken", "p": [["", 94.90]] },
-        { "n": "Full Chicken", "p": [["", 179.90]] }
+        {
+          "n": "1/4 Chicken",
+          "p": [
+            [
+              "",
+              49.9
+            ]
+          ]
+        },
+        {
+          "n": "1/2 Chicken",
+          "p": [
+            [
+              "",
+              94.9
+            ]
+          ]
+        },
+        {
+          "n": "Full Chicken",
+          "p": [
+            [
+              "",
+              179.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "burgers", "name": "Burgers El' Supremo", "tag": "Single or double",
+      "id": "burgers",
+      "name": "Burgers El' Supremo",
+      "tag": "Single or double",
       "blurb": "Flame-grilled chicken fillets, 100% beef (150g) patties and gourmet fried burgers. Add a slice of cheese or pineapple for R10.",
       "img": "jalapeno-burger.jpg",
-      "groups": ["Flame-grilled chicken fillet burgers", "Beef burgers (100% beef, 150g)", "Gourmet fried burgers"],
+      "groups": [
+        "Flame-grilled chicken fillet burgers",
+        "Beef burgers (100% beef, 150g)",
+        "Gourmet fried burgers"
+      ],
       "items": [
-        { "g": 0, "n": "Chicken Burger", "v": true, "p": [["Single", 59.90], ["Double", 79.90]] },
-        { "g": 0, "n": "Chicken Cheese Burger", "p": [["Single", 69.90], ["Double", 89.90]] },
-        { "g": 0, "n": "Chicken Cheese & Pine Burger", "p": [["Single", 79.90], ["Double", 99.90]] },
-        { "g": 0, "n": "Gourmet Chicken Burger", "d": "Topped with feta cheese, guacamole and sliced jalapeño.", "p": [["Single", 74.90], ["Double", 94.90]] },
-        { "g": 0, "n": "Jalapeño Cheese Burger", "d": "Topped with cheddar cheese and sliced jalapeño.", "p": [["Single", 69.90], ["Double", 89.90]] },
-        { "g": 1, "n": "Beef Burger", "p": [["", 69.90]] },
-        { "g": 1, "n": "Gourmet Beef Burger", "d": "Topped with feta cheese, guacamole and sliced jalapeño.", "p": [["", 84.90]] },
-        { "g": 1, "n": "Jalapeño Cheese Beef Burger", "d": "Topped with cheddar cheese and sliced jalapeño.", "p": [["", 79.90]] },
-        { "g": 1, "n": "Mexican Lamb Burger", "d": "A Mochachos bun with lettuce, tomato, a juicy lamb patty and a sauce of choice.", "p": [["", 69.90]] },
-        { "g": 2, "n": "Nacho Crunch Gourmet Burger", "d": "Chicken fillet coated in nachos and fried, topped with feta, guacamole, sour cream, salsa and sliced jalapeño.", "p": [["", 79.90]] },
-        { "g": 2, "n": "Chicken Strip & Cheese Burger", "d": "Lettuce, tomato, Mochachos whip, 5 original chicken strips and a slice of cheese.", "p": [["", 69.90]] },
-        { "g": 2, "n": "Mexican Crumbed Burger", "d": "Chicken breast fillet in bread crumbs and our secret herbs and spices, fried to perfection.", "p": [["", 59.90]] },
-        { "g": 2, "n": "Extra slice of cheese or pineapple", "p": [["", 10.00]] }
+        {
+          "g": 0,
+          "n": "Chicken Burger",
+          "v": true,
+          "p": [
+            [
+              "Single",
+              59.9
+            ],
+            [
+              "Double",
+              79.9
+            ]
+          ]
+        },
+        {
+          "g": 0,
+          "n": "Chicken Cheese Burger",
+          "p": [
+            [
+              "Single",
+              69.9
+            ],
+            [
+              "Double",
+              89.9
+            ]
+          ]
+        },
+        {
+          "g": 0,
+          "n": "Chicken Cheese & Pine Burger",
+          "p": [
+            [
+              "Single",
+              79.9
+            ],
+            [
+              "Double",
+              99.9
+            ]
+          ]
+        },
+        {
+          "g": 0,
+          "n": "Gourmet Chicken Burger",
+          "d": "Topped with feta cheese, guacamole and sliced jalapeño.",
+          "p": [
+            [
+              "Single",
+              74.9
+            ],
+            [
+              "Double",
+              94.9
+            ]
+          ]
+        },
+        {
+          "g": 0,
+          "n": "Jalapeño Cheese Burger",
+          "d": "Topped with cheddar cheese and sliced jalapeño.",
+          "p": [
+            [
+              "Single",
+              69.9
+            ],
+            [
+              "Double",
+              89.9
+            ]
+          ]
+        },
+        {
+          "g": 1,
+          "n": "Beef Burger",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        },
+        {
+          "g": 1,
+          "n": "Gourmet Beef Burger",
+          "d": "Topped with feta cheese, guacamole and sliced jalapeño.",
+          "p": [
+            [
+              "",
+              84.9
+            ]
+          ]
+        },
+        {
+          "g": 1,
+          "n": "Jalapeño Cheese Beef Burger",
+          "d": "Topped with cheddar cheese and sliced jalapeño.",
+          "p": [
+            [
+              "",
+              79.9
+            ]
+          ]
+        },
+        {
+          "g": 1,
+          "n": "Mexican Lamb Burger",
+          "d": "A Mochachos bun with lettuce, tomato, a juicy lamb patty and a sauce of choice.",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        },
+        {
+          "g": 2,
+          "n": "Nacho Crunch Gourmet Burger",
+          "d": "Chicken fillet coated in nachos and fried, topped with feta, guacamole, sour cream, salsa and sliced jalapeño.",
+          "p": [
+            [
+              "",
+              79.9
+            ]
+          ]
+        },
+        {
+          "g": 2,
+          "n": "Chicken Strip & Cheese Burger",
+          "d": "Lettuce, tomato, Mochachos whip, 5 original chicken strips and a slice of cheese.",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        },
+        {
+          "g": 2,
+          "n": "Mexican Crumbed Burger",
+          "d": "Chicken breast fillet in bread crumbs and our secret herbs and spices, fried to perfection.",
+          "p": [
+            [
+              "",
+              59.9
+            ]
+          ]
+        },
+        {
+          "g": 2,
+          "n": "Extra slice of cheese or pineapple",
+          "p": [
+            [
+              "",
+              10.0
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "combo", "name": "Combinación", "tag": "Meal deals",
+      "id": "combo",
+      "name": "Combinación",
+      "tag": "Meal deals",
       "blurb": "The main event with beeg chips and a Buddy, sorted.",
       "img": "burger-combo.jpg",
       "items": [
-        { "n": "Chicken Burger, Beeg Chips & Buddy", "p": [["", 99.90]] },
-        { "n": "1/4 Chicken, Beeg Chips & Buddy", "p": [["", 95.90]] },
-        { "n": "Chicken Schwarma, Beeg Chips & Buddy", "p": [["", 124.90]] },
-        { "n": "4 Full BBQ Wings & Beeg Chips", "p": [["", 89.90]] },
-        { "n": "1/4 Chicken & Beeg Chips", "p": [["", 72.90]] },
-        { "n": "2 Chicken Fillets & a Side", "d": "Two flame-grilled chicken breast fillets with rice, beeg chips or a fresh garden salad.", "p": [["", 84.90]] },
-        { "n": "Nacho Crunch Gourmet Burger, Beeg Chips & Buddy", "p": [["", 114.90]] },
-        { "n": "1/2 Chicken, Beeg Chips & Buddy", "p": [["", 139.90]] },
-        { "n": "Chicken Burrito, Beeg Chips & Buddy", "p": [["", 119.90]] },
-        { "n": "8 Full BBQ Wings & Beeger Chips", "p": [["", 169.90]] },
-        { "n": "1/4 Chicken, Pap & Mexican Sauce", "p": [["", 64.90]] },
-        { "n": "Amigo Combo", "d": "Half chicken, beeger chips and 2 bunz.", "p": [["", 139.90]] }
+        {
+          "n": "Chicken Burger, Beeg Chips & Buddy",
+          "p": [
+            [
+              "",
+              99.9
+            ]
+          ]
+        },
+        {
+          "n": "1/4 Chicken, Beeg Chips & Buddy",
+          "p": [
+            [
+              "",
+              95.9
+            ]
+          ]
+        },
+        {
+          "n": "Chicken Schwarma, Beeg Chips & Buddy",
+          "p": [
+            [
+              "",
+              124.9
+            ]
+          ]
+        },
+        {
+          "n": "4 Full BBQ Wings & Beeg Chips",
+          "p": [
+            [
+              "",
+              89.9
+            ]
+          ]
+        },
+        {
+          "n": "1/4 Chicken & Beeg Chips",
+          "p": [
+            [
+              "",
+              72.9
+            ]
+          ]
+        },
+        {
+          "n": "2 Chicken Fillets & a Side",
+          "d": "Two flame-grilled chicken breast fillets with rice, beeg chips or a fresh garden salad.",
+          "p": [
+            [
+              "",
+              84.9
+            ]
+          ]
+        },
+        {
+          "n": "Nacho Crunch Gourmet Burger, Beeg Chips & Buddy",
+          "p": [
+            [
+              "",
+              114.9
+            ]
+          ]
+        },
+        {
+          "n": "1/2 Chicken, Beeg Chips & Buddy",
+          "p": [
+            [
+              "",
+              139.9
+            ]
+          ]
+        },
+        {
+          "n": "Chicken Burrito, Beeg Chips & Buddy",
+          "p": [
+            [
+              "",
+              119.9
+            ]
+          ]
+        },
+        {
+          "n": "8 Full BBQ Wings & Beeger Chips",
+          "p": [
+            [
+              "",
+              169.9
+            ]
+          ]
+        },
+        {
+          "n": "1/4 Chicken, Pap & Mexican Sauce",
+          "p": [
+            [
+              "",
+              64.9
+            ]
+          ]
+        },
+        {
+          "n": "Amigo Combo",
+          "d": "Half chicken, beeger chips and 2 bunz.",
+          "p": [
+            [
+              "",
+              139.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "mexican", "name": "Mexican Meals", "tag": "Chicken or rump steak",
+      "id": "mexican",
+      "name": "Mexican Meals",
+      "tag": "Chicken or rump steak",
       "blurb": "Quesadillas, burritos, fajitas, chimichangas, enchiladas and nachos.",
       "img": "fajita.jpg",
       "items": [
-        { "n": "Quesadilla", "d": "Two tortillas toasted with your filling, sautéed onion, green pepper, cheddar and mayo.", "p": [["Chicken", 109.90], ["Rump steak", 119.90]] },
-        { "n": "Burrito", "v": true, "d": "Your filling with sautéed onion and green pepper, cheddar and guacamole in a soft flour tortilla.", "p": [["Chicken", 74.90], ["Rump steak", 84.90]] },
-        { "n": "Fajitas", "d": "Two soft tortillas with your filling, onion and green pepper, Mexican rice, salad, cheddar, sour cream, salsa and guacamole.", "p": [["Chicken", 129.90], ["Rump steak", 139.90]] },
-        { "n": "Chimichanga", "d": "Homemade tortilla filled with chicken or rump strips, salsa and cheddar, deep fried golden, with sour cream and guacamole.", "p": [["Chicken", 79.90], ["Rump steak", 89.90]] },
-        { "n": "Enchilada", "d": "Soft tortilla around your filling, onion and green pepper, topped with salsa and melted cheddar, with sour cream and guacamole.", "p": [["Chicken", 94.90], ["Rump steak", 104.90]] },
-        { "n": "Nachos", "d": "Crispy tortilla chips with salsa and melted cheddar, sour cream, guacamole and sliced jalapeño.", "p": [["Cheese", 89.90], ["Chicken", 109.90], ["Rump steak", 119.90]] }
+        {
+          "n": "Quesadilla",
+          "d": "Two tortillas toasted with your filling, sautéed onion, green pepper, cheddar and mayo.",
+          "p": [
+            [
+              "Chicken",
+              109.9
+            ],
+            [
+              "Rump steak",
+              119.9
+            ]
+          ]
+        },
+        {
+          "n": "Burrito",
+          "v": true,
+          "d": "Your filling with sautéed onion and green pepper, cheddar and guacamole in a soft flour tortilla.",
+          "p": [
+            [
+              "Chicken",
+              74.9
+            ],
+            [
+              "Rump steak",
+              84.9
+            ]
+          ]
+        },
+        {
+          "n": "Fajitas",
+          "d": "Two soft tortillas with your filling, onion and green pepper, Mexican rice, salad, cheddar, sour cream, salsa and guacamole.",
+          "p": [
+            [
+              "Chicken",
+              129.9
+            ],
+            [
+              "Rump steak",
+              139.9
+            ]
+          ]
+        },
+        {
+          "n": "Chimichanga",
+          "d": "Homemade tortilla filled with chicken or rump strips, salsa and cheddar, deep fried golden, with sour cream and guacamole.",
+          "p": [
+            [
+              "Chicken",
+              79.9
+            ],
+            [
+              "Rump steak",
+              89.9
+            ]
+          ]
+        },
+        {
+          "n": "Enchilada",
+          "d": "Soft tortilla around your filling, onion and green pepper, topped with salsa and melted cheddar, with sour cream and guacamole.",
+          "p": [
+            [
+              "Chicken",
+              94.9
+            ],
+            [
+              "Rump steak",
+              104.9
+            ]
+          ]
+        },
+        {
+          "n": "Nachos",
+          "d": "Crispy tortilla chips with salsa and melted cheddar, sour cream, guacamole and sliced jalapeño.",
+          "p": [
+            [
+              "Cheese",
+              89.9
+            ],
+            [
+              "Chicken",
+              109.9
+            ],
+            [
+              "Rump steak",
+              119.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "schwarmas", "name": "Schwarmas", "tag": "Stuffed pita",
+      "id": "schwarmas",
+      "name": "Schwarmas",
+      "tag": "Stuffed pita",
       "blurb": "Soft pita packed with filling, fresh salad and sauce.",
       "img": "schwarma.jpg",
       "items": [
-        { "n": "Chicken Schwarma", "p": [["", 79.90]] },
-        { "n": "Rump Steak Schwarma", "p": [["", 89.90]] },
-        { "n": "Veggie Schwarma", "v": true, "p": [["", 79.90]] }
+        {
+          "n": "Chicken Schwarma",
+          "p": [
+            [
+              "",
+              79.9
+            ]
+          ]
+        },
+        {
+          "n": "Rump Steak Schwarma",
+          "p": [
+            [
+              "",
+              89.9
+            ]
+          ]
+        },
+        {
+          "n": "Veggie Schwarma",
+          "v": true,
+          "p": [
+            [
+              "",
+              79.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "familia", "name": "Familia Fiesta", "tag": "Feeds the crew",
+      "id": "familia",
+      "name": "Familia Fiesta",
+      "tag": "Feeds the crew",
       "blurb": "Big boards for the whole table.",
       "img": "family.jpg",
       "items": [
-        { "n": "Family Variety", "d": "Half chicken, two chicken burgers and beegest chips or wedges.", "p": [["", 249.90]] },
-        { "n": "Family Feast", "d": "A full chicken with the beegest chips or wedges and 4 fresh bunz.", "p": [["", 259.90]] },
-        { "n": "Family Fiesta", "d": "A full chicken, beegest chips or wedges, beegest coleslaw or garden salad and 4 fresh bunz.", "p": [["", 289.90]] },
-        { "n": "Family Share Meal", "d": "Two chicken burgers, two kiddies chicken burgers, six chicken strips and dip, and beegest chips.", "p": [["", 299.90]] },
-        { "n": "Family Treat", "d": "Two full chickens, two beegest chips or wedges, 8 bunz and beegest coleslaw or garden salad.", "p": [["", 539.90]] }
+        {
+          "n": "Family Variety",
+          "d": "Half chicken, two chicken burgers and beegest chips or wedges.",
+          "p": [
+            [
+              "",
+              249.9
+            ]
+          ]
+        },
+        {
+          "n": "Family Feast",
+          "d": "A full chicken with the beegest chips or wedges and 4 fresh bunz.",
+          "p": [
+            [
+              "",
+              259.9
+            ]
+          ]
+        },
+        {
+          "n": "Family Fiesta",
+          "d": "A full chicken, beegest chips or wedges, beegest coleslaw or garden salad and 4 fresh bunz.",
+          "p": [
+            [
+              "",
+              289.9
+            ]
+          ]
+        },
+        {
+          "n": "Family Share Meal",
+          "d": "Two chicken burgers, two kiddies chicken burgers, six chicken strips and dip, and beegest chips.",
+          "p": [
+            [
+              "",
+              299.9
+            ]
+          ]
+        },
+        {
+          "n": "Family Treat",
+          "d": "Two full chickens, two beegest chips or wedges, 8 bunz and beegest coleslaw or garden salad.",
+          "p": [
+            [
+              "",
+              539.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "ligero", "name": "Plato Ligero", "tag": "Light meals",
+      "id": "ligero",
+      "name": "Plato Ligero",
+      "tag": "Light meals",
       "blurb": "Smaller plates and snacks.",
       "img": "wings.jpg",
       "items": [
-        { "n": "Toasted Mexican Chicken Mayo", "d": "Toasted chicken breast sandwich with lettuce, tomato and mayo or peri-mayo.", "p": [["", 49.90]] },
-        { "n": "4 Full BBQ Wings", "p": [["", 69.90]] },
-        { "n": "Mexican Chicken Pieces with Rice", "d": "Tender chicken breast pieces sautéed with our secret spices on Mexican rice.", "p": [["", 54.90]] },
-        { "n": "Mexican Chicken Livers & Bun", "p": [["", 44.90]] },
-        { "n": "6 Chicken Strips, Chips & Dip", "d": "Chicken breast strips battered with our secret herbs and spices.", "p": [["", 79.90]] },
-        { "n": "3 Chicken Strips & Dip", "p": [["", 39.90]] },
-        { "n": "3 Mozzarella Sticks & Dip", "p": [["", 54.90]] },
-        { "n": "5 Chilli Cheese Nuggets & Dip", "d": "Crispy bites with bell pepper, jalapeño and cheese.", "p": [["", 54.90]] }
+        {
+          "n": "Toasted Mexican Chicken Mayo",
+          "d": "Toasted chicken breast sandwich with lettuce, tomato and mayo or peri-mayo.",
+          "p": [
+            [
+              "",
+              49.9
+            ]
+          ]
+        },
+        {
+          "n": "4 Full BBQ Wings",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        },
+        {
+          "n": "Mexican Chicken Pieces with Rice",
+          "d": "Tender chicken breast pieces sautéed with our secret spices on Mexican rice.",
+          "p": [
+            [
+              "",
+              54.9
+            ]
+          ]
+        },
+        {
+          "n": "Mexican Chicken Livers & Bun",
+          "p": [
+            [
+              "",
+              44.9
+            ]
+          ]
+        },
+        {
+          "n": "6 Chicken Strips, Chips & Dip",
+          "d": "Chicken breast strips battered with our secret herbs and spices.",
+          "p": [
+            [
+              "",
+              79.9
+            ]
+          ]
+        },
+        {
+          "n": "3 Chicken Strips & Dip",
+          "p": [
+            [
+              "",
+              39.9
+            ]
+          ]
+        },
+        {
+          "n": "3 Mozzarella Sticks & Dip",
+          "p": [
+            [
+              "",
+              54.9
+            ]
+          ]
+        },
+        {
+          "n": "5 Chilli Cheese Nuggets & Dip",
+          "d": "Crispy bites with bell pepper, jalapeño and cheese.",
+          "p": [
+            [
+              "",
+              54.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "salads", "name": "Ensaladas", "tag": "Salads",
+      "id": "salads",
+      "name": "Ensaladas",
+      "tag": "Salads",
       "blurb": "Fresh salads in beeg or beegest. Add feta for R12.",
       "img": "chicken-whole.jpg",
       "noImg": true,
       "items": [
-        { "n": "Grilled Chicken Salad", "p": [["Beeg", 54.90], ["Beegest", 89.90]] },
-        { "n": "Greek Salad", "v": true, "p": [["Beeg", 39.90], ["Beegest", 54.90]] },
-        { "n": "Garden Salad", "v": true, "p": [["Beeg", 29.90], ["Beegest", 39.90]] },
-        { "n": "Coleslaw", "v": true, "p": [["Beeg", 29.90], ["Beegest", 39.90]] },
-        { "n": "Add feta", "p": [["", 12.00]] }
+        {
+          "n": "Grilled Chicken Salad",
+          "p": [
+            [
+              "Beeg",
+              54.9
+            ],
+            [
+              "Beegest",
+              89.9
+            ]
+          ]
+        },
+        {
+          "n": "Greek Salad",
+          "v": true,
+          "p": [
+            [
+              "Beeg",
+              39.9
+            ],
+            [
+              "Beegest",
+              54.9
+            ]
+          ]
+        },
+        {
+          "n": "Garden Salad",
+          "v": true,
+          "p": [
+            [
+              "Beeg",
+              29.9
+            ],
+            [
+              "Beegest",
+              39.9
+            ]
+          ]
+        },
+        {
+          "n": "Coleslaw",
+          "v": true,
+          "p": [
+            [
+              "Beeg",
+              29.9
+            ],
+            [
+              "Beegest",
+              39.9
+            ]
+          ]
+        },
+        {
+          "n": "Add feta",
+          "p": [
+            [
+              "",
+              12.0
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "sides", "name": "All Zee Sides", "tag": "Beeg, beeger, beegest",
+      "id": "sides",
+      "name": "All Zee Sides",
+      "tag": "Beeg, beeger, beegest",
       "blurb": "Chips, wedges, rings, rice and all the dips.",
       "img": "chips.jpg",
       "items": [
-        { "n": "Chips", "p": [["Beeg", 29.90], ["Beeger", 39.90], ["Beegest", 64.90]] },
-        { "n": "Loaded Chips", "d": "Seasoned with Mochachos chip spice, topped with cheese sauce and jalapeños.", "p": [["Beeg", 39.90], ["Beeger", 49.90], ["Beegest", 74.90]] },
-        { "n": "Potato Wedges", "p": [["Beeg", 29.90], ["Beeger", 39.90], ["Beegest", 64.90]] },
-        { "n": "Onion Rings", "p": [["x6", 24.90], ["x12", 42.90], ["x18", 54.90]] },
-        { "n": "Mexican Rice", "p": [["Beeg", 29.90], ["Beeger", 39.90], ["Beegest", 49.90]] },
-        { "n": "Pap & Mexican Sauce", "p": [["Beeg", 26.90], ["Beeger", 36.90]] },
-        { "n": "Mochachos Sauces", "p": [["", 35.90]] },
-        { "n": "Dipz", "d": "Salsa, guacamole, peri-mayo, sweet chilli or sour cream.", "p": [["", 9.90]] },
-        { "n": "Bun", "p": [["", 9.90]] }
+        {
+          "n": "Chips",
+          "p": [
+            [
+              "Beeg",
+              29.9
+            ],
+            [
+              "Beeger",
+              39.9
+            ],
+            [
+              "Beegest",
+              64.9
+            ]
+          ]
+        },
+        {
+          "n": "Loaded Chips",
+          "d": "Seasoned with Mochachos chip spice, topped with cheese sauce and jalapeños.",
+          "p": [
+            [
+              "Beeg",
+              39.9
+            ],
+            [
+              "Beeger",
+              49.9
+            ],
+            [
+              "Beegest",
+              74.9
+            ]
+          ]
+        },
+        {
+          "n": "Potato Wedges",
+          "p": [
+            [
+              "Beeg",
+              29.9
+            ],
+            [
+              "Beeger",
+              39.9
+            ],
+            [
+              "Beegest",
+              64.9
+            ]
+          ]
+        },
+        {
+          "n": "Onion Rings",
+          "p": [
+            [
+              "x6",
+              24.9
+            ],
+            [
+              "x12",
+              42.9
+            ],
+            [
+              "x18",
+              54.9
+            ]
+          ]
+        },
+        {
+          "n": "Mexican Rice",
+          "p": [
+            [
+              "Beeg",
+              29.9
+            ],
+            [
+              "Beeger",
+              39.9
+            ],
+            [
+              "Beegest",
+              49.9
+            ]
+          ]
+        },
+        {
+          "n": "Pap & Mexican Sauce",
+          "p": [
+            [
+              "Beeg",
+              26.9
+            ],
+            [
+              "Beeger",
+              36.9
+            ]
+          ]
+        },
+        {
+          "n": "Mochachos Sauces",
+          "p": [
+            [
+              "",
+              35.9
+            ]
+          ]
+        },
+        {
+          "n": "Dipz",
+          "d": "Salsa, guacamole, peri-mayo, sweet chilli or sour cream.",
+          "p": [
+            [
+              "",
+              9.9
+            ]
+          ],
+          "choices": [
+            "Salsa",
+            "Guacamole",
+            "Peri-mayo",
+            "Sweet chilli",
+            "Sour cream"
+          ]
+        },
+        {
+          "n": "Bun",
+          "p": [
+            [
+              "",
+              9.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "kids", "name": "Bambino Meal", "tag": "For the little amigos",
+      "id": "kids",
+      "name": "Bambino Meal",
+      "tag": "For the little amigos",
       "blurb": "Served with a portion of chips, a fruit juice and a free toy. R69.90 each.",
       "img": "burger-combo.jpg",
       "noImg": true,
       "items": [
-        { "n": "José", "d": "Mini chicken fillet burger.", "p": [["", 69.90]] },
-        { "n": "Speedy", "d": "4 battered chicken breast strips.", "p": [["", 69.90]] },
-        { "n": "Pedro", "d": "Mini beef burger.", "p": [["", 69.90]] }
+        {
+          "n": "José",
+          "d": "Mini chicken fillet burger.",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        },
+        {
+          "n": "Speedy",
+          "d": "4 battered chicken breast strips.",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        },
+        {
+          "n": "Pedro",
+          "d": "Mini beef burger.",
+          "p": [
+            [
+              "",
+              69.9
+            ]
+          ]
+        }
       ]
     },
     {
-      "id": "desserts", "name": "Postres & Malteadas", "tag": "Desserts & milkshakes",
+      "id": "desserts",
+      "name": "Postres & Malteadas",
+      "tag": "Desserts & milkshakes",
       "blurb": "Churros with a dip, and thick milkshakes.",
       "img": "chips.jpg",
       "noImg": true,
       "items": [
-        { "n": "Churros (plain)", "p": [["3 churros", 36.90], ["6 churros", 64.90]] },
-        { "n": "Chocolate Dip", "p": [["", 11.90]] },
-        { "n": "Caramel Dip", "p": [["", 11.90]] },
-        { "n": "Milkshake 350ml", "d": "Chocolate, strawberry, banana, bubblegum or lime.", "p": [["", 36.90]] }
+        {
+          "n": "Churros (plain)",
+          "p": [
+            [
+              "3 churros",
+              36.9
+            ],
+            [
+              "6 churros",
+              64.9
+            ]
+          ]
+        },
+        {
+          "n": "Chocolate Dip",
+          "p": [
+            [
+              "",
+              11.9
+            ]
+          ]
+        },
+        {
+          "n": "Caramel Dip",
+          "p": [
+            [
+              "",
+              11.9
+            ]
+          ]
+        },
+        {
+          "n": "Milkshake 350ml",
+          "d": "Chocolate, strawberry, banana, bubblegum or lime.",
+          "p": [
+            [
+              "",
+              36.9
+            ]
+          ],
+          "choices": [
+            "Chocolate",
+            "Strawberry",
+            "Banana",
+            "Bubblegum",
+            "Lime"
+          ]
+        }
       ]
     },
     {
-      "id": "drinks", "name": "Quenchers & Drinks", "tag": "Homemade and cold",
+      "id": "drinks",
+      "name": "Quenchers & Drinks",
+      "tag": "Homemade and cold",
       "blurb": "Homemade quenchers (1 litre is eat-in only), Freezos and cold drinks.",
       "img": "chips.jpg",
       "noImg": true,
       "items": [
-        { "n": "Lemon Ice Tea", "p": [["350ml", 29.90], ["1L eat-in", 56.90]] },
-        { "n": "Peach Ice Tea", "p": [["350ml", 29.90], ["1L eat-in", 56.90]] },
-        { "n": "Ginger Beer", "p": [["350ml", 29.90], ["1L eat-in", 64.90]] },
-        { "n": "Lemonade", "p": [["350ml", 29.90], ["1L eat-in", 64.90]] },
-        { "n": "Freezo 350ml", "d": "Coffee, toffee caramel or white chocolate.", "p": [["", 44.90]] },
-        { "n": "Cans", "p": [["", 24.90]] },
-        { "n": "Buddy", "p": [["", 26.90]] },
-        { "n": "1.5 Litre", "p": [["", 34.90]] },
-        { "n": "Water (still or sparkling)", "p": [["", 24.90]] },
-        { "n": "Appletiser / Grapetiser", "p": [["", 29.90]] },
-        { "n": "330ml Cappy", "p": [["", 29.90]] }
+        {
+          "n": "Lemon Ice Tea",
+          "p": [
+            [
+              "350ml",
+              29.9
+            ],
+            [
+              "1L eat-in",
+              56.9
+            ]
+          ]
+        },
+        {
+          "n": "Peach Ice Tea",
+          "p": [
+            [
+              "350ml",
+              29.9
+            ],
+            [
+              "1L eat-in",
+              56.9
+            ]
+          ]
+        },
+        {
+          "n": "Ginger Beer",
+          "p": [
+            [
+              "350ml",
+              29.9
+            ],
+            [
+              "1L eat-in",
+              64.9
+            ]
+          ]
+        },
+        {
+          "n": "Lemonade",
+          "p": [
+            [
+              "350ml",
+              29.9
+            ],
+            [
+              "1L eat-in",
+              64.9
+            ]
+          ]
+        },
+        {
+          "n": "Freezo 350ml",
+          "d": "Coffee, toffee caramel or white chocolate.",
+          "p": [
+            [
+              "",
+              44.9
+            ]
+          ],
+          "choices": [
+            "Coffee",
+            "Toffee caramel",
+            "White chocolate"
+          ]
+        },
+        {
+          "n": "Cans",
+          "p": [
+            [
+              "",
+              24.9
+            ]
+          ]
+        },
+        {
+          "n": "Buddy",
+          "p": [
+            [
+              "",
+              26.9
+            ]
+          ]
+        },
+        {
+          "n": "1.5 Litre",
+          "p": [
+            [
+              "",
+              34.9
+            ]
+          ]
+        },
+        {
+          "n": "Water (still or sparkling)",
+          "p": [
+            [
+              "",
+              24.9
+            ]
+          ],
+          "choices": [
+            "Still",
+            "Sparkling"
+          ]
+        },
+        {
+          "n": "Appletiser / Grapetiser",
+          "p": [
+            [
+              "",
+              29.9
+            ]
+          ],
+          "choices": [
+            "Appletiser",
+            "Grapetiser"
+          ]
+        },
+        {
+          "n": "330ml Cappy",
+          "p": [
+            [
+              "",
+              29.9
+            ]
+          ]
+        }
       ]
     }
   ]

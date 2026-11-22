@@ -141,7 +141,7 @@
         if (on) catsEl.scrollTo({ left: b.offsetLeft - 12, behavior: "smooth" });
       });
       listEl.innerHTML = all.filter(function (x) { return x.cat.id === current; }).map(function (x) {
-        var img = x.img ? '<img src="assets/img/' + x.img + '" alt="" loading="lazy">' : '<span class="emoji-tile" aria-hidden="true">' + x.emoji + "</span>";
+        var img = U.thumb(x, "");
         return '<li><span class="counter-thumb">' + img + '</span><div class="counter-text"><b>' + esc(x.item.n) + "</b>" + (x.item.d ? "<small>" + esc(x.item.d) + "</small>" : "") +
           '<div class="counter-prices">' + x.item.p.map(function (p, j) {
             return '<button data-cadd="' + x.id + "|" + j + '">' + (p[0] ? "<small>" + esc(p[0]) + "</small> " : "") + R(p[1]) + " <i>+</i></button>";

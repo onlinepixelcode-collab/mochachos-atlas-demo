@@ -60,7 +60,8 @@ export function priceLine(name) {
       if (it.n !== base && it.n !== main) continue;
       const p = it.n === main ? it.p[0] : it.p.find(([l]) => l === opt);
       if (!p) continue;
-      const fl = flavour && MENU.flavours.find((f) => f.name === flavour) ? " · " + flavour : "";
+      const ok = flavour && (MENU.flavours.some((f) => f.name === flavour) || (it.choices || []).includes(flavour));
+      const fl = ok ? " · " + flavour : "";
       return { name: it.n + (p[0] ? ` (${p[0]})` : "") + fl, price: p[1] };
     }
   }

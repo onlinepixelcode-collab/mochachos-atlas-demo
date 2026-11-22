@@ -43,29 +43,33 @@
 
   /* ---------- shared helpers (used by dishes, dish, 3D counter and Amigo) ---------- */
   var slug = function (s) { return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
-  var EMOJI = { salads: "🥗", kids: "🧒", desserts: "🍩", drinks: "🥤", sides: "🍟" };
+  // a real photo only when it actually shows the item; otherwise an illustration (art.js)
   function imgFor(c, it) {
     var n = it.n.toLowerCase();
+    if (window.MochachosArt && window.MochachosArt.typeFor(c, it)) return null;
     if (/wing/.test(n)) return "wings.jpg";
-    if (/pine/.test(n)) return "pine-burger.jpg";
     if (/schwarma/.test(n)) return "schwarma.jpg";
     if (/quesadilla/.test(n)) return "quesadilla.jpg";
-    if (/enchilada|chimichanga/.test(n)) return "enchilada.jpg";
+    if (/enchilada/.test(n)) return "enchilada.jpg";
     if (/fajita/.test(n)) return "fajita.jpg";
-    if (/nacho/.test(n) && !/burger/.test(n)) return "nachos.jpg";
-    if (/burrito/.test(n)) return "burrito.jpg";
-    if (/family|amigo combo/.test(n)) return "family.jpg";
-    if (/burger/.test(n) && /chips|buddy/.test(n)) return "burger-combo.jpg";
-    if (/burger/.test(n)) return "jalapeno-burger.jpg";
-    if (/chicken|liver|fillet/.test(n) && c.id !== "salads") return "chicken-whole.jpg";
-    if (/chips|wedges/.test(n)) return "chips.jpg";
-    return c.noImg ? null : c.img;
+    if (/^nachos$/.test(n)) return "nachos.jpg";
+    if (/burrito|chimichanga/.test(n)) return "burrito.jpg";
+    if (/^family/.test(n)) return "family.jpg";
+    if (/pine/.test(n)) return "pine-burger.jpg";
+    if (/jalape|gourmet chicken/.test(n)) return "jalapeno-burger.jpg";
+    if (/burger/.test(n)) return "burger-combo.jpg";
+    if (/chicken|amigo combo/.test(n)) return "chicken-whole.jpg";
+    if (/^chips$/.test(n)) return "chips.jpg";
+    return null;
   }
+  function artFor(c, it) { return window.MochachosArt ? window.MochachosArt.typeFor(c, it) || (imgFor(c, it) ? null : "can") : null; }
   function allItems(M) {
     var out = [];
     M.categories.forEach(function (c) {
       c.items.forEach(function (it, i) {
-        out.push({ id: c.id + "-" + slug(it.n), cat: c, item: it, index: i, img: imgFor(c, it), emoji: EMOJI[c.id] || "🌶",
+        var img = imgFor(c, it);
+        out.push({ id: c.id + "-" + slug(it.n), cat: c, item: it, index: i, img: img, art: img ? null : artFor(c, it),
+          mood: window.MochachosArt ? window.MochachosArt.moodFor(c, it) : "grill",
           from: Math.min.apply(null, it.p.map(function (p) { return p[1]; })) });
       });
     });
@@ -91,7 +95,14 @@
     }
     return { entry: best, label: p[0], price: p[1], name: best.item.n + (p[0] ? " (" + p[0] + ")" : "") };
   }
-  window.MochachosMenuUtil = { slug: slug, imgFor: imgFor, all: allItems, find: findByName,
+  // one thumbnail helper for every list on the site (photo or illustration, never an emoji)
+  function thumb(x, cls, opt) {
+    if (x && x.img) return '<img class="' + (cls || "") + '" src="assets/img/' + x.img + '" alt="" loading="lazy">';
+    var A = window.MochachosArt, it = x && x.item;
+    var art = A && x && x.art ? A.svg(x.art, opt || (it && it.choices ? it.choices[0] : ""), it ? it.n : "") : "";
+    return '<span class="art-tile mood-' + ((x && x.mood) || "grill") + " " + (cls || "") + '" aria-hidden="true">' + art + "</span>";
+  }
+  window.MochachosMenuUtil = { slug: slug, imgFor: imgFor, all: allItems, find: findByName, thumb: thumb,
     money: function (n) { return "R" + n.toFixed(2); } };
 
   /* ---------- Menu ---------- */

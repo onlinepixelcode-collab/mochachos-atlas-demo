@@ -43,7 +43,7 @@
       var wrap = document.createElement("div");
       wrap.className = "chat-cards";
       wrap.innerHTML = m.cards.map(function (c) {
-        return '<div class="chat-card">' + (c.img ? '<img src="assets/img/' + c.img + '" alt="">' : '<span class="emoji-tile">' + (c.emoji || "🌶") + "</span>") +
+        return '<div class="chat-card">' + thumbFor(c) +
           '<div><a href="dish.html?id=' + esc(c.id) + '">' + esc(c.name) + "</a><b>" + money(c.price) + '</b></div><button data-chat-add="' + esc(c.name) + "|" + c.price + '">+ Add</button></div>';
       }).join("");
       log.appendChild(wrap);
@@ -56,10 +56,19 @@
     }
     log.scrollTop = log.scrollHeight;
   }
+  // dish pictures in chat: the same photo-or-illustration as the rest of the site
+  function thumbFor(c) {
+    var U = window.MochachosMenuUtil, M = window.MochachosMenu;
+    var e = U && M ? U.all(M).filter(function (x) { return x.id === c.id; })[0] : null;
+    if (e) return U.thumb(e, "");
+    return c.img ? '<img src="assets/img/' + c.img + '" alt="">' : "";
+  }
   function push(m) { state.msgs.push(m); save(); bubble(m); }
   function renderAll() { log.innerHTML = ""; state.msgs.forEach(bubble); }
   function suggestions() {
     var list = SUGGEST[page] || SUGGEST.index;
+    var mood = document.body.getAttribute("data-mood");
+    if (page === "dish" && mood && mood !== "grill") list = ["What goes well with this?", "What else is on the drinks menu?", "Add a 1/2 chicken combo", "What's in my tray?"];
     sugg.innerHTML = list.map(function (t) { return "<button>" + esc(t) + "</button>"; }).join("");
   }
 
