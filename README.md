@@ -1,5 +1,7 @@
 # Mochachos Atlas Road — website
 
+**Private preview:** hosted on Netlify behind a password (any username + the `PREVIEW_PASSWORD` set in Netlify as a secret environment variable). Code lives in the private GitHub repo `onlinepixelcode-collab/mochachos-atlas-preview`. The gate is `netlify/edge-functions/gate.ts` (see `netlify.toml`). On Netlify the `api/` functions don't run (they're for Vercel), so ordering runs in demo mode and Amigo uses its built-in answers.
+
 A multipage site for the Mochachos branch at 254 Atlas Road, Beyers Park, Boksburg (on the Sasol forecourt).
 
 ## Pages
